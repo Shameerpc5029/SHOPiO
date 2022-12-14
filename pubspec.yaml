@@ -30,13 +30,16 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   animated_bottom_navigation_bar: ^1.1.0
+  carousel_slider: ^4.2.1
   cupertino_icons: ^1.0.2
   dio: ^4.0.6
   flutter:
     sdk: flutter
   flutter_otp_text_field: ^1.1.1
+  flutter_secure_storage: ^7.0.1
   font_awesome_flutter: ^10.3.0
   provider: ^6.0.4
+  smooth_page_indicator: ^1.0.0+2
 
 dev_dependencies:
   flutter_lints: ^2.0.0

@@ -1,4 +1,5 @@
-import 'package:ecommerce/controller/providers/sign_up_provoder.dart';
+import 'package:ecommerce/controller/otp/otp_provider.dart';
+import 'package:ecommerce/controller/sign_up/sign_up_provoder.dart';
 import 'package:ecommerce/view/core/style_const.dart';
 import 'package:ecommerce/view/widgets/custum_textformfiled.dart';
 import 'package:flutter/gestures.dart';
@@ -12,6 +13,8 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<SignUpProvider>(context);
+    final formGlobalKey = GlobalKey<FormState>();
+
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
@@ -50,6 +53,7 @@ class SignUpScreen extends StatelessWidget {
                           shrinkWrap: true,
                           children: [
                             Form(
+                              key: formGlobalKey,
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
                               child: Column(
@@ -64,11 +68,7 @@ class SignUpScreen extends StatelessWidget {
                                   height10,
                                   TextFormFieldCustom(
                                     validator: ((value) {
-                                      if (value!.isEmpty) {
-                                        return "Please Enter Your Full Name";
-                                      } else {
-                                        return null;
-                                      }
+                                      return provider.nameValidation(value);
                                     }),
                                     labelText: 'Full Name',
                                     keyboardType: TextInputType.name,
@@ -77,11 +77,7 @@ class SignUpScreen extends StatelessWidget {
                                   ),
                                   TextFormFieldCustom(
                                     validator: ((value) {
-                                      if (value!.isEmpty) {
-                                        return "Please Enter Your E-mail";
-                                      } else {
-                                        return null;
-                                      }
+                                      return provider.emailValidation(value);
                                     }),
                                     labelText: 'Email',
                                     keyboardType: TextInputType.emailAddress,
@@ -90,31 +86,17 @@ class SignUpScreen extends StatelessWidget {
                                   ),
                                   TextFormFieldCustom(
                                     validator: ((value) {
-                                      if (value!.isEmpty) {
-                                        return "Please Enter Your Password";
-                                      }
-                                      if (value.length > 10 ||
-                                          value.length < 10) {
-                                        return "Mobile length must be 10 characters";
-                                      } else {
-                                        return null;
-                                      }
+                                      return provider
+                                          .phoneNumberValidation(value);
                                     }),
-                                    labelText: 'Password',
+                                    labelText: 'Phone Number',
                                     keyboardType: TextInputType.visiblePassword,
                                     prefixIcon: FontAwesomeIcons.mobile,
                                     controller: provider.mobileNumber,
                                   ),
                                   TextFormFieldCustom(
                                     validator: ((value) {
-                                      if (value!.isEmpty) {
-                                        return "Please Enter Your Password";
-                                      }
-                                      if (value.length < 8) {
-                                        return "Password length must be atleast 8 characters";
-                                      } else {
-                                        return null;
-                                      }
+                                      return provider.passwordValidation(value);
                                     }),
                                     labelText: 'Password',
                                     keyboardType: TextInputType.visiblePassword,
@@ -135,17 +117,8 @@ class SignUpScreen extends StatelessWidget {
                                   ),
                                   TextFormFieldCustom(
                                     validator: ((value) {
-                                      if (value!.isEmpty) {
-                                        return "Please Enter Your Conform Password";
-                                      }
-                                      if (value != provider.password.text) {
-                                        return "Please Conform Your Password";
-                                      }
-                                      if (value.length < 8) {
-                                        return "Password length must be atleast 8 characters";
-                                      } else {
-                                        return null;
-                                      }
+                                      return provider
+                                          .conformPasswordValidation(value);
                                     }),
                                     labelText: 'Conform Password',
                                     keyboardType: TextInputType.visiblePassword,
@@ -153,23 +126,39 @@ class SignUpScreen extends StatelessWidget {
                                     obscureText: provider.obscureText,
                                     controller: provider.conformPassword,
                                   ),
-                                  SizedBox(
-                                    width: 350,
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        elevation: 3,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(30),
+                                  Consumer2<OtpProvider, SignUpProvider>(
+                                    builder: (context, providerOtp,
+                                        provideSignup, child) {
+                                      return SizedBox(
+                                        width: 350,
+                                        child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            elevation: 3,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(30),
+                                            ),
+                                          ),
+                                          onPressed: () {
+                                            if (formGlobalKey.currentState!
+                                                .validate()) {
+                                              formGlobalKey.currentState!
+                                                  .save();
+
+
+                                              providerOtp.sendOtp(
+                                                  provideSignup.email.text,
+                                                  context);
+                                            }
+
+                                            // provider.goToOtp(context);
+                                          },
+                                          child: const Text(
+                                            'Sign Up',
+                                          ),
                                         ),
-                                      ),
-                                      onPressed: () {
-                                        provider.goToHome(context);
-                                      },
-                                      child: const Text(
-                                        'Sign Up',
-                                      ),
-                                    ),
+                                      );
+                                    },
                                   ),
                                   height10,
                                   RichText(

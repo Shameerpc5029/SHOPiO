@@ -1,5 +1,5 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
-import 'package:ecommerce/controller/providers/bottom_nav_provider.dart';
+import 'package:ecommerce/controller/bottom_nav/bottom_nav_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -21,9 +21,8 @@ class BottomNav extends StatelessWidget {
             iconSize: 25,
             icons: const [
               FontAwesomeIcons.houseChimney,
-              FontAwesomeIcons.magnifyingGlass,
+              FontAwesomeIcons.cartShopping,
               FontAwesomeIcons.user,
-              FontAwesomeIcons.gears,
             ],
             activeIndex: provider.currentIndex,
             onTap: ((value) {

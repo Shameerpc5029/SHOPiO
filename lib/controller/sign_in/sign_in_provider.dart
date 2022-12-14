@@ -2,7 +2,6 @@ import 'package:ecommerce/bottom_nav.dart';
 import 'package:ecommerce/view/sign_up/sign_up_screen.dart';
 import 'package:flutter/cupertino.dart';
 
-
 class SignInProvider extends ChangeNotifier {
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
@@ -11,7 +10,7 @@ class SignInProvider extends ChangeNotifier {
     Navigator.of(context).pushAndRemoveUntil(
       CupertinoPageRoute(
         builder: (context) {
-          return  const BottomNav();
+          return const BottomNav();
         },
       ),
       (route) => false,
@@ -22,7 +21,7 @@ class SignInProvider extends ChangeNotifier {
     Navigator.of(context).pushAndRemoveUntil(
       CupertinoPageRoute(
         builder: (context) {
-          return  const SignUpScreen();
+          return const SignUpScreen();
         },
       ),
       (route) => false,
@@ -33,5 +32,24 @@ class SignInProvider extends ChangeNotifier {
   void passwordIsVisble() {
     obscureText = !obscureText;
     notifyListeners();
+  }
+
+  String? passwordValidation(String? value) {
+    if (value!.isEmpty) {
+      return "Enter Your Password";
+    }
+    if (value.length < 8) {
+      return "Password length must be atleast 8 characters";
+    } else {
+      return null;
+    }
+  }
+
+  String? emailValidation(String? value) {
+    if (value!.isEmpty) {
+      return "Please Enter Your E-mail";
+    } else {
+      return null;
+    }
   }
 }

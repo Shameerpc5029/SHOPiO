@@ -1,4 +1,4 @@
-import 'package:ecommerce/controller/providers/sign_in_provider.dart';
+import 'package:ecommerce/controller/sign_in/sign_in_provider.dart';
 import 'package:ecommerce/view/core/style_const.dart';
 import 'package:ecommerce/view/widgets/custum_textformfiled.dart';
 import 'package:flutter/gestures.dart';
@@ -81,11 +81,7 @@ class SignInScreen extends StatelessWidget {
                                   height20,
                                   TextFormFieldCustom(
                                     validator: ((value) {
-                                      if (value!.isEmpty) {
-                                        return "Please Enter Your E-mail";
-                                      } else {
-                                        return null;
-                                      }
+                                      return provider.emailValidation(value);
                                     }),
                                     labelText: 'Email',
                                     keyboardType: TextInputType.emailAddress,
@@ -94,14 +90,7 @@ class SignInScreen extends StatelessWidget {
                                   ),
                                   TextFormFieldCustom(
                                     validator: ((value) {
-                                      if (value!.isEmpty) {
-                                        return "Enter Your Password";
-                                      }
-                                      if (value.length < 8) {
-                                        return "Password length must be atleast 8 characters";
-                                      } else {
-                                        return null;
-                                      }
+                                      return provider.passwordValidation(value);
                                     }),
                                     labelText: 'Password',
                                     keyboardType: TextInputType.visiblePassword,
