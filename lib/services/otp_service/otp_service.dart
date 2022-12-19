@@ -3,27 +3,35 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:ecommerce/constants/api_endpoints.dart';
 import 'package:ecommerce/constants/api_url.dart';
-import 'package:ecommerce/model/otp_model/otp_model.dart';
 import 'package:ecommerce/utils/exceptions/dio_exceptions.dart';
-import 'package:flutter/material.dart';
 
 class OtpService {
-  final dio = Dio();
-  SendOtpModel? otpModel;
-
-  Future<SendOtpModel?> sendOtp(
-      SendOtpModel model, BuildContext context) async {
-    log(model.toString());
-    log("message");
+  Dio dio = Dio();
+  Future<String?> sendOtp(email, context) async {
     try {
-      final Response response =
-          await dio.get(ApiUrl.apiUrl + ApiEndPoints.sendOtp, queryParameters: {
-        'email': model.email,
-      });
+      final Response response = await dio.get(
+          ApiUrl.apiUrl + ApiEndPoints.verifyOrSendOtp,
+          queryParameters: {'email': email});
       if (response.statusCode == 200 || response.statusCode == 201) {
-        final sendOtp = SendOtpModel.fromJson(response.data);
-        log(sendOtp.toString());
-        return sendOtp;
+        log('otp send');
+        return response.data['message'];
+      }
+    } on DioError catch (e) {
+      log(e.message);
+      DioException().dioError(e, context);
+    }
+    return null;
+  }
+
+  Future<String?> verifyOtp(email, context,otpCode) async {
+    try {
+      final Response response = await dio.post(
+        ApiUrl.apiUrl + ApiEndPoints.verifyOrSendOtp,
+        data: {'email': email,'otp':otpCode},
+      );
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        log("otp verifyed");
+        return response.data['message'];
       }
     } on DioError catch (e) {
       log(e.message);

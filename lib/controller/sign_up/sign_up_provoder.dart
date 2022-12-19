@@ -1,33 +1,20 @@
-import 'package:ecommerce/bottom_nav.dart';
+
 import 'package:ecommerce/model/sign_up_model/sign_up_model.dart';
+import 'package:ecommerce/services/otp_service/otp_service.dart';
 import 'package:ecommerce/services/sign_up_service/sign_up_service.dart';
 import 'package:ecommerce/view/otp_screen/otp_screen.dart';
-import 'package:ecommerce/view/sign_in/sign_in_screen.dart';
+import 'package:ecommerce/view/sign_in/sign_in.dart';
+
 import 'package:flutter/cupertino.dart';
 
+
 class SignUpProvider extends ChangeNotifier {
-  final fullName = TextEditingController();
-  final mobileNumber = TextEditingController();
-  final email = TextEditingController();
-  final password = TextEditingController();
-  final conformPassword = TextEditingController();
+  final TextEditingController fullName = TextEditingController();
+  final TextEditingController mobileNumber = TextEditingController();
+  final TextEditingController email = TextEditingController();
+  final TextEditingController password = TextEditingController();
+  final TextEditingController conformPassword = TextEditingController();
   bool isLoading = false;
-
-  void goToHome(context) {
-    Navigator.of(context).pushAndRemoveUntil(CupertinoPageRoute(
-      builder: (context) {
-        return const BottomNav();
-      },
-    ), (route) => false);
-  }
-
-  void goToOtp(context) {
-    Navigator.of(context).push(CupertinoPageRoute(
-      builder: (context) {
-        return const OtpScreen();
-      },
-    ));
-  }
 
   void goToSignIn(context) {
     Navigator.of(context).pushAndRemoveUntil(CupertinoPageRoute(
@@ -99,13 +86,26 @@ class SignUpProvider extends ChangeNotifier {
   Future<void> signUpUser(BuildContext context) async {
     isLoading = true;
     notifyListeners();
-    final signUpUser = SignUpModel(
+    final model = SignUpModel(
       fullName: fullName.text,
       email: email.text,
       mobileNumber: mobileNumber.text,
       password: password.text,
     );
-    signUpService.signUp(signUpUser, context);
+    OtpService().sendOtp(model.email, context).then((value) {
+      if (value != null) {
+        Navigator.of(context).push(CupertinoPageRoute(
+          builder: (context) {
+            return OtpScreen(
+              model: model,
+            );
+          },
+        ));
+        clearTextfield();
+      } else {
+        return;
+      }
+    });
     isLoading = false;
     notifyListeners();
   }

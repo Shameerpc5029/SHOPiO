@@ -1,13 +1,13 @@
-class SignUpToken {
+class SignUpTokenModel {
   final String accessToken;
   final String refreshToken;
 
-  SignUpToken({
+  SignUpTokenModel({
     required this.accessToken,
     required this.refreshToken,
   });
-  factory SignUpToken.fromJson(Map<String, dynamic> json) {
-    return SignUpToken(
+  factory SignUpTokenModel.fromJson(Map<String, dynamic> json) {
+    return SignUpTokenModel(
       refreshToken: json['refreshToken'],
       accessToken: json['accessToken'],
     );

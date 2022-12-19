@@ -1,27 +1,41 @@
-import 'dart:developer';
-
-import 'package:ecommerce/model/otp_model/otp_model.dart';
+import 'package:dio/dio.dart';
+import 'package:ecommerce/bottom_nav.dart';
+import 'package:ecommerce/model/sign_up_model/sign_up_model.dart';
 import 'package:ecommerce/services/otp_service/otp_service.dart';
-import 'package:ecommerce/view/otp_screen/otp_screen.dart';
+import 'package:ecommerce/services/sign_up_service/sign_up_service.dart';
+import 'package:ecommerce/utils/exceptions/dio_exceptions.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
-class OtpProvider extends ChangeNotifier {
-  bool isLoading = false;
+class VerifyOtpProvider extends ChangeNotifier {
   OtpService otpService = OtpService();
-  void sendOtp(String email, BuildContext context) {
-    isLoading = true;
+  Dio dio = Dio();
+  bool isLoading = false;
+  String code = '';
+  void onSubmitCode(String submitCode) {
+    code = submitCode;
     notifyListeners();
-    SendOtpModel sendOtpModel = SendOtpModel(email: email);
-    log('otp send');
-    otpService.sendOtp(sendOtpModel, context).then((value) {
-      Navigator.of(context).push(CupertinoPageRoute(
-        builder: (context) {
-          return const OtpScreen();
-        },
-      ));
-    });
-    log(sendOtpModel.toString());
-    isLoading = false;
-    notifyListeners();
+  }
+
+  void sumbitOtp(context, SignUpModel model) {
+    if (code.length != 4) {
+      PopUpSnackBar.popUp(context, 'Please enter the OTP', Colors.red);
+    } else {
+      isLoading = true;
+      notifyListeners();
+      otpService.verifyOtp(model.email, context, code).then((value) {
+        if (value != null) {
+          SignUpService().signUp(model, context).then((value) {
+            Navigator.of(context).pushAndRemoveUntil(CupertinoPageRoute(
+              builder: (context) {
+                return const BottomNav();
+              },
+            ), (route) => false);
+            isLoading = false;
+            notifyListeners();
+          });
+        }
+      });
+    }
   }
 }
