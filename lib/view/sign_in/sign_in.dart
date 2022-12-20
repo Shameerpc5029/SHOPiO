@@ -11,6 +11,8 @@ class SignInScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<FormState> formGlobalKey = GlobalKey<FormState>();
+
     final provider = Provider.of<SignInProvider>(context);
     return Scaffold(
       body: SafeArea(
@@ -18,116 +20,123 @@ class SignInScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(20),
-            child: Column(
-              children: [
-                Image(
-                  image: AssetImage(
-                    'assets/images/logo 3.png',
-                  ),
-                ),
-                SizedBox(
-                  height: 50,
-                ),
-                const Text(
-                  "Login",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
-                ),
-                height10,
-                TextFormFieldCustom(
-                  validator: ((value) {
-                    return provider.emailValidation(value);
-                  }),
-                  labelText: 'Email',
-                  keyboardType: TextInputType.emailAddress,
-                  prefixIcon: FontAwesomeIcons.at,
-                  controller: provider.email,
-                ),
-                height10,
-                TextFormFieldCustom(
-                  validator: ((value) {
-                    return provider.passwordValidation(value);
-                  }),
-                  labelText: 'Password',
-                  keyboardType: TextInputType.visiblePassword,
-                  prefixIcon: FontAwesomeIcons.lock,
-                  controller: provider.password,
-                  obscureText: provider.obscureText,
-                  suffix: IconButton(
-                    onPressed: () {
-                      provider.passwordIsVisble();
-                    },
-                    icon: Icon(
-                      !provider.obscureText
-                          ? FontAwesomeIcons.eye
-                          : FontAwesomeIcons.eyeSlash,
-                      size: 20,
+            child: Form(
+              key: formGlobalKey,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              child: Column(
+                children: [
+                  const Image(
+                    image: AssetImage(
+                      'assets/images/logo 3.png',
                     ),
                   ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    TextButton(
-                      style: ButtonStyle(
-                          foregroundColor: MaterialStateProperty.all(
-                        Colors.grey,
-                      )),
-                      onPressed: () {},
-                      child: const Text(
-                        'Forget Password?',
-                      ),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  const Text(
+                    "Login",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
                     ),
-                  ],
-                ),
-                SizedBox(
-                  width: 350,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      elevation: 3,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                    ),
-                    onPressed: () {
-                      provider.goToHome(context);
-                    },
-                    child: const Text(
-                      'Sign In',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
+                  ),
+                  height10,
+                  TextFormFieldCustom(
+                    validator: ((value) {
+                      return provider.emailValidation(value);
+                    }),
+                    labelText: 'Email',
+                    keyboardType: TextInputType.emailAddress,
+                    prefixIcon: FontAwesomeIcons.at,
+                    controller: provider.email,
+                  ),
+                  height10,
+                  TextFormFieldCustom(
+                    validator: ((value) {
+                      return provider.passwordValidation(value);
+                    }),
+                    labelText: 'Password',
+                    keyboardType: TextInputType.visiblePassword,
+                    prefixIcon: FontAwesomeIcons.lock,
+                    controller: provider.password,
+                    obscureText: provider.obscureText,
+                    suffix: IconButton(
+                      onPressed: () {
+                        provider.passwordIsVisble();
+                      },
+                      icon: Icon(
+                        !provider.obscureText
+                            ? FontAwesomeIcons.eye
+                            : FontAwesomeIcons.eyeSlash,
+                        size: 20,
                       ),
                     ),
                   ),
-                ),
-                height10,
-                const SizedBox(
-                  height: 30,
-                ),
-                RichText(
-                  text: TextSpan(
-                    text: 'Don’t have an account?',
-                    style: const TextStyle(
-                      color: blacColor,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      TextSpan(
-                        text: ' Sign Up',
-                        style: const TextStyle(
-                          color: Colors.blue,
-                          fontWeight: FontWeight.bold,
+                      TextButton(
+                        style: ButtonStyle(
+                            foregroundColor: MaterialStateProperty.all(
+                          Colors.grey,
+                        )),
+                        onPressed: () {},
+                        child: const Text(
+                          'Forget Password?',
                         ),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            provider.goToSignUp(context);
-                          },
-                      )
+                      ),
                     ],
                   ),
-                )
-              ],
+                  SizedBox(
+                    width: 350,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        elevation: 3,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                      onPressed: () {
+                        if (formGlobalKey.currentState!.validate()) {
+                          formGlobalKey.currentState!.save();
+                          provider.singIn(context);
+                        }
+                      },
+                      child: const Text(
+                        'Sign In',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                  height10,
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      text: 'Don’t have an account?',
+                      style: const TextStyle(
+                        color: blacColor,
+                      ),
+                      children: [
+                        TextSpan(
+                          text: ' Sign Up',
+                          style: const TextStyle(
+                            color: Colors.blue,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              provider.goToSignUp(context);
+                            },
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),

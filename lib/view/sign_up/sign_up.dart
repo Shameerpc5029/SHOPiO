@@ -57,15 +57,15 @@ class SignUpScreen extends StatelessWidget {
                     prefixIcon: FontAwesomeIcons.at,
                     controller: provider.email,
                   ),
-                  // TextFormFieldCustom(
-                  //   validator: ((value) {
-                  //     return provider.phoneNumberValidation(value);
-                  //   }),
-                  //   labelText: 'Phone Number',
-                  //   keyboardType: TextInputType.visiblePassword,
-                  //   prefixIcon: FontAwesomeIcons.mobile,
-                  //   controller: provider.mobileNumber,
-                  // ),
+                  TextFormFieldCustom(
+                    validator: ((value) {
+                      return provider.phoneNumberValidation(value);
+                    }),
+                    labelText: 'Phone Number',
+                    keyboardType: TextInputType.visiblePassword,
+                    prefixIcon: FontAwesomeIcons.mobile,
+                    controller: provider.mobileNumber,
+                  ),
                   TextFormFieldCustom(
                     validator: ((value) {
                       return provider.passwordValidation(value);
@@ -103,7 +103,11 @@ class SignUpScreen extends StatelessWidget {
                       return SizedBox(
                         width: 350,
                         child: provideSignup.isLoading == true
-                            ? const CircularProgressIndicator()
+                            ? const Center(
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                ),
+                              )
                             : ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   elevation: 3,

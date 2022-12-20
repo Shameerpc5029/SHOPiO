@@ -13,16 +13,21 @@ class SignUpService {
   final dio = Dio();
   Future<SignUpTokenModel?> signUp(
       SignUpModel model, BuildContext context) async {
+    log(model.toString());
     try {
       Response response = await dio.post(
         ApiUrl.apiUrl + ApiEndPoints.signUp,
-        data: jsonEncode(
+        data: json.encode(
           model.toJson(),
         ),
+        queryParameters: {
+          'Content-type': 'application/json',
+          'accept': 'application/json',
+        },
       );
       if (response.statusCode == 200 || response.statusCode == 201) {
         log(response.data.toString());
-        final model = SignUpTokenModel.fromJson(response.data);
+        final SignUpTokenModel model = SignUpTokenModel.fromJson(response.data);
         log(response.data.toString());
         return model;
       }

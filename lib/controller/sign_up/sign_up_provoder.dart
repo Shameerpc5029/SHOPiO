@@ -1,4 +1,3 @@
-
 import 'package:ecommerce/model/sign_up_model/sign_up_model.dart';
 import 'package:ecommerce/services/otp_service/otp_service.dart';
 import 'package:ecommerce/services/sign_up_service/sign_up_service.dart';
@@ -6,7 +5,6 @@ import 'package:ecommerce/view/otp_screen/otp_screen.dart';
 import 'package:ecommerce/view/sign_in/sign_in.dart';
 
 import 'package:flutter/cupertino.dart';
-
 
 class SignUpProvider extends ChangeNotifier {
   final TextEditingController fullName = TextEditingController();
@@ -32,10 +30,10 @@ class SignUpProvider extends ChangeNotifier {
 
   String? conformPasswordValidation(String? value) {
     if (value!.isEmpty) {
-      return "Please Enter Your Conform Password";
+      return "Please enter your conform password";
     }
     if (value != password.text) {
-      return "Please Conform Your Password";
+      return "Please conform your password";
     }
     if (value.length < 8) {
       return "Password length must be atleast 8 characters";
@@ -46,7 +44,7 @@ class SignUpProvider extends ChangeNotifier {
 
   String? passwordValidation(String? value) {
     if (value!.isEmpty) {
-      return "Please Enter Your Password";
+      return "Please enter your password";
     }
     if (value.length < 8) {
       return "Password length must be atleast 8 characters";
@@ -57,7 +55,7 @@ class SignUpProvider extends ChangeNotifier {
 
   String? phoneNumberValidation(String? value) {
     if (value!.isEmpty) {
-      return "Please Enter Your Password";
+      return "Please enter your password";
     }
     if (value.length > 10 || value.length < 10) {
       return "Mobile length must be 10 characters";
@@ -68,7 +66,11 @@ class SignUpProvider extends ChangeNotifier {
 
   String? emailValidation(String? value) {
     if (value!.isEmpty) {
-      return "Please Enter Your E-mail";
+      return "Please enter your email";
+    } else if (!RegExp(
+            r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+        .hasMatch(value)) {
+      return 'Invalid email , please enter correct email';
     } else {
       return null;
     }
@@ -76,7 +78,7 @@ class SignUpProvider extends ChangeNotifier {
 
   String? nameValidation(String? value) {
     if (value!.isEmpty) {
-      return "Please Enter Your Full Name";
+      return "Please enter your full name";
     } else {
       return null;
     }

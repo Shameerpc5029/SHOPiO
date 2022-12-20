@@ -1,12 +1,10 @@
 import 'package:ecommerce/controller/bottom_nav/bottom_nav_provider.dart';
 import 'package:ecommerce/controller/home/carosal_provider.dart';
 import 'package:ecommerce/controller/otp/otp_provider.dart';
-
 import 'package:ecommerce/controller/sign_in/sign_in_provider.dart';
 import 'package:ecommerce/controller/sign_up/sign_up_provoder.dart';
-
-import 'package:ecommerce/view/sign_in/sign_in.dart';
-
+import 'package:ecommerce/controller/splash/splash_provider.dart';
+import 'package:ecommerce/view/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,6 +21,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (context) => SplashProvider()),
         ChangeNotifierProvider(create: (context) => SignUpProvider()),
         ChangeNotifierProvider(create: (context) => SignInProvider()),
         ChangeNotifierProvider(create: (context) => BottomNavProvider()),
@@ -37,8 +36,8 @@ class MyApp extends StatelessWidget {
             color: Colors.blue.shade600,
           ),
         ),
-        home: const SignInScreen(),
-        // home: OtpScreen(),
+        // home: const SignInScreen(),
+        home: const SplashScreen(),
       ),
     );
   }

@@ -15,7 +15,7 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         centerTitle: false,
         backgroundColor: Colors.white,
-        title: Image(
+        title: const Image(
           height: 25,
           image: AssetImage(
             'assets/images/logo 3.png',
@@ -26,7 +26,7 @@ class HomeScreen extends StatelessWidget {
             splashRadius: 25,
             color: Colors.black,
             onPressed: () {},
-            icon: Icon(
+            icon: const Icon(
               FontAwesomeIcons.magnifyingGlass,
             ),
           )
@@ -109,14 +109,15 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               ListView.builder(
-                physics: ScrollPhysics(),
+                physics: const ScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: 10,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height / 6,
+                      // height: MediaQuery.of(context).size.height * .25,
+                      height: 160,
                       width: double.infinity,
                       child: Card(
                         shape: RoundedRectangleBorder(
@@ -129,13 +130,12 @@ class HomeScreen extends StatelessWidget {
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(10),
-                              child: Container(
+                              child: SizedBox(
                                   width: MediaQuery.of(context).size.width * .6,
-                                  height: 150,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text(
+                                      const Text(
                                         "Apple IPhone 14 Pro",
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
@@ -145,26 +145,26 @@ class HomeScreen extends StatelessWidget {
                                         textAlign: TextAlign.center,
                                       ),
                                       height10,
-                                      Text(
+                                      const Text(
                                         "Color : Space Black",
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      Text(
+                                      const Text(
                                         "Storage : 512 GB",
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      Text(
+                                      const Text(
                                         "A16 Bionic Chip",
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                       height10,
-                                      Text(
+                                      const Text(
                                         "₹1,49,900",
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
@@ -177,10 +177,10 @@ class HomeScreen extends StatelessWidget {
                             ),
                             Padding(
                               padding: const EdgeInsets.all(10),
-                              child: Container(
+                              child: SizedBox(
                                 width: MediaQuery.of(context).size.width * .20,
                                 height: 130,
-                                child: Image(
+                                child: const Image(
                                   fit: BoxFit.fitWidth,
                                   image: AssetImage(
                                     'assets/images/[CITYPNG.COM]iPhone 14 Pro And Max Deep Purple PNG - 2350x4070.png',
