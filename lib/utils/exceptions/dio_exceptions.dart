@@ -1,9 +1,39 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:ecommerce/view/core/style_const.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class DioException {
   void dioError(Object e, BuildContext context) {
+    if (e is PlatformException) {
+      PopUpSnackBar.popUp(
+        context,
+        'Platform Error Occured',
+        Colors.red,
+      );
+    }
+    if (e is SocketException) {
+      PopUpSnackBar.popUp(
+        context,
+        'No Internet Connection',
+        Colors.red,
+      );
+    } else if (e is TimeoutException) {
+      PopUpSnackBar.popUp(
+        context,
+        'Connection Timeout',
+        Colors.red,
+      );
+    } else if (e is MissingPluginException) {
+      PopUpSnackBar.popUp(
+        context,
+        'Plugin error occured',
+        Colors.red,
+      );
+    }
     if (e is DioError) {
       if (e.response?.statusCode == 401) {
         PopUpSnackBar.popUp(

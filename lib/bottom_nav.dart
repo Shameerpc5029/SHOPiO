@@ -22,7 +22,7 @@ class BottomNav extends StatelessWidget {
             icons: const [
               FontAwesomeIcons.houseChimney,
               FontAwesomeIcons.cartShopping,
-              FontAwesomeIcons.user,
+              FontAwesomeIcons.solidUser,
             ],
             activeIndex: provider.currentIndex,
             onTap: ((value) {

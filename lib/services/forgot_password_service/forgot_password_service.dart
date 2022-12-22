@@ -43,5 +43,6 @@ class ForgotPasswordService {
     } catch (e) {
       DioException().dioError(e, context);
     }
+    return null;
   }
 }

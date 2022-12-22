@@ -1,6 +1,6 @@
 import 'package:ecommerce/view/cart/cart_screen.dart';
 
-import 'package:ecommerce/view/home/home_screen1.dart';
+import 'package:ecommerce/view/home/home_screen.dart';
 
 import 'package:ecommerce/view/profile/profile_screen.dart';
 

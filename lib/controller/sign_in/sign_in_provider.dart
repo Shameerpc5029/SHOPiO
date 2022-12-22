@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:ecommerce/bottom_nav.dart';
 import 'package:ecommerce/model/sign_in_model/sign_in_model.dart';
 import 'package:ecommerce/services/sign_in_service/sign_in_service.dart';

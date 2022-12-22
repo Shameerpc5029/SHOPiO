@@ -52,11 +52,17 @@ class SignUpProvider extends ChangeNotifier {
       return null;
     }
   }
+  // RegExp regex = new RegExp(pattern);
 
   String? phoneNumberValidation(String? value) {
     if (value!.isEmpty) {
       return "Please enter your password";
     }
+
+    if (!RegExp(r'(^(?:[+0]9)?[0-9]{10,12}$)').hasMatch(value)) {
+      return 'Enter Valid Phone Number';
+    }
+
     if (value.length > 10 || value.length < 10) {
       return "Mobile length must be 10 characters";
     } else {

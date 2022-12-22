@@ -21,8 +21,8 @@ class OtpScreen extends StatelessWidget {
         foregroundColor: blacColor,
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Center(
+        child: Center(
+          child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -41,7 +41,7 @@ class OtpScreen extends StatelessWidget {
                 height10,
                 const Text(
                   '''Please enter the verification code 
-        we sent to your Email''',
+we sent to your Email''',
                   textAlign: TextAlign.center,
                 ),
                 height10,

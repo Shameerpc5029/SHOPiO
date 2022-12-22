@@ -28,7 +28,7 @@ class SignInService {
         return signInModel;
       }
     } on DioError catch (e) {
-      print("sign in  failed ");
+      log("sign in  failed ");
       log(e.message);
       DioException().dioError(e, context);
     }

@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:ecommerce/bottom_nav.dart';
 import 'package:ecommerce/view/sign_in/sign_in.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class SplashProvider extends ChangeNotifier {

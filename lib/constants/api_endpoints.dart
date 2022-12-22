@@ -4,4 +4,7 @@ class ApiEndPoints {
   static const verifyOrSendOtp = '/api/v1/auth/otp';
   static const userCheck = '/api/v1/user/';
   static const forgotpassword = '/api/v1/auth/password';
+  static const refreshToken = 'auth/refresh';
+  static const category = '/api/v1/category';
+  static const carousal = '/api/v1/carousal';
 }
