@@ -1,4 +1,5 @@
-import 'package:ecommerce/controller/home/carosal_provider.dart';
+import 'package:ecommerce/constants/api_url.dart';
+import 'package:ecommerce/controller/home/home_provider.dart';
 import 'package:ecommerce/view/core/style_const.dart';
 import 'package:ecommerce/view/home/widgets/carosal_widget.dart';
 import 'package:ecommerce/view/home/widgets/category_widget.dart';
@@ -43,7 +44,7 @@ class HomeScreen extends StatelessWidget {
               height10,
               const CarosalWidget(),
               height10,
-              Consumer<CarosalProvider>(
+              Consumer<HomeProvider>(
                 builder: (context, value, child) => AnimatedSmoothIndicator(
                   effect: const ExpandingDotsEffect(
                     spacing: 10,
@@ -56,105 +57,81 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               height10,
-              ListView.builder(
-                physics: const ScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    child: SizedBox(
-                      // height: MediaQuery.of(context).size.height * .25,
-                      height: 160,
-                      width: double.infinity,
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-                        elevation: 5,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: SizedBox(
-                                  width: MediaQuery.of(context).size.width * .6,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(4),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        const Text(
-                                          "Apple IPhone 14 Pro",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 20,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        height10,
-                                        const Text(
-                                          "Color : Space Black",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        const Text(
-                                          "Storage : 512 GB",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            const Text(
-                                              "₹1,49,900",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 20,
-                                                color: Colors.red,
-                                              ),
-                                            ),
-                                            IconButton(
-                                              splashRadius: 20,
-                                              onPressed: () {},
-                                              icon: const Icon(
-                                                FontAwesomeIcons.cartPlus,
-                                                color: Colors.blue,
-                                                size: 20,
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  )),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.width * .20,
-                                height: 130,
-                                child: const Image(
-                                  fit: BoxFit.fitWidth,
-                                  image: AssetImage(
-                                    'assets/images/[CITYPNG.COM]iPhone 14 Pro And Max Deep Purple PNG - 2350x4070.png',
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+              Row(
+                children: const [
+                  Padding(
+                    padding: EdgeInsets.all(5.0),
+                    child: Text(
+                      "All Products",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                  );
-                },
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(0),
+                child: Consumer<HomeProvider>(
+                  builder: (context, value, child) {
+                    return GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 3 / 4.2,
+                      ),
+                      physics: const ScrollPhysics(),
+                      shrinkWrap: true,
+                      // itemCount: 20,
+                      itemCount: value.productList.length,
+                      itemBuilder: (context, index) {
+                        return Card(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image(
+                                height: 130,
+                                image: NetworkImage(
+                                  '${ApiUrl.apiUrl}/uploads/products/${value.productList[index].image[0]}',
+                                ),
+                              ),
+                              height10,
+                              Text(
+                                value.productList[index].name,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              height10,
+                              Text(
+                                "₹${value.productList[index].price}",
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                  color: Colors.red,
+                                ),
+                              ),
+                              OutlinedButton.icon(
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.add_shopping_cart_rounded,
+                                ),
+                                label: const Text(
+                                  'Add to cart',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
               )
             ],
           ),

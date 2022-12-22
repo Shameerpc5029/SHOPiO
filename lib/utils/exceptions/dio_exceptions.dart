@@ -38,7 +38,7 @@ class DioException {
       if (e.response?.statusCode == 401) {
         PopUpSnackBar.popUp(
           context,
-          'Unauthorized Error',
+          'Invalid username or password',
           Colors.red,
         );
       } else if (e.response?.statusCode == 400) {

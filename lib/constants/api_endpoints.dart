@@ -7,4 +7,5 @@ class ApiEndPoints {
   static const refreshToken = 'auth/refresh';
   static const category = '/api/v1/category';
   static const carousal = '/api/v1/carousal';
+  static const product = '/api/v1/products';
 }

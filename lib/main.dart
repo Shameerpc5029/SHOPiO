@@ -1,6 +1,5 @@
 import 'package:ecommerce/controller/bottom_nav/bottom_nav_provider.dart';
-import 'package:ecommerce/controller/home/carosal_provider.dart';
-import 'package:ecommerce/controller/home/category_provider.dart';
+import 'package:ecommerce/controller/home/home_provider.dart';
 import 'package:ecommerce/controller/otp/otp_provider.dart';
 import 'package:ecommerce/controller/profile/profile_provider.dart';
 import 'package:ecommerce/controller/sign_in/sign_in_provider.dart';
@@ -28,9 +27,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => SignInProvider()),
         ChangeNotifierProvider(create: (context) => BottomNavProvider()),
         ChangeNotifierProvider(create: (context) => VerifyOtpProvider()),
-        ChangeNotifierProvider(create: (context) => CarosalProvider(context)),
+        ChangeNotifierProvider(create: (context) => HomeProvider(context)),
         ChangeNotifierProvider(create: (context) => ProfileProvider()),
-        ChangeNotifierProvider(create: (context) => CategoryProvider(context)),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
