@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:ecommerce/constants/api_endpoints.dart';
-import 'package:ecommerce/constants/api_queryparameters.dart';
-import 'package:ecommerce/constants/api_url.dart';
+import 'package:ecommerce/common/constants/api_endpoints.dart';
+import 'package:ecommerce/common/constants/api_queryparameters.dart';
+import 'package:ecommerce/common/constants/api_url.dart';
 import 'package:ecommerce/model/sign_in_model/sign_in_model.dart';
 import 'package:ecommerce/model/sign_in_model/sign_in_token.dart';
 import 'package:ecommerce/utils/exceptions/dio_exceptions.dart';

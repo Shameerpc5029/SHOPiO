@@ -1,5 +1,6 @@
 import 'package:ecommerce/controller/sign_in/sign_in_provider.dart';
-import 'package:ecommerce/view/core/style_const.dart';
+import 'package:ecommerce/common/style/colors.dart';
+import 'package:ecommerce/common/style/sized_box.dart';
 import 'package:ecommerce/view/widgets/custum_textformfiled.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,6 @@ class SignInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<FormState> formGlobalKey = GlobalKey<FormState>();
-
     final provider = Provider.of<SignInProvider>(context);
     return Scaffold(
       body: SafeArea(
@@ -40,7 +40,7 @@ class SignInScreen extends StatelessWidget {
                       fontSize: 20,
                     ),
                   ),
-                  height10,
+                  CSizedBox().height10,
                   TextFormFieldCustom(
                     validator: ((value) {
                       return provider.emailValidation(value);
@@ -50,7 +50,7 @@ class SignInScreen extends StatelessWidget {
                     prefixIcon: FontAwesomeIcons.at,
                     controller: provider.email,
                   ),
-                  height10,
+                  CSizedBox().height10,
                   TextFormFieldCustom(
                     validator: ((value) {
                       return provider.passwordValidation(value);
@@ -78,7 +78,7 @@ class SignInScreen extends StatelessWidget {
                       TextButton(
                         style: ButtonStyle(
                             foregroundColor: MaterialStateProperty.all(
-                          Colors.grey,
+                          greyColor,
                         )),
                         onPressed: () {},
                         child: const Text(
@@ -110,7 +110,7 @@ class SignInScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  height10,
+                  CSizedBox().height10,
                   const SizedBox(
                     height: 30,
                   ),
@@ -124,7 +124,7 @@ class SignInScreen extends StatelessWidget {
                         TextSpan(
                           text: ' Sign Up',
                           style: const TextStyle(
-                            color: Colors.blue,
+                            color: blueColor,
                             fontWeight: FontWeight.bold,
                           ),
                           recognizer: TapGestureRecognizer()

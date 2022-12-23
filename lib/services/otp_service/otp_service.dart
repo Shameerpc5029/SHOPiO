@@ -1,8 +1,8 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:ecommerce/constants/api_endpoints.dart';
-import 'package:ecommerce/constants/api_url.dart';
+import 'package:ecommerce/common/constants/api_endpoints.dart';
+import 'package:ecommerce/common/constants/api_url.dart';
 import 'package:ecommerce/utils/exceptions/dio_exceptions.dart';
 
 class OtpService {

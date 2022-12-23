@@ -1,8 +1,10 @@
-import 'package:ecommerce/constants/api_url.dart';
+import 'package:ecommerce/common/constants/api_url.dart';
 import 'package:ecommerce/controller/home/home_provider.dart';
-import 'package:ecommerce/view/core/style_const.dart';
+import 'package:ecommerce/common/style/colors.dart';
+import 'package:ecommerce/common/style/sized_box.dart';
 import 'package:ecommerce/view/home/widgets/carosal_widget.dart';
 import 'package:ecommerce/view/home/widgets/category_widget.dart';
+import 'package:ecommerce/view/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +12,6 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,26 +38,35 @@ class HomeScreen extends StatelessWidget {
       body: ListView(
         shrinkWrap: true,
         children: [
-          height10,
+          CSizedBox().height10,
           Column(
             children: [
               const CategoryWidget(),
-              height10,
-              const CarosalWidget(),
-              height10,
-              Consumer<HomeProvider>(
-                builder: (context, value, child) => AnimatedSmoothIndicator(
-                  effect: const ExpandingDotsEffect(
-                    spacing: 10,
-                    dotHeight: 10,
-                    dotWidth: 10,
+              CSizedBox().height10,
+              Stack(
+                alignment: AlignmentDirectional.bottomCenter,
+                children: [
+                  const CarosalWidget(),
+                  Consumer<HomeProvider>(
+                    builder: (context, value, child) => Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: AnimatedSmoothIndicator(
+                        effect: ExpandingDotsEffect(
+                          dotColor: Colors.grey.shade300,
+                          activeDotColor: Colors.blue,
+                          spacing: 10,
+                          dotHeight: 10,
+                          dotWidth: 10,
+                        ),
+                        curve: Curves.ease,
+                        activeIndex: value.activeIndex,
+                        count: value.carousalList.length,
+                      ),
+                    ),
                   ),
-                  curve: Curves.ease,
-                  activeIndex: value.activeIndex,
-                  count: value.carousalList.length,
-                ),
+                ],
               ),
-              height10,
+              CSizedBox().height10,
               Row(
                 children: const [
                   Padding(
@@ -72,7 +82,7 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.all(0),
+                padding: const EdgeInsets.all(5),
                 child: Consumer<HomeProvider>(
                   builder: (context, value, child) {
                     return GridView.builder(
@@ -83,50 +93,60 @@ class HomeScreen extends StatelessWidget {
                       ),
                       physics: const ScrollPhysics(),
                       shrinkWrap: true,
-                      // itemCount: 20,
                       itemCount: value.productList.length,
                       itemBuilder: (context, index) {
                         return Card(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image(
-                                height: 130,
-                                image: NetworkImage(
-                                  '${ApiUrl.apiUrl}/uploads/products/${value.productList[index].image[0]}',
+                          elevation: 0,
+                          child: value.isLoading == true
+                              ? const LoadingWidget()
+                              : Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image(
+                                      height: 120,
+                                      image: NetworkImage(
+                                        '${ApiUrl.apiUrl}/uploads/products/${value.productList[index].image[0]}',
+                                      ),
+                                    ),
+                                    CSizedBox().height10,
+                                    Text(
+                                      value.productList[index].name,
+                                      style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    CSizedBox().height10,
+                                    Text(
+                                      "₹${value.productList[index].price}",
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                        color: priceColor,
+                                      ),
+                                    ),
+                                    CSizedBox().height5,
+                                    Text(
+                                      "${value.productList[index].offer}%Off",
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15,
+                                        color: offerColor,
+                                      ),
+                                    ),
+                                    // OutlinedButton(
+                                    //   style: OutlinedButton.styleFrom(),
+                                    //   onPressed: () {},
+                                    //   child: const Text(
+                                    //     'Add to cart',
+                                    //     style: TextStyle(
+                                    //       fontWeight: FontWeight.bold,
+                                    //     ),
+                                    //   ),
+                                    // )
+                                  ],
                                 ),
-                              ),
-                              height10,
-                              Text(
-                                value.productList[index].name,
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              height10,
-                              Text(
-                                "₹${value.productList[index].price}",
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                  color: Colors.red,
-                                ),
-                              ),
-                              OutlinedButton.icon(
-                                onPressed: () {},
-                                icon: const Icon(
-                                  Icons.add_shopping_cart_rounded,
-                                ),
-                                label: const Text(
-                                  'Add to cart',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
                         );
                       },
                     );

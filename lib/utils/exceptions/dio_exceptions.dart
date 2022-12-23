@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:ecommerce/view/core/style_const.dart';
+import 'package:ecommerce/common/style/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -12,26 +12,26 @@ class DioException {
       PopUpSnackBar.popUp(
         context,
         'Platform Error Occured',
-        Colors.red,
+        alertColor,
       );
     }
     if (e is SocketException) {
       PopUpSnackBar.popUp(
         context,
         'No Internet Connection',
-        Colors.red,
+        alertColor,
       );
     } else if (e is TimeoutException) {
       PopUpSnackBar.popUp(
         context,
         'Connection Timeout',
-        Colors.red,
+        alertColor,
       );
     } else if (e is MissingPluginException) {
       PopUpSnackBar.popUp(
         context,
         'Plugin error occured',
-        Colors.red,
+        alertColor,
       );
     }
     if (e is DioError) {
@@ -39,26 +39,26 @@ class DioException {
         PopUpSnackBar.popUp(
           context,
           'Invalid username or password',
-          Colors.red,
+          alertColor,
         );
       } else if (e.response?.statusCode == 400) {
         PopUpSnackBar.popUp(
           context,
           'Unknown field',
-          Colors.red,
+          alertColor,
         );
       } else if (e.response?.statusCode == 403) {
         PopUpSnackBar.popUp(
           context,
           'User credential is not working',
-          Colors.red,
+          alertColor,
         );
       } else if (e.toString() ==
           "[Error]: (006) Request Throttled. Over Rate limit: up to 2 per sec. See geocode.xyz/pricing") {
         PopUpSnackBar.popUp(
           context,
           'Failed, Please try again',
-          Colors.red,
+          alertColor,
         );
       }
     }

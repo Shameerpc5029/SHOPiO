@@ -1,12 +1,12 @@
 import 'package:ecommerce/controller/sign_up/sign_up_provoder.dart';
-import 'package:ecommerce/view/core/style_const.dart';
+import 'package:ecommerce/common/style/colors.dart';
+import 'package:ecommerce/common/style/sized_box.dart';
 import 'package:ecommerce/view/widgets/custum_textformfiled.dart';
+import 'package:ecommerce/view/widgets/loading_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-
-// final formGlobalKey = GlobalKey<FormState>();
 
 class SignUpScreen extends StatelessWidget {
   SignUpScreen({super.key});
@@ -38,7 +38,7 @@ class SignUpScreen extends StatelessWidget {
                       fontSize: 20,
                     ),
                   ),
-                  height20,
+                  CSizedBox().   height20,
                   TextFormFieldCustom(
                     validator: ((value) {
                       return provider.nameValidation(value);
@@ -97,17 +97,13 @@ class SignUpScreen extends StatelessWidget {
                     obscureText: provider.obscureText,
                     controller: provider.conformPassword,
                   ),
-                  height20,
+                 CSizedBox().    height20,
                   Consumer<SignUpProvider>(
                     builder: (context, provideSignup, child) {
                       return SizedBox(
                         width: 350,
                         child: provideSignup.isLoading == true
-                            ? const Center(
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                ),
-                              )
+                            ? const LoadingWidget()
                             : ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   elevation: 3,
@@ -141,7 +137,7 @@ class SignUpScreen extends StatelessWidget {
                         TextSpan(
                           text: ' Sign In',
                           style: const TextStyle(
-                            color: Colors.blue,
+                            color: blueColor,
                             fontWeight: FontWeight.bold,
                           ),
                           recognizer: TapGestureRecognizer()

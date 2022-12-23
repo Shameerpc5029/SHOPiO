@@ -1,6 +1,9 @@
-import 'package:ecommerce/constants/api_url.dart';
+import 'dart:developer';
+
+import 'package:ecommerce/common/constants/api_url.dart';
 import 'package:ecommerce/controller/home/home_provider.dart';
-import 'package:ecommerce/view/core/style_const.dart';
+import 'package:ecommerce/common/style/colors.dart';
+import 'package:ecommerce/common/style/sized_box.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,12 +19,15 @@ class CategoryWidget extends StatelessWidget {
         return SizedBox(
           height: 100,
           child: ListView.builder(
+            shrinkWrap: true,
             itemBuilder: (context, index) {
               return SizedBox(
                 width: 100,
                 child: InkWell(
                   radius: 0,
-                  onTap: () {},
+                  onTap: () {
+                    log(value.productList[index].name.toString());
+                  },
                   child: Column(
                     children: [
                       value.isLoading == true
@@ -32,13 +38,13 @@ class CategoryWidget extends StatelessWidget {
                               ),
                             )
                           : CircleAvatar(
-                              backgroundColor: Colors.white,
-                              radius: 35,
+                              backgroundColor: whiteColor,
+                              radius: 33,
                               backgroundImage: NetworkImage(
                                 '${ApiUrl.apiUrl}/uploads/category/${value.categoryList[index].image}',
                               ),
                             ),
-                      height10,
+                      CSizedBox().height10,
                       Text(
                         value.categoryList[index].name,
                         style: const TextStyle(
@@ -50,7 +56,7 @@ class CategoryWidget extends StatelessWidget {
                 ),
               );
             },
-            physics: const ScrollPhysics(),
+            physics: BouncingScrollPhysics(),
             scrollDirection: Axis.horizontal,
             itemCount: value.categoryList.length,
           ),

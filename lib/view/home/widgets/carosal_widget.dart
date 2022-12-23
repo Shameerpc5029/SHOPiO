@@ -1,7 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:ecommerce/constants/api_url.dart';
+import 'package:ecommerce/common/constants/api_url.dart';
 
 import 'package:ecommerce/controller/home/home_provider.dart';
+import 'package:ecommerce/view/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,25 +16,16 @@ class CarosalWidget extends StatelessWidget {
     return Consumer<HomeProvider>(
       builder: (context, value, child) {
         return value.carousalList.isEmpty
-            ? const CircularProgressIndicator(
-                strokeWidth: 2,
-              )
+            ? const LoadingWidget()
             : CarouselSlider.builder(
                 itemCount: value.carousalList.length,
                 itemBuilder: (context, index, realIndex) {
                   return SizedBox(
                     width: 500,
                     child: Card(
-                      // shape: RoundedRectangleBorder(
-                      //   borderRadius: BorderRadius.circular(15.0),
-                      // ),
                       color: Colors.grey,
                       child: value.isLoading == true
-                          ? const Center(
-                              child: CircularProgressIndicator(
-                                strokeWidth: 2,
-                              ),
-                            )
+                          ? const LoadingWidget()
                           : Image(
                               fit: BoxFit.cover,
                               image: NetworkImage(

@@ -2,7 +2,7 @@ class ProductModel {
   final String id;
   final String name;
   final int price;
-  final int discountPrice;
+  // final double discountPrice;
   final int offer;
   final List<String> size;
   final List<String> image;
@@ -12,7 +12,7 @@ class ProductModel {
     required this.id,
     required this.name,
     required this.price,
-    required this.discountPrice,
+    // required this.discountPrice,
     required this.offer,
     required this.size,
     required this.image,
@@ -23,7 +23,7 @@ class ProductModel {
       id: json['_id'],
       name: json['name'],
       price: json['price'],
-      discountPrice: json['discountPrice'],
+      // discountPrice: json['discountPrice'],
       offer: json['offer'],
       size: List<String>.from(json['size'].map((x) => x)),
       image: List<String>.from(json['image'].map((x) => x)),
