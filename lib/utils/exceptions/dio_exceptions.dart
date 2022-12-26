@@ -38,7 +38,7 @@ class DioException {
       if (e.response?.statusCode == 401) {
         PopUpSnackBar.popUp(
           context,
-          'Invalid username or password',
+          'Invalid input',
           alertColor,
         );
       } else if (e.response?.statusCode == 400) {
@@ -68,11 +68,15 @@ class DioException {
 class PopUpSnackBar {
   static Future<void> popUp(
       BuildContext context, String text, Color color) async {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
           text,
-          style: const TextStyle(color: whiteColor),
+          style: const TextStyle(
+            fontWeight: FontWeight.w400,
+            color: whiteColor,
+          ),
         ),
         backgroundColor: color,
         duration: const Duration(seconds: 3),

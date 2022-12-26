@@ -1,3 +1,4 @@
+import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/controller/bottom_nav/bottom_nav_provider.dart';
 import 'package:ecommerce/controller/home/home_provider.dart';
 import 'package:ecommerce/controller/otp/otp_provider.dart';
@@ -33,12 +34,12 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          appBarTheme: AppBarTheme(
+          appBarTheme: const AppBarTheme(
             elevation: 0,
-            color: Colors.blue.shade600,
+            foregroundColor: Colors.black,
+            color: whiteColor,
           ),
         ),
-        // home: const SignInScreen(),
         home: const SplashScreen(),
       ),
     );

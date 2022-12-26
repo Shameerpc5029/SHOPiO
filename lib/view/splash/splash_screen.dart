@@ -1,6 +1,7 @@
+import 'package:ecommerce/common/style/sized_box.dart';
 import 'package:ecommerce/controller/splash/splash_provider.dart';
-import 'package:ecommerce/view/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -14,16 +15,18 @@ class SplashScreen extends StatelessWidget {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Image(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Image(
               image: AssetImage(
                 'assets/images/logo 3.png',
               ),
             ),
-            SizedBox(
-              height: 50,
+            CSizedBox().height20,
+            LoadingAnimationWidget.prograssiveDots(
+              color: const Color.fromARGB(255, 10, 59, 132),
+              size: 50,
             ),
-            LoadingWidget()
           ],
         ),
       ),

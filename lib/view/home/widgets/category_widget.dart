@@ -56,7 +56,7 @@ class CategoryWidget extends StatelessWidget {
                 ),
               );
             },
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             scrollDirection: Axis.horizontal,
             itemCount: value.categoryList.length,
           ),

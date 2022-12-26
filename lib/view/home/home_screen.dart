@@ -82,71 +82,108 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.all(5),
+                padding: const EdgeInsets.all(10),
                 child: Consumer<HomeProvider>(
                   builder: (context, value, child) {
                     return GridView.builder(
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
-                        childAspectRatio: 3 / 4.2,
+                        childAspectRatio: 3 / 4.5,
                       ),
                       physics: const ScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: value.productList.length,
                       itemBuilder: (context, index) {
-                        return Card(
-                          elevation: 0,
-                          child: value.isLoading == true
-                              ? const LoadingWidget()
-                              : Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Image(
-                                      height: 120,
-                                      image: NetworkImage(
-                                        '${ApiUrl.apiUrl}/uploads/products/${value.productList[index].image[0]}',
+                        return InkWell(
+                          onTap: () {
+                            // value.goToProdutScreen(
+                            //   value.productList[index].offer,
+                            //   value.productList[index].id,
+                            //   value.productList[index].size,
+                            //   value.productList[index].category,
+                            //   context,
+                            //   '${ApiUrl.apiUrl}/uploads/products/${value.productList[index].image[0]}',
+                            //   "₹${value.productList[index].price}",
+                            //   value.productList[index].name,
+                            //   value.productList[index].discountPrice,
+                            // );
+                            value.goToProdutScreen(
+                              context,
+                              value.productList[index].image,
+                              value.productList[index].name,
+                              value.productList[index].price,
+                              value.productList[index].id,
+                              value.productList[index].offer,
+                              value.productList[index].size,
+                              value.productList[index].category,
+                              value.productList[index].rating,
+                            );
+                          },
+                          child: Card(
+                            elevation: 0,
+                            child: value.isLoading == true
+                                ? const LoadingWidget()
+                                : Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Align(
+                                        alignment: Alignment.topRight,
+                                        child: IconButton(
+                                            splashRadius: 20,
+                                            onPressed: () {},
+                                            icon: const Icon(
+                                              FontAwesomeIcons.heart,
+                                              color: greyColor,
+                                            )),
                                       ),
-                                    ),
-                                    CSizedBox().height10,
-                                    Text(
-                                      value.productList[index].name,
-                                      style: const TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
+                                      Image(
+                                        height: 120,
+                                        image: NetworkImage(
+                                          '${ApiUrl.apiUrl}/uploads/products/${value.productList[index].image[0]}',
+                                        ),
                                       ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    CSizedBox().height10,
-                                    Text(
-                                      "₹${value.productList[index].price}",
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20,
-                                        color: priceColor,
+                                      CSizedBox().height10,
+                                      Text(
+                                        value.productList[index].name,
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        textAlign: TextAlign.center,
                                       ),
-                                    ),
-                                    CSizedBox().height5,
-                                    Text(
-                                      "${value.productList[index].offer}%Off",
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15,
-                                        color: offerColor,
+                                      CSizedBox().height10,
+                                      Text(
+                                        "₹${value.productList[index].price}",
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20,
+                                          color: priceColor,
+                                        ),
                                       ),
-                                    ),
-                                    // OutlinedButton(
-                                    //   style: OutlinedButton.styleFrom(),
-                                    //   onPressed: () {},
-                                    //   child: const Text(
-                                    //     'Add to cart',
-                                    //     style: TextStyle(
-                                    //       fontWeight: FontWeight.bold,
-                                    //     ),
-                                    //   ),
-                                    // )
-                                  ],
-                                ),
+                                      CSizedBox().height5,
+                                      Text(
+                                        "${value.productList[index].offer}%Off",
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 15,
+                                          color: offerColor,
+                                        ),
+                                      ),
+                                      // OutlinedButton(
+                                      //   style: OutlinedButton.styleFrom(),
+                                      //   onPressed: () {},
+                                      //   child: const Text(
+                                      //     'Add to cart',
+                                      //     style: TextStyle(
+                                      //       fontWeight: FontWeight.bold,
+                                      //     ),
+                                      //   ),
+                                      // )
+                                    ],
+                                  ),
+                          ),
                         );
                       },
                     );
