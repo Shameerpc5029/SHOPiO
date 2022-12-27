@@ -1,7 +1,7 @@
 import 'package:ecommerce/model/sign_up_model/sign_up_model.dart';
 import 'package:ecommerce/services/otp_service/otp_service.dart';
 import 'package:ecommerce/services/sign_up_service/sign_up_service.dart';
-import 'package:ecommerce/view/otp_screen/otp_screen.dart';
+import 'package:ecommerce/view/sign_up/otp_screen/otp_screen.dart';
 import 'package:ecommerce/view/sign_in/sign_in.dart';
 
 import 'package:flutter/cupertino.dart';

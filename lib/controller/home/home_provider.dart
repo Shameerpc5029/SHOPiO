@@ -44,8 +44,8 @@ class HomeProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void productViewSlider(index){
-      activeIndex = index;
+  void productViewSlider(index) {
+    activeIndex = index;
     notifyListeners();
   }
 
@@ -82,23 +82,20 @@ class HomeProvider extends ChangeNotifier {
     });
   }
 
-  void goToProdutScreen(
-      context, image, name, price, id, offer, size, category,rating) {
-    Navigator.of(context).push(
-      CupertinoPageRoute(
-        builder: (context) {
-          return ProductView(
-            image: image,
-            name: name,
-            price: price,
-            id: id,
-            offer: offer,
-            size: size,
-            category: category,
-            rating: rating,
-          );
-        },
-      ),
+  ProductModel findById(String id) {
+    return productList.firstWhere((element) => element.id == id);
+  }
+
+  void goToProdutScreen(context, index) {
+    Navigator.of(context).pushNamed(
+      ProductView.routeName,
+      arguments: productList[index].id,
     );
+  }
+
+  void goToPop(context) {
+    Navigator.of(context).pop();
+    activeIndex = 0;
+    notifyListeners();
   }
 }

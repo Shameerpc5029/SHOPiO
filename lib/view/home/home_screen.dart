@@ -4,7 +4,7 @@ import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/common/style/sized_box.dart';
 import 'package:ecommerce/view/home/widgets/carosal_widget.dart';
 import 'package:ecommerce/view/home/widgets/category_widget.dart';
-import 'package:ecommerce/view/widgets/loading_widget.dart';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -46,14 +46,14 @@ class HomeScreen extends StatelessWidget {
               Stack(
                 alignment: AlignmentDirectional.bottomCenter,
                 children: [
-                  const CarosalWidget(),
+                  const CarousellWidget(),
                   Consumer<HomeProvider>(
                     builder: (context, value, child) => Padding(
                       padding: const EdgeInsets.all(10),
                       child: AnimatedSmoothIndicator(
                         effect: ExpandingDotsEffect(
                           dotColor: Colors.grey.shade300,
-                          activeDotColor: Colors.blue,
+                          activeDotColor: themeColor,
                           spacing: 10,
                           dotHeight: 10,
                           dotWidth: 10,
@@ -70,7 +70,7 @@ class HomeScreen extends StatelessWidget {
               Row(
                 children: const [
                   Padding(
-                    padding: EdgeInsets.all(5.0),
+                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                     child: Text(
                       "All Products",
                       style: TextStyle(
@@ -82,107 +82,78 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Consumer<HomeProvider>(
                   builder: (context, value, child) {
                     return GridView.builder(
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
-                        childAspectRatio: 3 / 4.5,
+                        childAspectRatio: 3 / 4,
                       ),
                       physics: const ScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: value.productList.length,
                       itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap: () {
-                            // value.goToProdutScreen(
-                            //   value.productList[index].offer,
-                            //   value.productList[index].id,
-                            //   value.productList[index].size,
-                            //   value.productList[index].category,
-                            //   context,
-                            //   '${ApiUrl.apiUrl}/uploads/products/${value.productList[index].image[0]}',
-                            //   "₹${value.productList[index].price}",
-                            //   value.productList[index].name,
-                            //   value.productList[index].discountPrice,
-                            // );
-                            value.goToProdutScreen(
-                              context,
-                              value.productList[index].image,
-                              value.productList[index].name,
-                              value.productList[index].price,
-                              value.productList[index].id,
-                              value.productList[index].offer,
-                              value.productList[index].size,
-                              value.productList[index].category,
-                              value.productList[index].rating,
-                            );
-                          },
-                          child: Card(
-                            elevation: 0,
-                            child: value.isLoading == true
-                                ? const LoadingWidget()
-                                : Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Align(
-                                        alignment: Alignment.topRight,
-                                        child: IconButton(
-                                            splashRadius: 20,
-                                            onPressed: () {},
-                                            icon: const Icon(
-                                              FontAwesomeIcons.heart,
-                                              color: greyColor,
-                                            )),
-                                      ),
-                                      Image(
-                                        height: 120,
-                                        image: NetworkImage(
-                                          '${ApiUrl.apiUrl}/uploads/products/${value.productList[index].image[0]}',
-                                        ),
-                                      ),
-                                      CSizedBox().height10,
-                                      Text(
-                                        value.productList[index].name,
-                                        style: const TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      CSizedBox().height10,
-                                      Text(
-                                        "₹${value.productList[index].price}",
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                          color: priceColor,
-                                        ),
-                                      ),
-                                      CSizedBox().height5,
-                                      Text(
-                                        "${value.productList[index].offer}%Off",
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 15,
-                                          color: offerColor,
-                                        ),
-                                      ),
-                                      // OutlinedButton(
-                                      //   style: OutlinedButton.styleFrom(),
-                                      //   onPressed: () {},
-                                      //   child: const Text(
-                                      //     'Add to cart',
-                                      //     style: TextStyle(
-                                      //       fontWeight: FontWeight.bold,
-                                      //     ),
-                                      //   ),
-                                      // )
-                                    ],
+                        return Card(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          child: InkWell(
+                            onTap: () {
+                              value.goToProdutScreen(context, index);
+                            },
+                            child: GridTile(
+                              footer: Align(
+                                alignment: AlignmentDirectional.topEnd,
+                                child: IconButton(
+                                  splashRadius: 20,
+                                  onPressed: () {},
+                                  icon: const Icon(
+                                    FontAwesomeIcons.heart,
+                                    color: greyColor,
                                   ),
+                                ),
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image(
+                                    height: 120,
+                                    image: NetworkImage(
+                                      '${ApiUrl.apiUrl}/uploads/products/${value.productList[index].image[0]}',
+                                    ),
+                                  ),
+                                  CSizedBox().height10,
+                                  Text(
+                                    value.productList[index].name,
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  CSizedBox().height10,
+                                  Text(
+                                    "₹${value.productList[index].price}",
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                      color: priceColor,
+                                    ),
+                                  ),
+                                  CSizedBox().height5,
+                                  Text(
+                                    "${value.productList[index].offer}%Off",
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15,
+                                      color: offerColor,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         );
                       },

@@ -6,6 +6,7 @@ import 'package:ecommerce/controller/profile/profile_provider.dart';
 import 'package:ecommerce/controller/sign_in/sign_in_provider.dart';
 import 'package:ecommerce/controller/sign_up/sign_up_provoder.dart';
 import 'package:ecommerce/controller/splash/splash_provider.dart';
+import 'package:ecommerce/view/home/product_view/product_view.dart';
 import 'package:ecommerce/view/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -34,12 +35,18 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
+          primaryColor: themeColor,
           appBarTheme: const AppBarTheme(
             elevation: 0,
             foregroundColor: Colors.black,
             color: whiteColor,
           ),
         ),
+        routes: {
+          ProductView.routeName: (context) {
+            return const ProductView();
+          }
+        },
         home: const SplashScreen(),
       ),
     );

@@ -11,259 +11,264 @@ import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class ProductView extends StatelessWidget {
-  const ProductView({
-    super.key,
-    required this.image,
-    required this.name,
-    required this.price,
-    required this.id,
-    this.discountPrice,
-    required this.offer,
-    required this.size,
-    required this.category,
-    required this.rating,
-  });
-  final String id;
-  final String name;
-  final int price;
-  final dynamic discountPrice;
-  final int offer;
-  final List<String> size;
-  final List<String> image;
-  final String category;
-  final String rating;
+  static const routeName = "/product_view";
+  const ProductView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final productId = ModalRoute.of(context)?.settings.arguments as String;
+    final provider = Provider.of<HomeProvider>(context).findById(productId);
     return Scaffold(
-      bottomNavigationBar: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: const [
-          BottomNavButton(
-            text: 'Add to cart',
-            backgroundColor: Colors.white,
-            foregroundColor: Colors.black,
-          ),
-          BottomNavButton(
-            text: 'BUY NOW',
-            backgroundColor: Colors.blue,
-            foregroundColor: Colors.white,
-          ),
-        ],
+      bottomNavigationBar: Material(
+        elevation: 20,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const BottomNavButton(
+              text: 'Add to cart',
+              backgroundColor: Colors.white,
+              foregroundColor: Colors.black,
+            ),
+            BottomNavButton(
+              text: 'BUY NOW',
+              backgroundColor: themeColor,
+              foregroundColor: Colors.white,
+            ),
+          ],
+        ),
       ),
       appBar: AppBar(
+        leading: Consumer<HomeProvider>(
+          builder: (context, value, child) {
+            return IconButton(
+              onPressed: () {
+                value.goToPop(context);
+              },
+              icon: const Icon(
+                Icons.arrow_back_ios,
+              ),
+            );
+          },
+        ),
         title: Text(
-          name,
+          provider.name,
           style: const TextStyle(
             fontWeight: FontWeight.bold,
           ),
         ),
       ),
       body: SingleChildScrollView(
-        child: Consumer<HomeProvider>(
-          builder: (context, value, child) {
-            return Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CSizedBox().height10,
-                  Center(
-                    child: Stack(
-                      alignment: AlignmentDirectional.topEnd,
-                      children: [
-                        CarouselSlider.builder(
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CSizedBox().height10,
+              Center(
+                child: Stack(
+                  alignment: AlignmentDirectional.topEnd,
+                  children: [
+                    Consumer<HomeProvider>(
+                      builder: (context, value, child) {
+                        return CarouselSlider.builder(
                           itemBuilder: (context, index, realIndex) {
                             return SizedBox(
                               width: double.infinity,
                               height: MediaQuery.of(context).size.height * 0.55,
                               child: Image(
                                 image: NetworkImage(
-                                  '${ApiUrl.apiUrl}/uploads/products/${image[index]}',
+                                  '${ApiUrl.apiUrl}/uploads/products/${provider.image[index]}',
                                 ),
                               ),
                             );
                           },
-                          itemCount: image.length,
+                          itemCount: provider.image.length,
                           options: CarouselOptions(
                             viewportFraction: 1,
                             onPageChanged: (index, reason) {
                               value.carosal(index);
                             },
                           ),
-                        ),
-                        Column(
-                          children: [
-                            Material(
-                              shape: const CircleBorder(),
-                              elevation: 2,
-                              child: CircleAvatar(
-                                backgroundColor: whiteColor,
-                                child: IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(
-                                      Icons.favorite,
-                                      color: greyColor,
-                                    )),
-                              ),
-                            ),
-                            CSizedBox().height10,
-                            Material(
-                              shape: const CircleBorder(),
-                              elevation: 2,
-                              child: CircleAvatar(
-                                backgroundColor: whiteColor,
-                                child: IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(
-                                      FontAwesomeIcons.share,
-                                      color: greyColor,
-                                    )),
-                              ),
-                            ),
-                          ],
-                        )
-                      ],
+                        );
+                      },
                     ),
-                  ),
-                  CSizedBox().height10,
-                  Center(
+                    Column(
+                      children: [
+                        Material(
+                          shape: const CircleBorder(),
+                          elevation: 2,
+                          child: CircleAvatar(
+                            backgroundColor: whiteColor,
+                            child: IconButton(
+                                splashRadius: 20,
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.favorite,
+                                  color: greyColor,
+                                )),
+                          ),
+                        ),
+                        CSizedBox().height10,
+                        Material(
+                          shape: const CircleBorder(),
+                          elevation: 2,
+                          child: CircleAvatar(
+                            backgroundColor: whiteColor,
+                            child: IconButton(
+                                style: IconButton.styleFrom(),
+                                splashRadius: 20,
+                                onPressed: () {},
+                                icon: const Icon(
+                                  FontAwesomeIcons.share,
+                                  color: greyColor,
+                                )),
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              CSizedBox().height10,
+              Consumer<HomeProvider>(
+                builder: (context, value, child) {
+                  return Center(
                     child: AnimatedSmoothIndicator(
                       activeIndex: value.activeIndex,
-                      count: image.length,
+                      count: provider.image.length,
                       effect: const WormEffect(
                         dotHeight: 10,
                         dotWidth: 10,
                       ),
                     ),
-                  ),
-                  CSizedBox().height10,
-                  Align(
-                    alignment: Alignment.center,
-                    child: SizedBox(
-                      height: 70,
-                      child: ListView.separated(
-                        itemCount: image.length,
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            width: 50,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: NetworkImage(
-                                  '${ApiUrl.apiUrl}/uploads/products/${image[index]}',
-                                ),
-                              ),
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(),
-                            ),
-                          );
-                        },
-                        separatorBuilder: (context, index) {
-                          return CSizedBox().width10;
-                        },
-                      ),
-                    ),
-                  ),
-                  CSizedBox().height20,
-                  Text(
-                    name,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25,
-                    ),
-                  ),
-                  CSizedBox().height5,
-                  RatingBar.builder(
-                    ignoreGestures: true,
-                    allowHalfRating: true,
-                    onRatingUpdate: (value) {},
+                  );
+                },
+              ),
+              CSizedBox().height10,
+              Align(
+                alignment: Alignment.center,
+                child: SizedBox(
+                  height: 70,
+                  child: ListView.separated(
+                    itemCount: provider.image.length,
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
-                      return const Icon(
-                        Icons.star,
-                        color: Color.fromARGB(255, 24, 110, 29),
+                      return Container(
+                        width: 50,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: NetworkImage(
+                              '${ApiUrl.apiUrl}/uploads/products/${provider.image[index]}',
+                            ),
+                          ),
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(),
+                        ),
                       );
                     },
-                    itemSize: 20,
-                    initialRating: double.parse(rating),
+                    separatorBuilder: (context, index) {
+                      return CSizedBox().width10;
+                    },
                   ),
-                  CSizedBox().height10,
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: const Color.fromARGB(255, 222, 243, 223),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Row(
-                            children: const [
-                              Text(
-                                'Special price',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.green,
-                                ),
-                              ),
-                            ],
+                ),
+              ),
+              CSizedBox().height20,
+              Text(
+                provider.name,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25,
+                ),
+              ),
+              CSizedBox().height5,
+              RatingBar.builder(
+                ignoreGestures: true,
+                allowHalfRating: true,
+                onRatingUpdate: (value) {},
+                itemBuilder: (context, index) {
+                  return const Icon(
+                    Icons.star,
+                    color: Color.fromARGB(255, 24, 110, 29),
+                  );
+                },
+                itemSize: 20,
+                initialRating: double.parse(provider.rating),
+              ),
+              CSizedBox().height10,
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: const Color.fromARGB(255, 222, 243, 223),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        children: const [
+                          Text(
+                            'Special price',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.green,
+                            ),
                           ),
-                          CSizedBox().height5,
-                          Row(
-                            children: [
-                              Text(
-                                '$offer% off',
-                                style: const TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.green,
-                                ),
-                              ),
-                              // CSizedBox().width10,
-                              // Text(
-                              //   price.toString(),
-                              //   style: TextStyle(
-                              //     fontWeight: FontWeight.bold,
-                              //     fontSize: 20,
-                              //     color: greyColor,
-                              //     decoration: TextDecoration.lineThrough,
-                              //   ),
-                              // ),
-                              CSizedBox().width10,
-                              Text(
-                                "₹$price",
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                  color: priceColor,
-                                  overflow: TextOverflow.clip,
-                                ),
-                                maxLines: 1,
-                              ),
-                            ],
-                          )
                         ],
                       ),
-                    ),
-                  ),
-                  CSizedBox().height10,
-                  Row(
-                    children: [
-                      const Icon(
-                        FontAwesomeIcons.moneyBill1Wave,
-                        color: Colors.green,
-                        size: 20,
-                      ),
-                      CSizedBox().width10,
-                      const Text("Cash on delivery available"),
+                      CSizedBox().height5,
+                      Row(
+                        children: [
+                          Text(
+                            '${provider.offer}% off',
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.green,
+                            ),
+                          ),
+                          // CSizedBox().width10,
+                          // Text(
+                          //   price.toString(),
+                          //   style: TextStyle(
+                          //     fontWeight: FontWeight.bold,
+                          //     fontSize: 20,
+                          //     color: greyColor,
+                          //     decoration: TextDecoration.lineThrough,
+                          //   ),
+                          // ),
+                          CSizedBox().width10,
+                          Text(
+                            "₹${provider.price}",
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: priceColor,
+                              overflow: TextOverflow.clip,
+                            ),
+                            maxLines: 1,
+                          ),
+                        ],
+                      )
                     ],
                   ),
+                ),
+              ),
+              CSizedBox().height10,
+              Row(
+                children: [
+                  const Icon(
+                    FontAwesomeIcons.moneyBill1Wave,
+                    color: Colors.green,
+                    size: 20,
+                  ),
+                  CSizedBox().width10,
+                  const Text("Cash on delivery available"),
                 ],
               ),
-            );
-          },
+            ],
+          ),
         ),
       ),
     );

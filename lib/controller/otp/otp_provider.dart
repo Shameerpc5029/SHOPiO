@@ -14,6 +14,7 @@ class VerifyOtpProvider extends ChangeNotifier {
   Dio dio = Dio();
   bool isLoading = false;
   String code = '';
+
   void onSubmitCode(String submitCode) {
     code = submitCode;
     notifyListeners();
@@ -21,7 +22,11 @@ class VerifyOtpProvider extends ChangeNotifier {
 
   void sumbitOtp(context, SignUpModel model) {
     if (code.length != 4) {
-      PopUpSnackBar.popUp(context, 'Please enter the OTP', Colors.red);
+      PopUpSnackBar.popUp(
+        context,
+        'Please enter the OTP',
+        Colors.red,
+      );
     } else {
       isLoading = true;
       notifyListeners();

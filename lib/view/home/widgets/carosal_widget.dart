@@ -6,8 +6,8 @@ import 'package:ecommerce/view/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class CarosalWidget extends StatelessWidget {
-  const CarosalWidget({
+class CarousellWidget extends StatelessWidget {
+  const CarousellWidget({
     Key? key,
   }) : super(key: key);
 
@@ -21,7 +21,7 @@ class CarosalWidget extends StatelessWidget {
                 itemCount: value.carousalList.length,
                 itemBuilder: (context, index, realIndex) {
                   return SizedBox(
-                    width: 500,
+                    width: double.infinity,
                     child: Card(
                       color: Colors.grey,
                       child: value.isLoading == true
@@ -39,7 +39,6 @@ class CarosalWidget extends StatelessWidget {
                   onPageChanged: (index, reason) {
                     value.carosal(index);
                   },
-                  height: 180,
                   viewportFraction: 1,
                   initialPage: value.activeIndex,
                   enableInfiniteScroll: false,

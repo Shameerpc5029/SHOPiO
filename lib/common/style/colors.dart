@@ -11,3 +11,4 @@ const Color redColor = Colors.red;
 const Color offerColor = Colors.green;
 const Color priceColor = Colors.red;
 const Color alertColor = Colors.red;
+Color themeColor = const Color.fromARGB(255, 10, 59, 132);

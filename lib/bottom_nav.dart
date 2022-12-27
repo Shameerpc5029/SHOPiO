@@ -1,4 +1,5 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/controller/bottom_nav/bottom_nav_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -17,7 +18,7 @@ class BottomNav extends StatelessWidget {
             leftCornerRadius: 30,
             rightCornerRadius: 30,
             elevation: 10,
-            activeColor: Colors.blue[800],
+            activeColor: themeColor,
             iconSize: 25,
             icons: const [
               FontAwesomeIcons.houseChimney,
