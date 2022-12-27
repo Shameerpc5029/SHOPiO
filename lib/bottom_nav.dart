@@ -22,6 +22,7 @@ class BottomNav extends StatelessWidget {
             iconSize: 25,
             icons: const [
               FontAwesomeIcons.houseChimney,
+              FontAwesomeIcons.solidHeart,
               FontAwesomeIcons.cartShopping,
               FontAwesomeIcons.solidUser,
             ],

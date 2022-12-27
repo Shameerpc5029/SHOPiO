@@ -41,7 +41,7 @@ class CategoryWidget extends StatelessWidget {
                               backgroundColor: whiteColor,
                               radius: 33,
                               backgroundImage: NetworkImage(
-                                '${ApiUrl.apiUrl}/uploads/category/${value.categoryList[index].image}',
+                                '${ApiUrl.apiUrl}/category/${value.categoryList[index].image}',
                               ),
                             ),
                       CSizedBox().height10,

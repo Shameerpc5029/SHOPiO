@@ -8,4 +8,6 @@ class ApiEndPoints {
   static const category = '/api/v1/category';
   static const carousal = '/api/v1/carousal';
   static const product = '/api/v1/products';
+  static const wishlist = '/api/v1/wishlist';
+
 }

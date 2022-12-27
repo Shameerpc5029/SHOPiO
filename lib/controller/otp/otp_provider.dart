@@ -51,6 +51,9 @@ class VerifyOtpProvider extends ChangeNotifier {
             isLoading = false;
             notifyListeners();
           });
+        } else {
+          isLoading = false;
+          notifyListeners();
         }
       });
     }

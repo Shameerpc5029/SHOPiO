@@ -1,0 +1,62 @@
+import 'package:ecommerce/common/style/colors.dart';
+import 'package:ecommerce/model/wishlist_model/wishlist_model.dart';
+import 'package:ecommerce/services/wishlist_service/wishlist_service.dart';
+import 'package:ecommerce/utils/exceptions/dio_exceptions.dart';
+import 'package:flutter/material.dart';
+
+class WishListProvider extends ChangeNotifier {
+  bool isLoading = false;
+  WishListModel? model;
+  List<dynamic> wishlist = [];
+  void getWishList(context) async {
+    isLoading = true;
+    notifyListeners();
+    await WishListService().getWishList(context).then(
+      (value) {
+        if (value != null) {
+          model = value;
+          notifyListeners();
+          isLoading = false;
+          wishlist = model!.products.map((e) => e.product.id).toList();
+          notifyListeners();
+        } else {
+          isLoading = false;
+          notifyListeners();
+          return null;
+        }
+      },
+    );
+  }
+
+  void addAndRemoveWishList(context, String productId) async {
+    isLoading = true;
+    notifyListeners();
+    await WishListService()
+        .addAndRemovieWishList(context, productId)
+        .then((value) {
+      if (value != null) {
+        WishListService().getWishList(context).then((value) {
+          if (value != null) {
+            model = value;
+            notifyListeners();
+            getWishList(context);
+            isLoading = false;
+            notifyListeners();
+          } else {
+            isLoading = false;
+            notifyListeners();
+          }
+        });
+        if (value == 201) {
+          PopUpSnackBar.popUp(context, 'Item added to Wishlist', Colors.green);
+        }
+        if (value == 204) {
+          PopUpSnackBar.popUp(context, 'Item Remove from Wishlist', alertColor);
+        }
+      } else {
+        isLoading = false;
+        notifyListeners();
+      }
+    });
+  }
+}

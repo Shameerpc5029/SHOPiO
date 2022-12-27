@@ -98,4 +98,6 @@ class HomeProvider extends ChangeNotifier {
     activeIndex = 0;
     notifyListeners();
   }
+  
+ 
 }

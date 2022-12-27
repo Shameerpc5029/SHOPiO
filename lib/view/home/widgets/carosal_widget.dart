@@ -29,7 +29,7 @@ class CarousellWidget extends StatelessWidget {
                           : Image(
                               fit: BoxFit.cover,
                               image: NetworkImage(
-                                '${ApiUrl.apiUrl}/uploads/carousal/${value.carousalList[index].image}',
+                                '${ApiUrl.apiUrl}/carousal/${value.carousalList[index].image}',
                               ),
                             ),
                     ),

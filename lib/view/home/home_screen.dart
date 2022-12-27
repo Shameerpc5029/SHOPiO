@@ -4,7 +4,6 @@ import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/common/style/sized_box.dart';
 import 'package:ecommerce/view/home/widgets/carosal_widget.dart';
 import 'package:ecommerce/view/home/widgets/category_widget.dart';
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -103,24 +102,35 @@ class HomeScreen extends StatelessWidget {
                               value.goToProdutScreen(context, index);
                             },
                             child: GridTile(
-                              footer: Align(
-                                alignment: AlignmentDirectional.topEnd,
-                                child: IconButton(
-                                  splashRadius: 20,
-                                  onPressed: () {},
-                                  icon: const Icon(
-                                    FontAwesomeIcons.heart,
-                                    color: greyColor,
-                                  ),
-                                ),
-                              ),
+                              // footer: Align(
+                              //   alignment: AlignmentDirectional.topEnd,
+                              //   child:
+                              //       Consumer2<WishListProvider, HomeProvider>(
+                              //     builder: (context, value, value2, child) {
+                              //       return IconButton(
+                              //         splashRadius: 20,
+                              //         onPressed: () {
+                              //           value.addAndRemoveWishList(context,
+                              //               value2.productList[index].id);
+                              //         },
+                              //         icon: Icon(
+                              //           FontAwesomeIcons.heart,
+                              //           color:
+                              //               value.wishlist.contains(value.id)
+                              //                   ? Colors.green
+                              //                   : redColor,
+                              //         ),
+                              //       );
+                              //     },
+                              //   ),
+                              // ),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Image(
                                     height: 120,
                                     image: NetworkImage(
-                                      '${ApiUrl.apiUrl}/uploads/products/${value.productList[index].image[0]}',
+                                      '${ApiUrl.apiUrl}/products/${value.productList[index].image[0]}',
                                     ),
                                   ),
                                   CSizedBox().height10,

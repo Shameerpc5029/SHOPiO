@@ -3,6 +3,7 @@ import 'package:ecommerce/common/constants/api_url.dart';
 import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/common/style/sized_box.dart';
 import 'package:ecommerce/controller/home/home_provider.dart';
+import 'package:ecommerce/controller/wish_list/wishlist_provider.dart';
 import 'package:ecommerce/view/home/product_view/widgets/bottom_nav_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -77,7 +78,7 @@ class ProductView extends StatelessWidget {
                               height: MediaQuery.of(context).size.height * 0.55,
                               child: Image(
                                 image: NetworkImage(
-                                  '${ApiUrl.apiUrl}/uploads/products/${provider.image[index]}',
+                                  '${ApiUrl.apiUrl}/products/${provider.image[index]}',
                                 ),
                               ),
                             );
@@ -97,15 +98,25 @@ class ProductView extends StatelessWidget {
                         Material(
                           shape: const CircleBorder(),
                           elevation: 2,
-                          child: CircleAvatar(
-                            backgroundColor: whiteColor,
-                            child: IconButton(
-                                splashRadius: 20,
-                                onPressed: () {},
-                                icon: const Icon(
-                                  Icons.favorite,
-                                  color: greyColor,
-                                )),
+                          child: Consumer<WishListProvider>(
+                            builder: (context, value, child) {
+                              return CircleAvatar(
+                                backgroundColor: whiteColor,
+                                child: IconButton(
+                                  splashRadius: 20,
+                                  onPressed: () {
+                                    value.addAndRemoveWishList(
+                                        context, productId);
+                                  },
+                                  icon: Icon(
+                                    Icons.favorite,
+                                    color: value.wishlist.contains(provider.id)
+                                        ? Colors.red
+                                        : Colors.grey,
+                                  ),
+                                ),
+                              );
+                            },
                           ),
                         ),
                         CSizedBox().height10,
@@ -159,7 +170,7 @@ class ProductView extends StatelessWidget {
                         decoration: BoxDecoration(
                           image: DecorationImage(
                             image: NetworkImage(
-                              '${ApiUrl.apiUrl}/uploads/products/${provider.image[index]}',
+                              '${ApiUrl.apiUrl}/products/${provider.image[index]}',
                             ),
                           ),
                           borderRadius: BorderRadius.circular(10),
