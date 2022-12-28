@@ -9,5 +9,5 @@ class ApiEndPoints {
   static const carousal = '/api/v1/carousal';
   static const product = '/api/v1/products';
   static const wishlist = '/api/v1/wishlist';
-
+  static const cart = '/api/v1/cart';
 }

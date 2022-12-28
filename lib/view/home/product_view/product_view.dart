@@ -5,6 +5,7 @@ import 'package:ecommerce/common/style/sized_box.dart';
 import 'package:ecommerce/controller/home/home_provider.dart';
 import 'package:ecommerce/controller/wish_list/wishlist_provider.dart';
 import 'package:ecommerce/view/home/product_view/widgets/bottom_nav_button.dart';
+import 'package:ecommerce/view/widgets/circle_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -14,6 +15,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 class ProductView extends StatelessWidget {
   static const routeName = "/product_view";
   const ProductView({super.key});
+  final int offerPrice = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +44,7 @@ class ProductView extends StatelessWidget {
         leading: Consumer<HomeProvider>(
           builder: (context, value, child) {
             return IconButton(
+              splashRadius: 25,
               onPressed: () {
                 value.goToPop(context);
               },
@@ -93,49 +96,24 @@ class ProductView extends StatelessWidget {
                         );
                       },
                     ),
-                    Column(
-                      children: [
-                        Material(
-                          shape: const CircleBorder(),
-                          elevation: 2,
-                          child: Consumer<WishListProvider>(
-                            builder: (context, value, child) {
-                              return CircleAvatar(
-                                backgroundColor: whiteColor,
-                                child: IconButton(
-                                  splashRadius: 20,
-                                  onPressed: () {
-                                    value.addAndRemoveWishList(
-                                        context, productId);
-                                  },
-                                  icon: Icon(
-                                    Icons.favorite,
-                                    color: value.wishlist.contains(provider.id)
-                                        ? Colors.red
-                                        : Colors.grey,
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                        CSizedBox().height10,
-                        Material(
-                          shape: const CircleBorder(),
-                          elevation: 2,
-                          child: CircleAvatar(
-                            backgroundColor: whiteColor,
-                            child: IconButton(
-                                style: IconButton.styleFrom(),
-                                splashRadius: 20,
-                                onPressed: () {},
-                                icon: const Icon(
-                                  FontAwesomeIcons.share,
-                                  color: greyColor,
-                                )),
-                          ),
-                        ),
-                      ],
+                    Consumer<WishListProvider>(
+                      builder: (context, value, child) {
+                        return Column(
+                          children: [
+                            CircleButtonWidget(
+                              onPressed: () {
+                                value.addAndRemoveWishList(context, productId);
+                              },
+                              icon: Icon(
+                                Icons.favorite,
+                                color: value.wishlist.contains(provider.id)
+                                    ? Colors.red
+                                    : Colors.grey,
+                              ),
+                            )
+                          ],
+                        );
+                      },
                     )
                   ],
                 ),
@@ -239,9 +217,9 @@ class ProductView extends StatelessWidget {
                               color: Colors.green,
                             ),
                           ),
-                          // CSizedBox().width10,
+                          CSizedBox().width10,
                           // Text(
-                          //   price.toString(),
+                          //   provider.discountPrice.toString(),
                           //   style: TextStyle(
                           //     fontWeight: FontWeight.bold,
                           //     fontSize: 20,

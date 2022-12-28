@@ -1,22 +1,22 @@
 import 'package:ecommerce/common/style/colors.dart';
-import 'package:ecommerce/model/wishlist_model/wishlist_model.dart';
-import 'package:ecommerce/services/wishlist_service/wishlist_service.dart';
+import 'package:ecommerce/model/cart_model/cart_model.dart';
+
+import 'package:ecommerce/services/cart_service/cart_service.dart';
+
 import 'package:ecommerce/utils/exceptions/dio_exceptions.dart';
-import 'package:ecommerce/view/home/product_view/product_view.dart';
 import 'package:flutter/material.dart';
 
-class WishListProvider extends ChangeNotifier {
-  WishListProvider(context) {
-    getWishList(context);
+class CartProvider extends ChangeNotifier {
+  CartProvider(context) {
+    getCart(context);
   }
-
   bool isLoading = false;
-  WishListModel? model;
+  CartModel? model;
   List<dynamic> wishlist = [];
-  void getWishList(context) async {
+  void getCart(context) async {
     isLoading = true;
     notifyListeners();
-    await WishListService().getWishList(context).then(
+    await CartService().getCartList(context).then(
       (value) {
         if (value != null) {
           model = value;
@@ -33,18 +33,16 @@ class WishListProvider extends ChangeNotifier {
     );
   }
 
-  void addAndRemoveWishList(context, String productId) async {
+  void addAndRemoveCart(context, String productId) async {
     isLoading = true;
     notifyListeners();
-    await WishListService()
-        .addAndRemoveWishList(context, productId)
-        .then((value) {
+    await CartService().addAndRemovecart(context, productId).then((value) {
       if (value != null) {
-        WishListService().getWishList(context).then((value) {
+        CartService().getCartList(context).then((value) {
           if (value != null) {
             model = value;
             notifyListeners();
-            getWishList(context);
+            getCart(context);
             isLoading = false;
             notifyListeners();
           } else {
@@ -53,22 +51,15 @@ class WishListProvider extends ChangeNotifier {
           }
         });
         if (value == 201) {
-          PopUpSnackBar.popUp(context, 'Item added to Wishlist', Colors.green);
+          PopUpSnackBar.popUp(context, 'Item added to Cart', Colors.green);
         }
         if (value == 204) {
-          PopUpSnackBar.popUp(context, 'Item Remove from Wishlist', alertColor);
+          PopUpSnackBar.popUp(context, 'Item Remove from Cart', alertColor);
         }
       } else {
         isLoading = false;
         notifyListeners();
       }
     });
-  }
-
-  void wishListToProduct(context, index) {
-    Navigator.of(context).pushNamed(
-      ProductView.routeName,
-      arguments: model!.products[index].product.id,
-    );
   }
 }

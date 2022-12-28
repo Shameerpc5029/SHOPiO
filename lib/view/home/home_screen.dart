@@ -73,7 +73,7 @@ class HomeScreen extends StatelessWidget {
                     child: Text(
                       "All Products",
                       style: TextStyle(
-                        fontSize: 20,
+                        
                         fontWeight: FontWeight.bold,
                       ),
                     ),

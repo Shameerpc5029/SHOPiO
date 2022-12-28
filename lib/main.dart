@@ -1,5 +1,6 @@
 import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/controller/bottom_nav/bottom_nav_provider.dart';
+import 'package:ecommerce/controller/cart/cart_provider.dart';
 import 'package:ecommerce/controller/home/home_provider.dart';
 import 'package:ecommerce/controller/otp/otp_provider.dart';
 import 'package:ecommerce/controller/profile/profile_provider.dart';
@@ -32,12 +33,13 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => VerifyOtpProvider()),
         ChangeNotifierProvider(create: (context) => HomeProvider(context)),
         ChangeNotifierProvider(create: (context) => ProfileProvider()),
-        ChangeNotifierProvider(create: (context) => WishListProvider()),
-
+        ChangeNotifierProvider(create: (context) => WishListProvider(context)),
+        ChangeNotifierProvider(create: (context) => CartProvider(context)),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
+          // fontFamily: 'Manrope',
           primaryColor: themeColor,
           appBarTheme: const AppBarTheme(
             elevation: 0,
