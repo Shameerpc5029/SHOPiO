@@ -5,11 +5,12 @@ class BottomNavButton extends StatelessWidget {
     Key? key,
     required this.text,
     required this.backgroundColor,
-    required this.foregroundColor,
+    required this.foregroundColor,required this.onPressed,
   }) : super(key: key);
   final String text;
   final Color backgroundColor;
   final Color foregroundColor;
+ final void Function()? onPressed;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -23,7 +24,7 @@ class BottomNavButton extends StatelessWidget {
           backgroundColor: backgroundColor,
           foregroundColor: foregroundColor,
         ),
-        onPressed: () {},
+        onPressed:onPressed ,
         child: Text(
           text,
         ),

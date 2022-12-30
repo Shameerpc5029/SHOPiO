@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class CartCustomButton extends StatelessWidget {
@@ -20,9 +19,11 @@ class CartCustomButton extends StatelessWidget {
       width: MediaQuery.of(context).size.width * .48,
       child: OutlinedButton.icon(
         style: OutlinedButton.styleFrom(
-            foregroundColor: buttonColor,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(0))),
+          foregroundColor: buttonColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(0),
+          ),
+        ),
         onPressed: onPressed,
         icon: Icon(
           icon,

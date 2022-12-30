@@ -20,70 +20,70 @@ class WishListScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: SingleChildScrollView(
-          child: ListView.separated(
-            physics: const ScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: provider.model?.products.length ?? 0,
-            itemBuilder: (context, index) {
-              return provider.isLoading == true
-                  ? const LoadingWidget()
-                  : provider.model == null || provider.model!.products.isEmpty
-                      ? SizedBox(
-                          height: MediaQuery.of(context).size.height * .7,
-                          child: const Center(
-                            child: Text(
-                              'Wish List is Empty',
-                              style: TextStyle(
-                                color: Colors.black,
+          child: provider.model == null || provider.model!.products.isEmpty
+              ? SizedBox(
+                  height: MediaQuery.of(context).size.height * .7,
+                  child: const Center(
+                    child: Text(
+                      'Wish List is Empty',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                )
+              : ListView.separated(
+                  physics: const ScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: provider.model?.products.length ?? 0,
+                  itemBuilder: (context, index) {
+                    return provider.isLoading == true
+                        ? const LoadingWidget()
+                        : ListTile(
+                            onTap: () {
+                              provider.wishListToProduct(context, index);
+                            },
+                            leading: Container(
+                              height: 100,
+                              width: 50,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                fit: BoxFit.contain,
+                                image: NetworkImage(
+                                  '${ApiUrl.apiUrl}/products/${provider.model!.products[index].product.image[0]}',
+                                ),
+                              )),
+                            ),
+                            title: Text(
+                              provider.model!.products[index].product.name,
+                              style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                          ),
-                        )
-                      : ListTile(
-                          onTap: () {
-                            provider.wishListToProduct(context, index);
-                          },
-                          leading: Container(
-                            height: 100,
-                            width: 50,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                              fit: BoxFit.contain,
-                              image: NetworkImage(
-                                '${ApiUrl.apiUrl}/products/${provider.model!.products[index].product.image[0]}',
+                            subtitle: Text(
+                              "₹${provider.model!.products[index].product.price - provider.model!.products[index].product.discountPrice}",
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: redColor,
                               ),
-                            )),
-                          ),
-                          title: Text(
-                            provider.model!.products[index].product.name,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
                             ),
-                          ),
-                          subtitle: Text(
-                            "₹${provider.model!.products[index].product.price}",
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: redColor,
+                            trailing: CircleButtonWidget(
+                              onPressed: () {
+                                provider.addAndRemoveWishList(context,
+                                    provider.model!.products[index].product.id);
+                              },
+                              icon: const Icon(
+                                FontAwesomeIcons.solidHeart,
+                                color: redColor,
+                              ),
                             ),
-                          ),
-                          trailing: CircleButtonWidget(
-                            onPressed: () {
-                              provider.addAndRemoveWishList(context,
-                                  provider.model!.products[index].product.id);
-                            },
-                            icon: const Icon(
-                              FontAwesomeIcons.solidHeart,
-                              color: redColor,
-                            ),
-                          ),
-                        );
-            },
-            separatorBuilder: (BuildContext context, int index) {
-              return const Divider();
-            },
-          ),
+                          );
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    return const Divider();
+                  },
+                ),
         ),
       ),
     );

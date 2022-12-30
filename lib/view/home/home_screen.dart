@@ -73,7 +73,6 @@ class HomeScreen extends StatelessWidget {
                     child: Text(
                       "All Products",
                       style: TextStyle(
-                        
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -102,28 +101,20 @@ class HomeScreen extends StatelessWidget {
                               value.goToProdutScreen(context, index);
                             },
                             child: GridTile(
-                              // footer: Align(
-                              //   alignment: AlignmentDirectional.topEnd,
-                              //   child:
-                              //       Consumer2<WishListProvider, HomeProvider>(
-                              //     builder: (context, value, value2, child) {
-                              //       return IconButton(
-                              //         splashRadius: 20,
-                              //         onPressed: () {
-                              //           value.addAndRemoveWishList(context,
-                              //               value2.productList[index].id);
-                              //         },
-                              //         icon: Icon(
-                              //           FontAwesomeIcons.heart,
-                              //           color:
-                              //               value.wishlist.contains(value.id)
-                              //                   ? Colors.green
-                              //                   : redColor,
-                              //         ),
-                              //       );
-                              //     },
-                              //   ),
-                              // ),
+                              header: Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Text(
+                                    "${value.productList[index].offer}%Off",
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12,
+                                      color: offerColor,
+                                    ),
+                                  ),
+                                ),
+                              ),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -148,17 +139,25 @@ class HomeScreen extends StatelessWidget {
                                     "₹${value.productList[index].price}",
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 20,
-                                      color: priceColor,
+                                      fontSize: 16,
+                                      color: greyColor,
+                                      decoration: TextDecoration.lineThrough,
                                     ),
                                   ),
-                                  CSizedBox().height5,
+                                  // Text(
+                                  //   "${value.productList[index].offer}%Off",
+                                  //   style: const TextStyle(
+                                  //     fontWeight: FontWeight.bold,
+                                  //     fontSize: 15,
+                                  //     color: offerColor,
+                                  //   ),
+                                  // ),
                                   Text(
-                                    "${value.productList[index].offer}%Off",
+                                    "₹${value.productList[index].price - value.productList[index].discountPrice}",
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 15,
-                                      color: offerColor,
+                                      fontSize: 20,
+                                      color: priceColor,
                                     ),
                                   ),
                                 ],

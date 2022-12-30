@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecommerce/common/constants/api_url.dart';
 import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/common/style/sized_box.dart';
+import 'package:ecommerce/controller/cart/cart_provider.dart';
 import 'package:ecommerce/controller/home/home_provider.dart';
 import 'package:ecommerce/controller/wish_list/wishlist_provider.dart';
 import 'package:ecommerce/view/home/product_view/widgets/bottom_nav_button.dart';
@@ -27,15 +28,23 @@ class ProductView extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const BottomNavButton(
-              text: 'Add to cart',
-              backgroundColor: Colors.white,
-              foregroundColor: Colors.black,
+            Consumer<CartProvider>(
+              builder: (context, value, child) {
+                return BottomNavButton(
+                  text: 'Add to cart',
+                  backgroundColor: Colors.white,
+                  foregroundColor: Colors.black,
+                  onPressed: () {
+                    value.addToCart(productId, context);
+                  },
+                );
+              },
             ),
             BottomNavButton(
               text: 'BUY NOW',
               backgroundColor: themeColor,
               foregroundColor: Colors.white,
+              onPressed: () {},
             ),
           ],
         ),
@@ -218,18 +227,18 @@ class ProductView extends StatelessWidget {
                             ),
                           ),
                           CSizedBox().width10,
-                          // Text(
-                          //   provider.discountPrice.toString(),
-                          //   style: TextStyle(
-                          //     fontWeight: FontWeight.bold,
-                          //     fontSize: 20,
-                          //     color: greyColor,
-                          //     decoration: TextDecoration.lineThrough,
-                          //   ),
-                          // ),
-                          CSizedBox().width10,
                           Text(
                             "₹${provider.price}",
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: greyColor,
+                              decoration: TextDecoration.lineThrough,
+                            ),
+                          ),
+                          CSizedBox().width10,
+                          Text(
+                            "₹${provider.price - provider.discountPrice}",
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
