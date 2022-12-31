@@ -11,7 +11,6 @@ class HomeProvider extends ChangeNotifier {
     allProviders(context);
   }
 
-
   void allProviders(context) {
     getCarousals(context);
     getCategory(context);
@@ -99,6 +98,4 @@ class HomeProvider extends ChangeNotifier {
     activeIndex = 0;
     notifyListeners();
   }
-  
- 
 }

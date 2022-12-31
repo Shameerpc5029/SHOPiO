@@ -18,48 +18,53 @@ class CartScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Cart'),
       ),
-      bottomNavigationBar: Container(
-        height: 70,
-        width: double.infinity,
-        decoration: const BoxDecoration(
-          color: whiteColor,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey,
-              offset: Offset(0.0, 1.0), //(x,y)
-              blurRadius: 6.0,
-            ),
-          ],
-        ),
-        child: ListTile(
-          title: const Text(
-            "₹2000",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-              color: greyColor,
-              decoration: TextDecoration.lineThrough,
-            ),
-          ),
-          subtitle: const Text(
-            '₹2000',
-            style: TextStyle(
-                fontWeight: FontWeight.bold, fontSize: 20, color: Colors.black),
-          ),
-          trailing: SizedBox(
-            width: 200,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: themeColor,
+      bottomNavigationBar: provider.totalSave == 0
+          ? const SizedBox()
+          : Container(
+              height: 70,
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                color: whiteColor,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey,
+                    offset: Offset(0.0, 1.0),
+                    blurRadius: 6.0,
+                  ),
+                ],
               ),
-              onPressed: () {},
-              child: const Text(
-                'PLACE ORDER',
+              child: ListTile(
+                title: Text(
+                  "₹${provider.model?.totalPrice ?? 0}",
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    color: greyColor,
+                    decoration: TextDecoration.lineThrough,
+                  ),
+                ),
+                subtitle: Text(
+                  "₹${provider.totalSave}",
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: Colors.red,
+                  ),
+                ),
+                trailing: SizedBox(
+                  width: 200,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: themeColor,
+                    ),
+                    onPressed: () {},
+                    child: const Text(
+                      'PLACE ORDER',
+                    ),
+                  ),
+                ),
               ),
             ),
-          ),
-        ),
-      ),
       body: SingleChildScrollView(
         child: provider.model == null || provider.model!.products.isEmpty
             ? SizedBox(
@@ -174,7 +179,10 @@ class CartScreen extends StatelessWidget {
                               text: "Remove",
                               icon: Icons.delete_outlined,
                               buttonColor: greyColor,
-                              onPressed: () {},
+                              onPressed: () {
+                                provider.removeFromCart(context,
+                                    provider.model!.products[index].product.id);
+                              },
                             ),
                             CartCustomButton(
                               text: "BUY NOW",

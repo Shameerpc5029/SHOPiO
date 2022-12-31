@@ -6,6 +6,7 @@ import 'package:ecommerce/common/constants/api_endpoints.dart';
 import 'package:ecommerce/common/constants/api_url.dart';
 import 'package:ecommerce/model/cart_model/add_to_cart.dart';
 import 'package:ecommerce/model/cart_model/cart_model.dart';
+import 'package:ecommerce/model/cart_model/get_form_cart_model.dart';
 import 'package:ecommerce/utils/exceptions/dio_exceptions.dart';
 import 'package:ecommerce/utils/interceptor/interceptor.dart';
 
@@ -57,6 +58,22 @@ class CartService {
       }
     } on DioError catch (e) {
       log(e.message);
+      DioException().dioError(e, context);
+    }
+    return null;
+  }
+
+  Future<CartModel?> getCartItems(context) async {
+    Dio dios = await IntercepterApi().getApiUser(context);
+    try {
+      final Response response =
+          await dios.get(ApiUrl.apiUrl + ApiEndPoints.cart);
+
+      if (response.statusCode == 200) {
+        final CartModel model = CartModel.fromJson(response.data);
+        return model;
+      }
+    } catch (e) {
       DioException().dioError(e, context);
     }
     return null;
