@@ -14,9 +14,10 @@ class CartProvider extends ChangeNotifier {
   bool isLoading = false;
   CartModel? model;
   int? totalSave;
-
-  // CartGetModel? cartModel;
+  List<String> cartItemsId = [];
+  int totalProductCount = 1;
   List<dynamic> cartList = [];
+
   void getCart(context) async {
     isLoading = true;
     notifyListeners();
@@ -27,6 +28,7 @@ class CartProvider extends ChangeNotifier {
           notifyListeners();
           cartList = model!.products.map((e) => e.product.id).toList();
           totalSave = (model!.totalPrice - model!.totalDiscount).toInt();
+          totalProductsCount();
           notifyListeners();
           isLoading = false;
           notifyListeners();
@@ -72,5 +74,49 @@ class CartProvider extends ChangeNotifier {
         return;
       }
     });
+  }
+
+  void totalProductsCount() {
+    int count = 0;
+    for (var i = 0; i < model!.products.length; i++) {
+      count = count + model!.products[i].qty;
+    }
+    totalProductCount = count;
+    notifyListeners();
+  }
+
+  Future<void> incrementOrDecrementQuantity(int qty, String productId,
+      String productSize, int productquantity, context) async {
+    final AddToCartModel addToCartModel = AddToCartModel(
+      productId: productId,
+      quantity: qty,
+      size: productSize.toString(),
+    );
+    if (qty == 1 && productquantity >= 1 || qty == -1 && productquantity > 1) {
+      await CartService()
+          .addToCart(addToCartModel, context)
+          .then((value) async {
+        if (value != null) {
+          await CartService().getCartItems(context).then((value) {
+            if (value != null) {
+              model = value;
+              notifyListeners();
+              totalProductsCount();
+              notifyListeners();
+              cartItemsId = model!.products.map((e) => e.product.id).toList();
+              notifyListeners();
+              totalSave = (model!.totalPrice - model!.totalDiscount).toInt();
+              notifyListeners();
+            } else {
+              null;
+            }
+          });
+        } else {
+          null;
+        }
+      });
+    } else {
+      null;
+    }
   }
 }

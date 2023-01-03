@@ -26,6 +26,7 @@ class CategoryWidget extends StatelessWidget {
                 child: InkWell(
                   radius: 0,
                   onTap: () {
+                    value.goToCategoryScreen(context, index);
                     log(value.productList[index].name.toString());
                   },
                   child: Column(

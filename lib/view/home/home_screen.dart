@@ -102,7 +102,7 @@ class HomeScreen extends StatelessWidget {
                             },
                             child: GridTile(
                               header: Padding(
-                                padding: const EdgeInsets.all(10),
+                                padding: const EdgeInsets.all(5),
                                 child: Align(
                                   alignment: Alignment.topLeft,
                                   child: Text(
@@ -144,14 +144,6 @@ class HomeScreen extends StatelessWidget {
                                       decoration: TextDecoration.lineThrough,
                                     ),
                                   ),
-                                  // Text(
-                                  //   "${value.productList[index].offer}%Off",
-                                  //   style: const TextStyle(
-                                  //     fontWeight: FontWeight.bold,
-                                  //     fontSize: 15,
-                                  //     color: offerColor,
-                                  //   ),
-                                  // ),
                                   Text(
                                     "₹${value.productList[index].price - value.productList[index].discountPrice}",
                                     style: const TextStyle(

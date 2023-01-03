@@ -58,8 +58,8 @@ class CartScreen extends StatelessWidget {
                       backgroundColor: themeColor,
                     ),
                     onPressed: () {},
-                    child: const Text(
-                      'PLACE ORDER',
+                    child: Text(
+                      'PLACE ORDER (${provider.totalProductCount})',
                     ),
                   ),
                 ),
@@ -143,7 +143,7 @@ class CartScreen extends StatelessWidget {
                                       ),
                                       CSizedBox().width10,
                                       Text(
-                                        '₹${provider.model!.products[index].product.price}',
+                                        '₹${provider.model!.products[index].price}',
                                         style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           decoration:
@@ -153,7 +153,7 @@ class CartScreen extends StatelessWidget {
                                       ),
                                       CSizedBox().width10,
                                       Text(
-                                        "₹${provider.model!.products[index].product.price - provider.model!.products[index].product.discountPrice}",
+                                        '₹${provider.model!.products[index].price - provider.model!.products[index].discountPrice}',
                                         style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                         ),
@@ -164,8 +164,26 @@ class CartScreen extends StatelessWidget {
                                   CountButton(
                                     countNumber:
                                         '${provider.model!.products[index].qty}',
-                                    minusPressed: () {},
-                                    plusPressed: () {},
+                                    minusPressed: () {
+                                      provider.incrementOrDecrementQuantity(
+                                        -1,
+                                        provider
+                                            .model!.products[index].product.id,
+                                        provider.model!.products[index].size,
+                                        provider.model!.products[index].qty,
+                                        context,
+                                      );
+                                    },
+                                    plusPressed: () {
+                                      provider.incrementOrDecrementQuantity(
+                                        1,
+                                        provider
+                                            .model!.products[index].product.id,
+                                        provider.model!.products[index].size,
+                                        provider.model!.products[index].qty,
+                                        context,
+                                      );
+                                    },
                                   ),
                                 ],
                               ),
@@ -180,8 +198,10 @@ class CartScreen extends StatelessWidget {
                               icon: Icons.delete_outlined,
                               buttonColor: greyColor,
                               onPressed: () {
-                                provider.removeFromCart(context,
-                                    provider.model!.products[index].product.id);
+                                provider.removeFromCart(
+                                  context,
+                                  provider.model!.products[index].product.id,
+                                );
                               },
                             ),
                             CartCustomButton(

@@ -42,6 +42,7 @@ class MyApp extends StatelessWidget {
           // fontFamily: 'Manrope',
           primaryColor: themeColor,
           appBarTheme: const AppBarTheme(
+            centerTitle: true,
             elevation: 0,
             foregroundColor: Colors.black,
             color: whiteColor,
