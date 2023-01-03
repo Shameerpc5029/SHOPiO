@@ -4,6 +4,7 @@ import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/common/style/sized_box.dart';
 import 'package:ecommerce/view/home/widgets/carosal_widget.dart';
 import 'package:ecommerce/view/home/widgets/category_widget.dart';
+import 'package:ecommerce/view/widgets/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -93,69 +94,15 @@ class HomeScreen extends StatelessWidget {
                       shrinkWrap: true,
                       itemCount: value.productList.length,
                       itemBuilder: (context, index) {
-                        return Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          child: InkWell(
-                            onTap: () {
-                              value.goToProdutScreen(context, index);
-                            },
-                            child: GridTile(
-                              header: Padding(
-                                padding: const EdgeInsets.all(5),
-                                child: Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Text(
-                                    "${value.productList[index].offer}%Off",
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 12,
-                                      color: offerColor,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Image(
-                                    height: 120,
-                                    image: NetworkImage(
-                                      '${ApiUrl.apiUrl}/products/${value.productList[index].image[0]}',
-                                    ),
-                                  ),
-                                  CSizedBox().height10,
-                                  Text(
-                                    value.productList[index].name,
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  CSizedBox().height10,
-                                  Text(
-                                    "₹${value.productList[index].price}",
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                      color: greyColor,
-                                      decoration: TextDecoration.lineThrough,
-                                    ),
-                                  ),
-                                  Text(
-                                    "₹${value.productList[index].price - value.productList[index].discountPrice}",
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20,
-                                      color: priceColor,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                        return ProductCard(
+                          onTap: () => value.goToProdutScreen(context, index),
+                          offer: "${value.productList[index].offer}%Off",
+                          image:
+                              '${ApiUrl.apiUrl}/products/${value.productList[index].image[0]}',
+                          name: value.productList[index].name,
+                          price: "₹${value.productList[index].price}",
+                          discountPrice:
+                              "₹${value.productList[index].price - value.productList[index].discountPrice}",
                         );
                       },
                     );
@@ -169,3 +116,4 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+

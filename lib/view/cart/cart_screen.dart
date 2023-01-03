@@ -5,6 +5,8 @@ import 'package:ecommerce/controller/cart/cart_provider.dart';
 import 'package:ecommerce/view/cart/widgets/cart_custom_button.dart';
 import 'package:ecommerce/view/cart/widgets/count_button.dart';
 import 'package:ecommerce/view/widgets/loading_widget.dart';
+import 'package:ecommerce/view/widgets/show_alert.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
@@ -155,8 +157,8 @@ class CartScreen extends StatelessWidget {
                                       Text(
                                         '₹${provider.model!.products[index].price - provider.model!.products[index].discountPrice}',
                                         style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                            fontWeight: FontWeight.bold,
+                                            overflow: TextOverflow.clip),
                                       ),
                                     ],
                                   ),
@@ -193,14 +195,31 @@ class CartScreen extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            CartCustomButton(
-                              text: "Remove",
-                              icon: Icons.delete_outlined,
-                              buttonColor: greyColor,
-                              onPressed: () {
-                                provider.removeFromCart(
-                                  context,
-                                  provider.model!.products[index].product.id,
+                            Consumer<CartProvider>(
+                              builder: (context, value, child) {
+                                return CartCustomButton(
+                                  text: "Remove",
+                                  icon: Icons.delete_outlined,
+                                  buttonColor: greyColor,
+                                  onPressed: () {
+                                    showCupertinoDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return ShowAlertWidget(
+                                          yesPress: () {
+                                            provider.removeFromCart(
+                                              context,
+                                              value.model!.products[index]
+                                                  .product.id,
+                                            );
+                                          },
+                                          title: 'Remove Item',
+                                          contant:
+                                              'Are you sure you want to remove this item?',
+                                        );
+                                      },
+                                    );
+                                  },
                                 );
                               },
                             ),

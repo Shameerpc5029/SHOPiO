@@ -63,12 +63,18 @@ class CartProvider extends ChangeNotifier {
     });
   }
 
+  void pop(context) {
+    Navigator.pop(context);
+    notifyListeners();
+  }
+
   void removeFromCart(context, String productId) {
     CartService().removeFromCart(context, productId).then((value) {
       if (value != null) {
         getCart(context);
         PopUpSnackBar.popUp(
             context, 'Product removed from cart Successfully', alertColor);
+        pop(context);
         notifyListeners();
       } else {
         return;

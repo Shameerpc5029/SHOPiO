@@ -40,6 +40,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           // fontFamily: 'Manrope',
+          primarySwatch: Colors.blueGrey,
           primaryColor: themeColor,
           appBarTheme: const AppBarTheme(
             centerTitle: true,
