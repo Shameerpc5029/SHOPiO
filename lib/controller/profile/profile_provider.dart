@@ -1,8 +1,10 @@
 import 'dart:developer';
 
+import 'package:ecommerce/controller/bottom_nav/bottom_nav_provider.dart';
 import 'package:ecommerce/view/sign_in/sign_in.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:provider/provider.dart';
 
 class ProfileProvider extends ChangeNotifier {
   FlutterSecureStorage storage = const FlutterSecureStorage();
@@ -15,6 +17,7 @@ class ProfileProvider extends ChangeNotifier {
       ),
       (route) => false,
     );
+    Provider.of<BottomNavProvider>(context, listen: false).currentIndex = 0;
     log(storage.toString());
   }
 }

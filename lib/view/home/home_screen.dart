@@ -41,7 +41,18 @@ class HomeScreen extends StatelessWidget {
         children: [
           CSizedBox().height10,
           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15),
+                child: Text(
+                  "Top brands",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              CSizedBox().height10,
               const CategoryWidget(),
               CSizedBox().height10,
               Stack(
@@ -68,18 +79,16 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
               CSizedBox().height10,
-              Row(
-                children: const [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                    child: Text(
-                      "All Products",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+              const Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 15,
+                ),
+                child: Text(
+                  "All Products",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
                   ),
-                ],
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),

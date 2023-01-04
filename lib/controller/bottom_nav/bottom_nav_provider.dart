@@ -1,4 +1,5 @@
 import 'package:ecommerce/view/cart/cart_screen.dart';
+import 'package:ecommerce/view/category/category_screen.dart';
 
 import 'package:ecommerce/view/home/home_screen.dart';
 
@@ -11,8 +12,9 @@ class BottomNavProvider extends ChangeNotifier {
   int currentIndex = 0;
   List<Widget> pages = [
     const HomeScreen(),
-    const WishListScreen(),
+    const CategoryScreen(),
     const CartScreen(),
+    const WishListScreen(),
     const ProfileScreen(),
     // const SettingsScreen(),
   ];

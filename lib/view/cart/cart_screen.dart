@@ -20,7 +20,7 @@ class CartScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Cart'),
       ),
-      bottomNavigationBar: provider.totalSave == 0
+      bottomNavigationBar: provider.totalSave == 0 || provider.totalSave == null
           ? const SizedBox()
           : Container(
               height: 70,

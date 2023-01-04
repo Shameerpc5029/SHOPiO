@@ -1,7 +1,7 @@
 import 'package:ecommerce/controller/sign_up/sign_up_provoder.dart';
 import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/common/style/sized_box.dart';
-import 'package:ecommerce/view/widgets/custum_textformfiled.dart';
+import 'package:ecommerce/view/widgets/custom_textformfiled.dart';
 import 'package:ecommerce/view/widgets/loading_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';

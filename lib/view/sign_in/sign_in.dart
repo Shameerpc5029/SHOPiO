@@ -2,7 +2,7 @@ import 'package:ecommerce/controller/sign_in/sign_in_provider.dart';
 import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/common/style/sized_box.dart';
 import 'package:ecommerce/view/sign_in/forgot_password/forgot_email_screen.dart';
-import 'package:ecommerce/view/widgets/custum_textformfiled.dart';
+import 'package:ecommerce/view/widgets/custom_textformfiled.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';

@@ -10,4 +10,6 @@ class ApiEndPoints {
   static const product = '/api/v1/products';
   static const wishlist = '/api/v1/wishlist';
   static const cart = '/api/v1/cart';
+  static const address = '/api/v1/address';
+
 }

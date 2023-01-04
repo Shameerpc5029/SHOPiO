@@ -8,6 +8,7 @@ import 'package:ecommerce/controller/sign_in/sign_in_provider.dart';
 import 'package:ecommerce/controller/sign_up/sign_up_provoder.dart';
 import 'package:ecommerce/controller/splash/splash_provider.dart';
 import 'package:ecommerce/controller/wish_list/wishlist_provider.dart';
+import 'package:ecommerce/view/category/category_view/category_view.dart';
 import 'package:ecommerce/view/home/product_view/product_view.dart';
 import 'package:ecommerce/view/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -40,19 +41,18 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           // fontFamily: 'Manrope',
-          primarySwatch: Colors.blueGrey,
+          // primarySwatch: Colors.blueGrey,
           primaryColor: themeColor,
           appBarTheme: const AppBarTheme(
-            centerTitle: true,                                
+            centerTitle: true,
             elevation: 0,
             foregroundColor: Colors.black,
             color: whiteColor,
           ),
         ),
         routes: {
-          ProductView.routeName: (context) {
-            return const ProductView();
-          }
+          ProductView.routeName: (context) => const ProductView(),
+          CategoryView.routeName: (context) => const CategoryView()
         },
         home: const SplashScreen(),
       ),

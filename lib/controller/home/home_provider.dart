@@ -93,12 +93,11 @@ class HomeProvider extends ChangeNotifier {
     );
   }
 
-  // void goToCategoryScreen(context, index) {
-  //   Navigator.of(context).pushNamed(
-  //     ProductView.routeName,
-  //     arguments: productList[index].id,
-  //   );
-  // }
+  List<ProductModel> findByCategoryId(String categoryId) {
+    return productList.where((element) {
+      return element.category.contains(categoryId);
+    }).toList();
+  }
 
   void goToPop(context) {
     Navigator.of(context).pop();
