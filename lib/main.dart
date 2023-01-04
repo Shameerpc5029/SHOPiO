@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blueGrey,
           primaryColor: themeColor,
           appBarTheme: const AppBarTheme(
-            centerTitle: true,
+            centerTitle: true,                                
             elevation: 0,
             foregroundColor: Colors.black,
             color: whiteColor,

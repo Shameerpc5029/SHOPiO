@@ -2,7 +2,8 @@ import 'package:ecommerce/common/constants/api_url.dart';
 import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/controller/wish_list/wishlist_provider.dart';
 import 'package:ecommerce/view/widgets/circle_button.dart';
-import 'package:ecommerce/view/widgets/loading_widget.dart';
+import 'package:ecommerce/view/wishlist/widgets/shimmer/wish_list_shimmer.dart';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -39,7 +40,7 @@ class WishListScreen extends StatelessWidget {
                   itemCount: provider.model?.products.length ?? 0,
                   itemBuilder: (context, index) {
                     return provider.isLoading == true
-                        ? const LoadingWidget()
+                        ? const WishListShimmer()
                         : ListTile(
                             onTap: () {
                               provider.wishListToProduct(context, index);
@@ -74,8 +75,8 @@ class WishListScreen extends StatelessWidget {
                                     provider.model!.products[index].product.id);
                               },
                               icon: const Icon(
-                                FontAwesomeIcons.solidHeart,
-                                color: redColor,
+                                FontAwesomeIcons.xmark,
+                                color: greyColor,
                               ),
                             ),
                           );

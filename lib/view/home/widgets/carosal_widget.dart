@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecommerce/common/constants/api_url.dart';
 
 import 'package:ecommerce/controller/home/home_provider.dart';
+import 'package:ecommerce/view/home/widgets/shimmer/carosal_shimmer.dart';
 import 'package:ecommerce/view/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +17,7 @@ class CarousellWidget extends StatelessWidget {
     return Consumer<HomeProvider>(
       builder: (context, value, child) {
         return value.carousalList.isEmpty
-            ? const LoadingWidget()
+            ? const CarouselShimmer()
             : CarouselSlider.builder(
                 itemCount: value.carousalList.length,
                 itemBuilder: (context, index, realIndex) {

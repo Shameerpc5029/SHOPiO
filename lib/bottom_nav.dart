@@ -14,9 +14,8 @@ class BottomNav extends StatelessWidget {
       builder: (context, provider, child) {
         return Scaffold(
           bottomNavigationBar: AnimatedBottomNavigationBar(
+
             gapLocation: GapLocation.none,
-            // leftCornerRadius: 30,
-            // rightCornerRadius: 30,
             elevation: 10,
             activeColor: themeColor,
             iconSize: 25,
