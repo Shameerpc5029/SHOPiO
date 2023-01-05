@@ -3,6 +3,7 @@ import 'package:ecommerce/model/home_model/product_model.dart';
 import 'package:ecommerce/services/home_service/carousal_service.dart';
 import 'package:ecommerce/services/home_service/category_service.dart';
 import 'package:ecommerce/services/home_service/product_service.dart';
+import 'package:ecommerce/view/category/category_view/category_view.dart';
 import 'package:ecommerce/view/home/product_view/product_view.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -83,7 +84,9 @@ class HomeProvider extends ChangeNotifier {
   }
 
   ProductModel findById(String id) {
-    return productList.firstWhere((element) => element.id == id);
+    return productList.firstWhere((element) {
+      return element.id == id;
+    });
   }
 
   void goToProdutScreen(context, index) {
@@ -95,13 +98,26 @@ class HomeProvider extends ChangeNotifier {
 
   List<ProductModel> findByCategoryId(String categoryId) {
     return productList.where((element) {
-      return element.category.contains(categoryId);
+      return element.category.contains(
+        categoryId,
+      );
     }).toList();
   }
+
+  // void toCategotyProductScreen(){
+  //   final ar
+  // }
 
   void goToPop(context) {
     Navigator.of(context).pop();
     activeIndex = 0;
     notifyListeners();
+  }
+
+  void goToCategoryProductView(context, index) {
+    Navigator.of(context).pushNamed(
+      CategoryView.routeName,
+      arguments: categoryList[index].id,
+    );
   }
 }

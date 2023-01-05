@@ -2,7 +2,6 @@ import 'package:ecommerce/common/constants/api_url.dart';
 import 'package:ecommerce/controller/home/home_provider.dart';
 import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/common/style/sized_box.dart';
-import 'package:ecommerce/view/category/category_view/category_view.dart';
 import 'package:ecommerce/view/home/widgets/shimmer/category_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -27,10 +26,7 @@ class CategoryWidget extends StatelessWidget {
                       width: 100,
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.of(context).pushNamed(
-                            CategoryView.routeName,
-                            arguments: value.categoryList[index].id,
-                          );
+                          value.goToCategoryProductView(context, index);
                         },
                         child: Column(
                           children: [
