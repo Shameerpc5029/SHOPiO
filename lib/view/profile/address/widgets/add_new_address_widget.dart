@@ -1,22 +1,23 @@
+import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/common/style/sized_box.dart';
+import 'package:ecommerce/controller/address/address_provider.dart';
 import 'package:ecommerce/view/widgets/custom_textformfiled.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AddNewAddressWidget extends StatelessWidget {
   const AddNewAddressWidget({
     Key? key,
   }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    // bool iconColor = false;
+    final GlobalKey<FormState> formGlobalKey = GlobalKey<FormState>();
+
     return SizedBox(
       height: MediaQuery.of(context).size.height * .07,
-      child: ElevatedButton.icon(
-        style: ElevatedButton.styleFrom(
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.zero,
-          ),
-        ),
+      child: FloatingActionButton(
+        tooltip: 'Add new address',
         onPressed: () {
           showModalBottomSheet(
             isScrollControlled: true,
@@ -30,101 +31,191 @@ class AddNewAddressWidget extends StatelessWidget {
             builder: (context) {
               return Padding(
                 padding: EdgeInsets.only(
-                    left: 10,
-                    right: 10,
-                    bottom: MediaQuery.of(context).viewInsets.bottom),
+                  left: 10,
+                  right: 10,
+                  bottom: MediaQuery.of(context).viewInsets.bottom,
+                ),
                 child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Row(
-                        children: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text(
-                              "Cancel",
+                  child: Consumer<AddressProvider>(
+                    builder: (context, provider, child) {
+                      return Form(
+                        key: formGlobalKey,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Row(
+                              children: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                    provider.clearController();
+                                  },
+                                  child: const Text(
+                                    "Cancel",
+                                  ),
+                                )
+                              ],
                             ),
-                          )
-                        ],
-                      ),
-                      TextFormFieldCustom(
-                        labelText: 'Full Name',
-                        controller: TextEditingController(),
-                        keyboardType: TextInputType.name,
-                        prefixIcon: Icons.person_outline,
-                      ),
-                      TextFormFieldCustom(
-                        labelText: 'Phone number',
-                        controller: TextEditingController(),
-                        keyboardType: TextInputType.number,
-                        prefixIcon: Icons.phone_android_outlined,
-                      ),
-                      Row(
-                        children: [
-                          Flexible(
-                            child: TextFormFieldCustom(
-                              labelText: 'Pincode',
-                              controller: TextEditingController(),
-                              keyboardType: TextInputType.number,
-                              prefixIcon: Icons.pin_drop_outlined,
-                            ),
-                          ),
-                          Flexible(
-                            child: TextFormFieldCustom(
-                              labelText: 'state',
-                              controller: TextEditingController(),
+                            TextFormFieldCustom(
+                              validator: (value) {
+                                return provider.nameValidation(value);
+                              },
+                              labelText: 'Full Name',
+                              controller: provider.fullName,
                               keyboardType: TextInputType.name,
-                              prefixIcon: Icons.map_outlined,
+                              prefixIcon: Icons.person_outline,
                             ),
-                          ),
-                        ],
-                      ),
-                      TextFormFieldCustom(
-                        labelText: 'Place',
-                        controller: TextEditingController(),
-                        keyboardType: TextInputType.name,
-                        prefixIcon: Icons.location_city_outlined,
-                      ),
-                      TextFormFieldCustom(
-                        labelText: 'Address',
-                        controller: TextEditingController(),
-                        keyboardType: TextInputType.name,
-                        prefixIcon: Icons.add_location_alt_outlined,
-                      ),
-                      TextFormFieldCustom(
-                        labelText: 'Land Mark',
-                        controller: TextEditingController(),
-                        keyboardType: TextInputType.name,
-                        prefixIcon: Icons.emoji_flags_outlined,
-                      ),
-                      CSizedBox().height10,
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * .90,
-                        child: OutlinedButton(
-                          onPressed: () {},
-                          child: const Text(
-                            'Save Address',
-                          ),
+                            TextFormFieldCustom(
+                              validator: (value) {
+                                return provider.phoneNumberValidation(value);
+                              },
+                              labelText: 'Phone number',
+                              controller: provider.phone,
+                              keyboardType: TextInputType.number,
+                              prefixIcon: Icons.phone_android_outlined,
+                            ),
+                            Row(
+                              children: [
+                                Flexible(
+                                  child: TextFormFieldCustom(
+                                    validator: (value) {
+                                      return provider.pincodeValidation(value);
+                                    },
+                                    labelText: 'Pincode',
+                                    controller: provider.pincode,
+                                    keyboardType: TextInputType.number,
+                                    prefixIcon: Icons.pin_drop_outlined,
+                                  ),
+                                ),
+                                Flexible(
+                                  child: TextFormFieldCustom(
+                                    validator: (value) {
+                                      return provider.stateValidation(value);
+                                    },
+                                    labelText: 'state',
+                                    controller: provider.state,
+                                    keyboardType: TextInputType.name,
+                                    prefixIcon: Icons.map_outlined,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            TextFormFieldCustom(
+                              validator: (value) {
+                                return provider.placeValidation(value);
+                              },
+                              labelText: 'Place',
+                              controller: provider.place,
+                              keyboardType: TextInputType.name,
+                              prefixIcon: Icons.location_city_outlined,
+                            ),
+                            TextFormFieldCustom(
+                              validator: (value) {
+                                return provider.addressValidation(value);
+                              },
+                              labelText: 'Address',
+                              controller: provider.address,
+                              keyboardType: TextInputType.name,
+                              prefixIcon: Icons.add_location_alt_outlined,
+                            ),
+                            TextFormFieldCustom(
+                              validator: (value) {
+                                return provider.landMarkValidation(value);
+                              },
+                              labelText: 'Land Mark',
+                              controller: provider.landMark,
+                              keyboardType: TextInputType.name,
+                              prefixIcon: Icons.emoji_flags_outlined,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 10),
+                              child: Consumer<AddressProvider>(
+                                builder: (context, value, child) {
+                                  return Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      OutlinedButton.icon(
+                                        style: OutlinedButton.styleFrom(
+                                          backgroundColor:
+                                              value.isSelected == true
+                                                  ? themeColor
+                                                  : Colors.transparent,
+                                          foregroundColor:
+                                              value.isSelected == true
+                                                  ? whiteColor
+                                                  : Colors.grey,
+                                        ),
+                                        onPressed: () {
+                                          value.typeButtonSelect();
+                                        },
+                                        icon: const Icon(
+                                          Icons.home,
+                                        ),
+                                        label: const Text(
+                                          'Home',
+                                        ),
+                                      ),
+                                      CSizedBox().width10,
+                                      OutlinedButton.icon(
+                                        style: OutlinedButton.styleFrom(
+                                          backgroundColor:
+                                              value.isSelected == false
+                                                  ? themeColor
+                                                  : Colors.transparent,
+                                          foregroundColor:
+                                              value.isSelected == false
+                                                  ? whiteColor
+                                                  : Colors.grey,
+                                        ),
+                                        onPressed: () {
+                                          value.typeButtonSelect();
+                                        },
+                                        icon: const Icon(
+                                          Icons.apartment_outlined,
+                                        ),
+                                        label: const Text(
+                                          'Office',
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              ),
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * .90,
+                              child: OutlinedButton(
+                                onPressed: () {
+                                  if (formGlobalKey.currentState!.validate()) {
+                                    formGlobalKey.currentState!.save();
+                                    provider.saveAddress(context);
+                                  }
+                                },
+                                child: const Text(
+                                  'Save Address',
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            )
+                          ],
                         ),
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      )
-                    ],
+                      );
+                    },
                   ),
                 ),
               );
             },
           );
         },
-        icon: const Icon(
+        child: const Icon(
           Icons.add,
         ),
-        label: const Text(
-          'Add a new address',
-        ),
+        // label: const Text(
+        //   'Add a new address',
+        // ),
       ),
     );
   }

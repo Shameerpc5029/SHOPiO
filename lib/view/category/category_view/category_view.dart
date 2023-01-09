@@ -15,8 +15,12 @@ class CategoryView extends StatelessWidget {
     final productId = ModalRoute.of(context)?.settings.arguments as String;
     final providerByCategory = Provider.of<HomeProvider>(context, listen: false)
         .findByCategoryId(productId);
+    final categoryName = Provider.of<HomeProvider>(context, listen: false)
+        .categoryName(productId);
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text(categoryName.name),
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -38,8 +42,7 @@ class CategoryView extends StatelessWidget {
                           itemCount: providerByCategory.length,
                           itemBuilder: (context, index) {
                             return ProductCard(
-                              onTap: () =>
-                                  value.goToProdutScreen(context, index),
+                              onTap: () {},
                               offer: "${providerByCategory[index].offer}%Off",
                               image:
                                   '${ApiUrl.apiUrl}/products/${providerByCategory[index].image[0]}',

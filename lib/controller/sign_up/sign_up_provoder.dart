@@ -52,7 +52,7 @@ class SignUpProvider extends ChangeNotifier {
       return null;
     }
   }
-  // RegExp regex = new RegExp(pattern);
+
 
   String? phoneNumberValidation(String? value) {
     if (value!.isEmpty) {

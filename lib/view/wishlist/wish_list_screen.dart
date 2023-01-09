@@ -3,7 +3,6 @@ import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/controller/wish_list/wishlist_provider.dart';
 import 'package:ecommerce/view/widgets/circle_button.dart';
 import 'package:ecommerce/view/wishlist/widgets/shimmer/wish_list_shimmer.dart';
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -62,9 +61,9 @@ class WishListScreen extends StatelessWidget {
                           ),
                           subtitle: Text(
                             "₹${provider.model!.products[index].product.price - provider.model!.products[index].product.discountPrice}",
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: redColor,
+                              color: priceColor,
                             ),
                           ),
                           trailing: CircleButtonWidget(

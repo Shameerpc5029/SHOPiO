@@ -14,7 +14,7 @@ import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class ProductView extends StatelessWidget {
-  static const routeName = "/product_view";
+  static const routeName = "product_view";
   const ProductView({super.key});
   final int offerPrice = 0;
 
@@ -28,16 +28,25 @@ class ProductView extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Consumer<CartProvider>(
-              builder: (context, value, child) {
-                return BottomNavButton(
-                  text: 'Add to cart',
-                  backgroundColor: Colors.white,
-                  foregroundColor: Colors.black,
-                  onPressed: () {
-                    value.addToCart(productId, context);
-                  },
-                );
+            Consumer2<CartProvider, HomeProvider>(
+              builder: (context, value, value2, child) {
+                return value.cartList.contains(productId)
+                    ? BottomNavButton(
+                        text: 'Go to Cart',
+                        backgroundColor: Colors.white,
+                        foregroundColor: Colors.black,
+                        onPressed: () {
+                          value2.goToCategory(context);
+                        },
+                      )
+                    : BottomNavButton(
+                        text: 'Add to cart',
+                        backgroundColor: Colors.white,
+                        foregroundColor: Colors.black,
+                        onPressed: () {
+                          value.addToCart(productId, context);
+                        },
+                      );
               },
             ),
             BottomNavButton(
@@ -238,8 +247,8 @@ class ProductView extends StatelessWidget {
                           ),
                           CSizedBox().width10,
                           Text(
-                            "₹${provider.price - provider.discountPrice}",
-                            style: const TextStyle(
+                            "₹${(provider.price - provider.discountPrice).round()}",
+                            style:  TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
                               color: priceColor,

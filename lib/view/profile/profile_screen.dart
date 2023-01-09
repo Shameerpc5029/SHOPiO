@@ -85,20 +85,29 @@ class ProfileScreen extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * .95,
+            Card(
+              margin: const EdgeInsets.symmetric(vertical: 5),
               child: Consumer<ProfileProvider>(
                 builder: (context, value, child) {
-                  return OutlinedButton(
-                    onPressed: () {
+                  return ProfileTextWidget(
+                    title: 'LogOut',
+                    iconData: FontAwesomeIcons.arrowRightToBracket,
+                    onTap: () {
                       value.logOut(context);
                     },
-                    child: const Text(
-                      "Log Out",
-                    ),
                   );
                 },
               ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 100,
+            ),
+            const Text(
+              "Version 1.0.0",
+              style: TextStyle(
+                color: greyColor,
+              ),
+              textAlign: TextAlign.center,
             ),
           ],
         ),

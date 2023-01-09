@@ -1,3 +1,5 @@
+import 'package:ecommerce/bottom_nav.dart';
+import 'package:ecommerce/controller/bottom_nav/bottom_nav_provider.dart';
 import 'package:ecommerce/model/home_model/category_model.dart';
 import 'package:ecommerce/model/home_model/product_model.dart';
 import 'package:ecommerce/services/home_service/carousal_service.dart';
@@ -6,6 +8,7 @@ import 'package:ecommerce/services/home_service/product_service.dart';
 import 'package:ecommerce/view/category/category_view/category_view.dart';
 import 'package:ecommerce/view/home/product_view/product_view.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 
 class HomeProvider extends ChangeNotifier {
   HomeProvider(context) {
@@ -13,6 +16,7 @@ class HomeProvider extends ChangeNotifier {
   }
 
   void allProviders(context) {
+    notifyListeners();
     getCarousals(context);
     getCategory(context);
     getProducts(context);
@@ -104,10 +108,6 @@ class HomeProvider extends ChangeNotifier {
     }).toList();
   }
 
-  // void toCategotyProductScreen(){
-  //   final ar
-  // }
-
   void goToPop(context) {
     Navigator.of(context).pop();
     activeIndex = 0;
@@ -119,5 +119,19 @@ class HomeProvider extends ChangeNotifier {
       CategoryView.routeName,
       arguments: categoryList[index].id,
     );
+  }
+
+  CategoryModel categoryName(String id) {
+    return categoryList.firstWhere((element) => element.id == id);
+  }
+
+  void goToCategory(context) {
+    Navigator.of(context).pushAndRemoveUntil(
+      CupertinoPageRoute(
+        builder: (context) => const BottomNav(),
+      ),
+      (route) => false,
+    );
+    Provider.of<BottomNavProvider>(context, listen: false).currentIndex = 2;
   }
 }

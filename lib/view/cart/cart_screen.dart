@@ -47,10 +47,10 @@ class CartScreen extends StatelessWidget {
                 ),
                 subtitle: Text(
                   "₹${provider.totalSave}",
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
-                    color: Colors.red,
+                    color: priceColor,
                   ),
                 ),
                 trailing: SizedBox(
@@ -140,7 +140,7 @@ class CartScreen extends StatelessWidget {
                                         "${provider.model!.products[index].product.offer}%off",
                                         style: const TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.green,
+                                          color: offerColor,
                                         ),
                                       ),
                                       CSizedBox().width10,
@@ -200,7 +200,7 @@ class CartScreen extends StatelessWidget {
                                 return CartCustomButton(
                                   text: "Remove",
                                   icon: Icons.delete_outlined,
-                                  buttonColor: greyColor,
+                                  buttonColor: alertColor,
                                   onPressed: () {
                                     showCupertinoDialog(
                                       context: context,
@@ -226,7 +226,7 @@ class CartScreen extends StatelessWidget {
                             CartCustomButton(
                               text: "BUY NOW",
                               icon: Icons.currency_rupee_outlined,
-                              buttonColor: Colors.red,
+                              buttonColor: themeColor,
                               onPressed: () {},
                             ),
                           ],

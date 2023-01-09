@@ -22,28 +22,36 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return
-    
-    
-    
-     Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
       child: InkWell(
         onTap: onTap,
         child: GridTile(
-          header: Padding(
-            padding: const EdgeInsets.all(5),
-            child: Align(
-              alignment: Alignment.topLeft,
-              child: Text(
-                offer,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12,
+          header: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                decoration: const BoxDecoration(
                   color: offerColor,
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(10),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(5),
+                  child: Text(
+                    offer,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -76,7 +84,7 @@ class ProductCard extends StatelessWidget {
               ),
               Text(
                 discountPrice,
-                style: const TextStyle(
+                style:  TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
                   color: priceColor,

@@ -4,7 +4,7 @@ class AddressModel {
   final String phone;
   final String pin;
   final String state;
-  final String palce;
+  final String place;
   final String address;
   final String landMark;
 
@@ -14,7 +14,7 @@ class AddressModel {
     required this.phone,
     required this.pin,
     required this.state,
-    required this.palce,
+    required this.place,
     required this.address,
     required this.landMark,
   });
@@ -25,7 +25,7 @@ class AddressModel {
       'phone': phone,
       'pin': pin,
       'state': state,
-      'place': palce,
+      'place': place,
       'address': address,
       'landMark': landMark,
     };

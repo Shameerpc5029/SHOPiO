@@ -55,7 +55,11 @@ class CartProvider extends ChangeNotifier {
       }
       if (value == "product added to cart successfully") {
         PopUpSnackBar.popUp(
-            context, 'product added to cart successfully', Colors.green);
+          context,
+          'product added to cart successfully',
+          Colors.green,
+        );
+
         notifyListeners();
       } else {
         null;
@@ -125,4 +129,9 @@ class CartProvider extends ChangeNotifier {
       null;
     }
   }
+
+  // void goToCart(context) {
+  //   Navigator.of(context).pu
+
+  // }
 }

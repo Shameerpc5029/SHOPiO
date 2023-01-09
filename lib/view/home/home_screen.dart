@@ -115,7 +115,7 @@ class HomeScreen extends StatelessWidget {
                                 name: value.productList[index].name,
                                 price: "₹${value.productList[index].price}",
                                 discountPrice:
-                                    "₹${value.productList[index].price - value.productList[index].discountPrice}",
+                                    "₹${(value.productList[index].price - value.productList[index].discountPrice).round()}",
                               );
                             },
                           );

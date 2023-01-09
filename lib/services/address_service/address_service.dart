@@ -19,9 +19,15 @@ class AddressService {
           model.toJson(),
         ),
       );
-      if (response.statusCode == 200 || response.data == 201) {
-        final addressRes = response.data['message'];
-        return addressRes;
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        if (response.data == null) {
+          return null;
+        } else {
+          final addressRes = response.data['message'];
+          log(response.toString());
+          return addressRes;
+        }
       }
     } on DioError catch (e) {
       log(e.message);
@@ -36,10 +42,35 @@ class AddressService {
       final Response response =
           await dio.get(ApiUrl.apiUrl + ApiEndPoints.address);
       if (response.statusCode == 200 || response.statusCode == 201) {
-        final List<GetAddressModel> model = (response.data as List)
-            .map((e) => GetAddressModel.fromJson(e))
-            .toList();
-        return model;
+        if (response.data == null) {
+          return null;
+        } else {
+          final List<GetAddressModel> model = (response.data as List)
+              .map((e) => GetAddressModel.fromJson(e))
+              .toList();
+          log(response.toString());
+          return model;
+        }
+      }
+    } on DioError catch (e) {
+      log(e.message);
+      DioException().dioError(e, context);
+    }
+    return null;
+  }
+
+  Future<String?> delectAddress(context, String addressId) async {
+    Dio dio = await IntercepterApi().getApiUser(context);
+    try {
+      final Response response = await dio
+          .delete("${ApiUrl.apiUrl + ApiEndPoints.address}/$addressId");
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        if (response.data == null) {
+          return null;
+        } else {
+          final String model = response.data['message'];
+          return model;
+        }
       }
     } on DioError catch (e) {
       log(e.message);
