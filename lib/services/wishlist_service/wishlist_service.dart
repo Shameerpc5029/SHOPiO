@@ -13,9 +13,14 @@ class WishListService {
     try {
       final Response response =
           await dio.get(ApiUrl.apiUrl + ApiEndPoints.wishlist);
+
       if (response.statusCode == 200 || response.statusCode == 201) {
-        final WishListModel wishlists = WishListModel.fromJson(response.data);
-        return wishlists;
+        if (response.data == null) {
+          return null;
+        } else {
+          final WishListModel wishlists = WishListModel.fromJson(response.data);
+          return wishlists;
+        }
       }
     } on DioError catch (e) {
       log(e.message);
