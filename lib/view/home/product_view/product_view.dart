@@ -6,7 +6,9 @@ import 'package:ecommerce/controller/cart/cart_provider.dart';
 import 'package:ecommerce/controller/home/home_provider.dart';
 import 'package:ecommerce/controller/wish_list/wishlist_provider.dart';
 import 'package:ecommerce/view/home/product_view/widgets/bottom_nav_button.dart';
+import 'package:ecommerce/view/order/order_summary_screen.dart';
 import 'package:ecommerce/view/widgets/circle_button.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -53,7 +55,13 @@ class ProductView extends StatelessWidget {
               text: 'BUY NOW',
               backgroundColor: themeColor,
               foregroundColor: Colors.white,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(CupertinoPageRoute(
+                  builder: (context) {
+                    return const OrderSummaryScreen();
+                  },
+                ));
+              },
             ),
           ],
         ),
@@ -73,7 +81,7 @@ class ProductView extends StatelessWidget {
           },
         ),
         title: Text(
-          provider.name,
+          provider.name.toString(),
           style: const TextStyle(
             fontWeight: FontWeight.bold,
           ),

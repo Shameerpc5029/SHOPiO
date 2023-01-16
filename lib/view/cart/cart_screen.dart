@@ -2,7 +2,7 @@ import 'package:ecommerce/common/constants/api_url.dart';
 import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/common/style/sized_box.dart';
 import 'package:ecommerce/controller/cart/cart_provider.dart';
-import 'package:ecommerce/view/cart/widgets/cart_custom_button.dart';
+import 'package:ecommerce/view/widgets/custom_outline_button.dart';
 import 'package:ecommerce/view/cart/widgets/count_button.dart';
 import 'package:ecommerce/view/widgets/loading_widget.dart';
 import 'package:ecommerce/view/widgets/show_alert.dart';
@@ -116,7 +116,8 @@ class CartScreen extends StatelessWidget {
                                         .model!.products[index].product.name,
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 20,
+                                      fontSize: 18,
+                                      overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
                                   RatingBar.builder(
@@ -197,7 +198,7 @@ class CartScreen extends StatelessWidget {
                           children: [
                             Consumer<CartProvider>(
                               builder: (context, value, child) {
-                                return CartCustomButton(
+                                return CustomOutlineButton(
                                   text: "Remove",
                                   icon: Icons.delete_outlined,
                                   buttonColor: alertColor,
@@ -220,14 +221,17 @@ class CartScreen extends StatelessWidget {
                                       },
                                     );
                                   },
+                                  width:
+                                      MediaQuery.of(context).size.width * .48,
                                 );
                               },
                             ),
-                            CartCustomButton(
+                            CustomOutlineButton(
                               text: "BUY NOW",
                               icon: Icons.currency_rupee_outlined,
                               buttonColor: themeColor,
                               onPressed: () {},
+                              width: MediaQuery.of(context).size.width * .48,
                             ),
                           ],
                         )

@@ -1,11 +1,12 @@
 import 'dart:developer';
 
-import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/model/address_model/address_model.dart';
+import 'package:ecommerce/model/address_model/address_screen_enum.dart';
 import 'package:ecommerce/model/address_model/get_adress_model.dart';
 import 'package:ecommerce/services/address_service/address_service.dart';
 import 'package:ecommerce/utils/exceptions/dio_exceptions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class AddressProvider extends ChangeNotifier {
   AddressProvider(context) {
@@ -25,6 +26,21 @@ class AddressProvider extends ChangeNotifier {
   String addressType = 'HOME';
   bool isSelected = true;
   List<GetAddressModel> addressList = [];
+  bool isButtonVisbile = true;
+
+  void isVisible(notification) {
+    if (notification.direction == ScrollDirection.reverse) {
+      if (isButtonVisbile) {
+        isButtonVisbile = false;
+        notifyListeners();
+      }
+    } else if (notification.direction == ScrollDirection.forward) {
+      if (!isButtonVisbile) {
+        isButtonVisbile = true;
+        notifyListeners();
+      }
+    }
+  }
 
   void addAddress(context) async {
     isLoding = true;
@@ -59,7 +75,35 @@ class AddressProvider extends ChangeNotifier {
     return null;
   }
 
-  Future<String?> getAllAddress(context) async {
+  void updateAddress(BuildContext context, String addressId) async {
+    isLoding = true;
+    notifyListeners();
+    final AddressModel model = AddressModel(
+      title: addressType,
+      fullName: fullName.text,
+      phone: phone.text,
+      pin: pincode.text,
+      state: state.text,
+      place: place.text,
+      address: address.text,
+      landMark: landMark.text,
+    );
+    await AddressService()
+        .updateAddress(context, model, addressId)
+        .then((value) {
+      if (value != null) {
+        clearController();
+        Navigator.pop(context);
+        isLoding = false;
+        notifyListeners();
+      } else {
+        isLoding = false;
+        notifyListeners();
+      }
+    });
+  }
+
+  getAllAddress(context) async {
     isLoding2 = true;
     notifyListeners();
     await AddressService().getAddress(context).then((value) {
@@ -68,6 +112,7 @@ class AddressProvider extends ChangeNotifier {
         addressList = value;
         notifyListeners();
         isLoding2 = false;
+
         notifyListeners();
       } else {
         isLoding2 = false;
@@ -78,25 +123,18 @@ class AddressProvider extends ChangeNotifier {
     return null;
   }
 
-  Future<void> deleteAdderess(context, String addressId) async {
-    isLoding = true;
+  void deleteAdderess(context, String addressId) async {
+    isLoding2 = true;
     notifyListeners();
     await AddressService().delectAddress(context, addressId).then((value) {
       if (value != null) {
-        PopUpSnackBar.popUp(
-          context,
-          'Address removed successfully',
-          alertColor,
-        );
-        notifyListeners();
-        getAllAddress(context);
+        isLoding2 = false;
         notifyListeners();
       } else {
-        return null;
+        isLoding2 = false;
+        notifyListeners();
       }
     });
-    isLoding = false;
-    notifyListeners();
   }
 
   void clearController() {
@@ -120,6 +158,37 @@ class AddressProvider extends ChangeNotifier {
     notifyListeners();
     isSelected == true ? addressType = 'HOME' : addressType = 'OFFICE';
     notifyListeners();
+  }
+
+  void setAddressScreen(
+      AddressScreenEnum addressScreenCheck, String? addressId, context) async {
+    if (addressScreenCheck == AddressScreenEnum.addAddressScreen) {
+      fullName.clear();
+      phone.clear();
+      pincode.clear();
+      state.clear();
+      place.clear();
+      address.clear();
+      landMark.clear();
+      notifyListeners();
+    } else {
+      await AddressService()
+          .getSingleAddress(context, addressId!)
+          .then((value) {
+        if (value != null) {
+          fullName.text = value.fullName;
+          phone.text = value.phone;
+          pincode.text = value.pin;
+          state.text = value.state;
+          place.text = value.place;
+          address.text = value.address;
+          landMark.text = value.landMark;
+          notifyListeners();
+          value.title == 'Home' ? isSelected = true : isSelected = false;
+          notifyListeners();
+        }
+      });
+    }
   }
 
   //...................validations

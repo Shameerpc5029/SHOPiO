@@ -59,6 +59,23 @@ class AddressService {
     return null;
   }
 
+  Future<GetAddressModel?> getSingleAddress(context, String addressId) async {
+    Dio dio = await IntercepterApi().getApiUser(context);
+    try {
+      final Response response =
+          await dio.get("${ApiUrl.apiUrl + ApiEndPoints.address}/$addressId");
+
+      if (response.statusCode == 200) {
+        final GetAddressModel model = GetAddressModel.fromJson(response.data);
+        return model;
+      }
+    } on DioError catch (e) {
+      log(e.message);
+      DioException().dioError(e, context);
+    }
+    return null;
+  }
+
   Future<String?> delectAddress(context, String addressId) async {
     Dio dio = await IntercepterApi().getApiUser(context);
     try {
@@ -71,6 +88,26 @@ class AddressService {
           final String model = response.data['message'];
           return model;
         }
+      }
+    } on DioError catch (e) {
+      log(e.message);
+      DioException().dioError(e, context);
+    }
+    return null;
+  }
+
+  Future<String?> updateAddress(
+      context, AddressModel model, String addressId) async {
+    Dio dios = await IntercepterApi().getApiUser(context);
+    try {
+      final Response response = await dios.patch(
+        "${ApiUrl.apiUrl + ApiEndPoints.address}/$addressId",
+        data: model.toJson(),
+      );
+
+      if (response.statusCode == 202) {
+        final String result = response.data['message'];
+        return result;
       }
     } on DioError catch (e) {
       log(e.message);

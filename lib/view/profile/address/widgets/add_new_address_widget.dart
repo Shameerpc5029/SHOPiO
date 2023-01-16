@@ -11,13 +11,11 @@ class AddNewAddressWidget extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    // bool iconColor = false;
     final GlobalKey<FormState> formGlobalKey = GlobalKey<FormState>();
 
     return SizedBox(
       height: MediaQuery.of(context).size.height * .07,
-      child: FloatingActionButton(
-        tooltip: 'Add new address',
+      child: TextButton.icon(
         onPressed: () {
           showModalBottomSheet(
             isScrollControlled: true,
@@ -103,21 +101,21 @@ class AddNewAddressWidget extends StatelessWidget {
                             ),
                             TextFormFieldCustom(
                               validator: (value) {
-                                return provider.placeValidation(value);
-                              },
-                              labelText: 'Place',
-                              controller: provider.place,
-                              keyboardType: TextInputType.name,
-                              prefixIcon: Icons.location_city_outlined,
-                            ),
-                            TextFormFieldCustom(
-                              validator: (value) {
                                 return provider.addressValidation(value);
                               },
                               labelText: 'Address',
                               controller: provider.address,
                               keyboardType: TextInputType.name,
                               prefixIcon: Icons.add_location_alt_outlined,
+                            ),
+                            TextFormFieldCustom(
+                              validator: (value) {
+                                return provider.placeValidation(value);
+                              },
+                              labelText: 'Place',
+                              controller: provider.place,
+                              keyboardType: TextInputType.name,
+                              prefixIcon: Icons.location_city_outlined,
                             ),
                             TextFormFieldCustom(
                               validator: (value) {
@@ -160,6 +158,8 @@ class AddNewAddressWidget extends StatelessWidget {
                                       OutlinedButton.icon(
                                         style: OutlinedButton.styleFrom(
                                           backgroundColor:
+  
+
                                               value.isSelected == false
                                                   ? themeColor
                                                   : Colors.transparent,
@@ -210,12 +210,19 @@ class AddNewAddressWidget extends StatelessWidget {
             },
           );
         },
-        child: const Icon(
+        style: TextButton.styleFrom(
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.zero,
+          ),
+          backgroundColor: themeColor,
+          foregroundColor: Colors.white,
+        ),
+        label: const Text(
+          'Add new address',
+        ),
+        icon: const Icon(
           Icons.add,
         ),
-        // label: const Text(
-        //   'Add a new address',
-        // ),
       ),
     );
   }
