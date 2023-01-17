@@ -53,7 +53,9 @@ class OrderSummaryScreen extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            value.addressList[0].fullName,
+                            value.addressList.isEmpty
+                                ? ""
+                                : value.addressList[0].fullName,
                             style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -68,7 +70,9 @@ class OrderSummaryScreen extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.all(3),
                               child: Text(
-                                value.addressList[0].title,
+                                value.addressList.isEmpty
+                                    ? ""
+                                    : value.addressList[0].title,
                                 style: const TextStyle(
                                   color: Color.fromARGB(83, 0, 0, 0),
                                   fontWeight: FontWeight.bold,
@@ -81,7 +85,9 @@ class OrderSummaryScreen extends StatelessWidget {
                       ),
                       CSizedBox().height10,
                       Text(
-                        '''${value.addressList[0].address},
+                        value.addressList.isEmpty
+                            ? ""
+                            : '''${value.addressList[0].address},
 ${value.addressList[0].state} - ${value.addressList[0].pin}
 Land Mark - ${value.addressList[0].landMark}
 ''',
@@ -90,7 +96,9 @@ Land Mark - ${value.addressList[0].landMark}
                         ),
                       ),
                       Text(
-                        value.addressList[0].phone,
+                        value.addressList.isEmpty
+                            ? ""
+                            : value.addressList[0].phone,
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,

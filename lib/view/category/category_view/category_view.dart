@@ -49,7 +49,7 @@ class CategoryView extends StatelessWidget {
                               name: providerByCategory[index].name,
                               price: "₹${providerByCategory[index].price}",
                               discountPrice:
-                                  "₹${providerByCategory[index].price - providerByCategory[index].discountPrice}",
+                                  "₹${(providerByCategory[index].price - providerByCategory[index].discountPrice).round()}",
                             );
                           },
                         ),

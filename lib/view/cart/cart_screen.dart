@@ -156,7 +156,7 @@ class CartScreen extends StatelessWidget {
                                       ),
                                       CSizedBox().width10,
                                       Text(
-                                        '₹${provider.model!.products[index].price - provider.model!.products[index].discountPrice}',
+                                        '₹${(provider.model!.products[index].price - provider.model!.products[index].discountPrice).round()}',
                                         style: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             overflow: TextOverflow.clip),

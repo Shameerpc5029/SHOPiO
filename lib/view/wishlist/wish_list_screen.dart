@@ -60,7 +60,7 @@ class WishListScreen extends StatelessWidget {
                             ),
                           ),
                           subtitle: Text(
-                            "₹${provider.model!.products[index].product.price - provider.model!.products[index].product.discountPrice}",
+                            "₹${(provider.model!.products[index].product.price - provider.model!.products[index].product.discountPrice).round()}",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: priceColor,

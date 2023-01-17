@@ -37,6 +37,7 @@ class ProductCard extends StatelessWidget {
                   color: offerColor,
                   borderRadius: BorderRadius.only(
                     bottomRight: Radius.circular(10),
+                    topLeft: Radius.circular(10),
                   ),
                 ),
                 child: Padding(
@@ -84,7 +85,7 @@ class ProductCard extends StatelessWidget {
               ),
               Text(
                 discountPrice,
-                style:  TextStyle(
+                style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
                   color: priceColor,
