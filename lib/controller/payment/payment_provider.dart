@@ -1,8 +1,7 @@
 import 'dart:developer';
 
-import 'package:ecommerce/common/style/colors.dart';
-import 'package:ecommerce/utils/exceptions/dio_exceptions.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class PaymentProvider extends ChangeNotifier {
@@ -28,16 +27,28 @@ class PaymentProvider extends ChangeNotifier {
   }
 
   void handlePaymentSuccess(PaymentSuccessResponse response, context) {
-    PopUpSnackBar.popUp(context, "SUCCESS:${response.paymentId}", greyColor);
+    Fluttertoast.showToast(
+        msg: "SUCCESS:${response.paymentId}", timeInSecForIosWeb: 4);
+    notifyListeners();
+    // PopUpSnackBar.popUp(context, "SUCCESS:${response.paymentId}", greyColor);
   }
 
-  void handlePaymentError(PaymentFailureResponse response, context) {
-    PopUpSnackBar.popUp(
-        context, "ERROR:${response.code} - ${response.message}", greyColor);
+  void handlePaymentError(PaymentFailureResponse response) {
+    Fluttertoast.showToast(
+        msg: "ERROR:${response.code} - ${response.message}",
+        timeInSecForIosWeb: 4);
+    notifyListeners();
+
+    // PopUpSnackBar.popUp(
+    //     context, "ERROR:${response.code} - ${response.message}", greyColor);
   }
 
   void handleExternalWallet(ExternalWalletResponse response, context) {
-    PopUpSnackBar.popUp(
-        context, "EXTERNAL_WALLET:${response.walletName}", greyColor);
+    Fluttertoast.showToast(
+        msg: "EXTERNAL_WALLET:${response.walletName}", timeInSecForIosWeb: 4);
+    notifyListeners();
+
+    // PopUpSnackBar.popUp(
+    //     context, "EXTERNAL_WALLET:${response.walletName}", greyColor);
   }
 }
