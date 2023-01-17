@@ -1,16 +1,53 @@
+import 'package:ecommerce/common/constants/api_url.dart';
 import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/common/style/sized_box.dart';
 import 'package:ecommerce/controller/address/address_provider.dart';
+import 'package:ecommerce/controller/home/home_provider.dart';
+import 'package:ecommerce/controller/payment/payment_provider.dart';
+
 import 'package:ecommerce/view/cart/widgets/count_button.dart';
+import 'package:ecommerce/view/order/widgets/address_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 
-class OrderSummaryScreen extends StatelessWidget {
+class OrderSummaryScreen extends StatefulWidget {
   const OrderSummaryScreen({super.key});
+  static const routeName = 'orders_page';
+
+  @override
+  State<OrderSummaryScreen> createState() => _OrderSummaryScreenState();
+}
+
+class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
+  PaymentProvider paymentProvider = PaymentProvider();
+
+  @override
+  void initState() {
+    final paymentProvider =
+        Provider.of<PaymentProvider>(context, listen: false);
+    final razorpay = paymentProvider.razorpay;
+    super.initState();
+
+    razorpay.on(
+        Razorpay.EVENT_PAYMENT_SUCCESS, paymentProvider.handlePaymentSuccess);
+    razorpay.on(
+        Razorpay.EVENT_PAYMENT_ERROR, paymentProvider.handlePaymentError);
+    razorpay.on(
+        Razorpay.EVENT_EXTERNAL_WALLET, paymentProvider.handleExternalWallet);
+  }
+
+  @override
+  void dispose() {
+    paymentProvider.razorpay.clear();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final productId = ModalRoute.of(context)?.settings.arguments as String;
+    final provider = Provider.of<HomeProvider>(context).findById(productId);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Order summary'),
@@ -21,92 +58,14 @@ class OrderSummaryScreen extends StatelessWidget {
             child: Column(
               children: [
                 CSizedBox().height10,
-                Container(
-                  color: whiteColor,
-                  padding: const EdgeInsets.all(
-                    10,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            'Deliver to:',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                            ),
-                          ),
-                          OutlinedButton(
-                            style: OutlinedButton.styleFrom(
-                              foregroundColor: themeColor,
-                            ),
-                            onPressed: () {},
-                            child: const Text(
-                              'Change',
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            value.addressList.isEmpty
-                                ? ""
-                                : value.addressList[0].fullName,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          CSizedBox().width10,
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Colors.grey.shade300,
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(3),
-                              child: Text(
-                                value.addressList.isEmpty
-                                    ? ""
-                                    : value.addressList[0].title,
-                                style: const TextStyle(
-                                  color: Color.fromARGB(83, 0, 0, 0),
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 11,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      CSizedBox().height10,
-                      Text(
-                        value.addressList.isEmpty
-                            ? ""
-                            : '''${value.addressList[0].address},
+                AddressWidget(
+                  name: value.addressList[0].fullName,
+                  title: value.addressList[0].title,
+                  address: '''${value.addressList[0].address},
 ${value.addressList[0].state} - ${value.addressList[0].pin}
 Land Mark - ${value.addressList[0].landMark}
 ''',
-                        style: const TextStyle(
-                          fontSize: 16,
-                        ),
-                      ),
-                      Text(
-                        value.addressList.isEmpty
-                            ? ""
-                            : value.addressList[0].phone,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      CSizedBox().height5,
-                    ],
-                  ),
+                  number: value.addressList[0].phone,
                 ),
                 CSizedBox().height10,
                 ListView.separated(
@@ -115,17 +74,16 @@ Land Mark - ${value.addressList[0].landMark}
                   physics: const ScrollPhysics(),
                   itemBuilder: (context, index) {
                     return Container(
-                      padding: const EdgeInsets.all(10),
                       color: whiteColor,
                       child: Row(
                         children: [
                           Container(
                             height: 90,
                             width: MediaQuery.of(context).size.width * 0.2,
-                            decoration: const BoxDecoration(
+                            decoration: BoxDecoration(
                                 image: DecorationImage(
                               image: NetworkImage(
-                                'https://static.s-sfr.fr/media/catalogue/article/mobile/o058stkg/iPhone14ProMax_VioletProfond_Front-Side_400x540px.png',
+                                '${ApiUrl.apiUrl}/products/${provider.image[0]}',
                               ),
                             )),
                           ),
@@ -133,11 +91,15 @@ Land Mark - ${value.addressList[0].landMark}
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
-                                'IPHONE 14 PRO MAX',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width * .77,
+                                child: Text(
+                                  provider.name,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
                                 ),
                               ),
                               RatingBar.builder(
@@ -151,31 +113,31 @@ Land Mark - ${value.addressList[0].landMark}
                                   );
                                 },
                                 itemSize: 16,
-                                initialRating: 4,
+                                initialRating: double.parse(provider.rating),
                               ),
                               CSizedBox().height5,
                               Row(
                                 children: [
-                                  const Text(
-                                    "20%off",
-                                    style: TextStyle(
+                                  Text(
+                                    "${provider.offer}%off",
+                                    style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: offerColor,
                                     ),
                                   ),
                                   CSizedBox().width10,
-                                  const Text(
-                                    '₹179999',
-                                    style: TextStyle(
+                                  Text(
+                                    "₹${provider.price}",
+                                    style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       decoration: TextDecoration.lineThrough,
                                       color: greyColor,
                                     ),
                                   ),
                                   CSizedBox().width10,
-                                  const Text(
-                                    '₹79999',
-                                    style: TextStyle(
+                                  Text(
+                                    "₹${(provider.price - provider.discountPrice).round()}",
+                                    style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         overflow: TextOverflow.clip),
                                   ),
@@ -214,24 +176,24 @@ Land Mark - ${value.addressList[0].landMark}
                       CSizedBox().height20,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Text(
+                        children: [
+                          const Text(
                             'Price',
                           ),
                           Text(
-                            '₹179999',
+                            "₹${provider.price}",
                           ),
                         ],
                       ),
                       CSizedBox().height10,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Text(
+                        children: [
+                          const Text(
                             'Discount Price',
                           ),
                           Text(
-                            '₹10000',
+                            "₹${provider.discountPrice.toStringAsFixed(0)}",
                           ),
                         ],
                       ),
@@ -241,16 +203,16 @@ Land Mark - ${value.addressList[0].landMark}
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Text(
+                        children: [
+                          const Text(
                             'Total Amout',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                           Text(
-                            '₹79999',
-                            style: TextStyle(
+                            "₹${(provider.price - provider.discountPrice).round()}",
+                            style: const TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -260,9 +222,9 @@ Land Mark - ${value.addressList[0].landMark}
                         height: 20,
                         thickness: .6,
                       ),
-                      const Text(
-                        'You will save ₹10000 on this order',
-                        style: TextStyle(
+                      Text(
+                        'You will save ₹${provider.discountPrice.toStringAsFixed(0)} on this order',
+                        style: const TextStyle(
                           color: Colors.green,
                           fontWeight: FontWeight.bold,
                         ),
@@ -282,7 +244,7 @@ Land Mark - ${value.addressList[0].landMark}
                     CSizedBox().width10,
                     const Text(
                       '''Safe and secure payment. Easy returns.
-      100% Authentic products.''',
+           100% Authentic products.''',
                     ),
                   ],
                 ),
@@ -306,9 +268,9 @@ Land Mark - ${value.addressList[0].landMark}
           ],
         ),
         child: ListTile(
-          title: const Text(
-            "₹17999",
-            style: TextStyle(
+          title: Text(
+            "₹${provider.price}",
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 16,
               color: greyColor,
@@ -316,7 +278,7 @@ Land Mark - ${value.addressList[0].landMark}
             ),
           ),
           subtitle: Text(
-            "₹79999",
+            "₹${(provider.price - provider.discountPrice).round()}",
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 20,
@@ -329,9 +291,14 @@ Land Mark - ${value.addressList[0].landMark}
               style: ElevatedButton.styleFrom(
                 backgroundColor: themeColor,
               ),
-              onPressed: () {},
+              onPressed: () {
+                paymentProvider.openCheckout(int.parse(
+                    (provider.price - provider.discountPrice)
+                        .round()
+                        .toString()));
+              },
               child: const Text(
-                'CONTINUE (4 items)',
+                'CONTINUE',
               ),
             ),
           ),

@@ -2,11 +2,15 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecommerce/common/constants/api_url.dart';
 import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/common/style/sized_box.dart';
+import 'package:ecommerce/controller/address/address_provider.dart';
 import 'package:ecommerce/controller/cart/cart_provider.dart';
 import 'package:ecommerce/controller/home/home_provider.dart';
 import 'package:ecommerce/controller/wish_list/wishlist_provider.dart';
-import 'package:ecommerce/view/home/product_view/widgets/bottom_nav_button.dart';
+import 'package:ecommerce/utils/exceptions/dio_exceptions.dart';
+import 'package:ecommerce/view/product_view/widgets/bottom_nav_button.dart';
 import 'package:ecommerce/view/order/order_summary_screen.dart';
+import 'package:ecommerce/view/product_view/widgets/highlights_widget.dart';
+import 'package:ecommerce/view/profile/address/address_screen.dart';
 import 'package:ecommerce/view/widgets/circle_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,46 +29,6 @@ class ProductView extends StatelessWidget {
     final productId = ModalRoute.of(context)?.settings.arguments as String;
     final provider = Provider.of<HomeProvider>(context).findById(productId);
     return Scaffold(
-      bottomNavigationBar: Material(
-        elevation: 20,
-        child: Row(
-          children: [
-            Consumer2<CartProvider, HomeProvider>(
-              builder: (context, value, value2, child) {
-                return value.cartList.contains(productId)
-                    ? BottomNavButton(
-                        text: 'Go to Cart',
-                        backgroundColor: Colors.white,
-                        foregroundColor: Colors.black,
-                        onPressed: () {
-                          value2.goToCategory(context);
-                        },
-                      )
-                    : BottomNavButton(
-                        text: 'Add to cart',
-                        backgroundColor: Colors.white,
-                        foregroundColor: Colors.black,
-                        onPressed: () {
-                          value.addToCart(productId, context);
-                        },
-                      );
-              },
-            ),
-            BottomNavButton(
-              text: 'BUY NOW',
-              backgroundColor: themeColor,
-              foregroundColor: Colors.white,
-              onPressed: () {
-                Navigator.of(context).push(CupertinoPageRoute(
-                  builder: (context) {
-                    return const OrderSummaryScreen();
-                  },
-                ));
-              },
-            ),
-          ],
-        ),
-      ),
       appBar: AppBar(
         leading: Consumer<HomeProvider>(
           builder: (context, value, child) {
@@ -150,7 +114,8 @@ class ProductView extends StatelessWidget {
                     child: AnimatedSmoothIndicator(
                       activeIndex: value.activeIndex,
                       count: provider.image.length,
-                      effect: const WormEffect(
+                      effect: WormEffect(
+                        activeDotColor: themeColor,
                         dotHeight: 10,
                         dotWidth: 10,
                       ),
@@ -158,41 +123,12 @@ class ProductView extends StatelessWidget {
                   );
                 },
               ),
-              CSizedBox().height10,
-              // Align(
-              //   alignment: Alignment.center,
-              //   child: SizedBox(
-              //     height: 70,
-              //     child: ListView.separated(
-              //       itemCount: provider.image.length,
-              //       shrinkWrap: true,
-              //       scrollDirection: Axis.horizontal,
-              //       itemBuilder: (context, index) {
-              //         return Container(
-              //           width: 50,
-              //           decoration: BoxDecoration(
-              //             image: DecorationImage(
-              //               image: NetworkImage(
-              //                 '${ApiUrl.apiUrl}/products/${provider.image[index]}',
-              //               ),
-              //             ),
-              //             borderRadius: BorderRadius.circular(10),
-              //             border: Border.all(),
-              //           ),
-              //         );
-              //       },
-              //       separatorBuilder: (context, index) {
-              //         return CSizedBox().width10;
-              //       },
-              //     ),
-              //   ),
-              // ),
-              CSizedBox().height10,
+              CSizedBox().height20,
               Text(
                 provider.name,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 22,
+                  fontSize: 20,
                 ),
               ),
               CSizedBox().height5,
@@ -234,7 +170,7 @@ class ProductView extends StatelessWidget {
                           Text(
                             '${provider.offer}% off',
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold,
                               color: themeColor,
                             ),
@@ -244,7 +180,7 @@ class ProductView extends StatelessWidget {
                             "₹${provider.price}",
                             style: const TextStyle(
                               fontWeight: FontWeight.w500,
-                              fontSize: 20,
+                              fontSize: 16,
                               color: greyColor,
                               decoration: TextDecoration.lineThrough,
                             ),
@@ -254,7 +190,7 @@ class ProductView extends StatelessWidget {
                             "₹${(provider.price - provider.discountPrice).round()}",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 20,
+                              fontSize: 16,
                               color: themeColor,
                               overflow: TextOverflow.clip,
                             ),
@@ -271,7 +207,7 @@ class ProductView extends StatelessWidget {
                 "Product Discription",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 16,
+                  fontSize: 14,
                 ),
               ),
               CSizedBox().height5,
@@ -285,6 +221,7 @@ class ProductView extends StatelessWidget {
                   color: blueColor,
                   fontWeight: FontWeight.bold,
                 ),
+                trimLength: 150,
                 trimExpandedText: '  show less',
               ),
 
@@ -306,7 +243,7 @@ class ProductView extends StatelessWidget {
                 "Highlights",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 16,
+                  fontSize: 14,
                 ),
               ),
               const HighlightsWidget(
@@ -343,46 +280,61 @@ class ProductView extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class HighlightsWidget extends StatelessWidget {
-  const HighlightsWidget({
-    Key? key,
-    required this.icon,
-    required this.titleText,
-    required this.subText,
-  }) : super(key: key);
-
-  final IconData icon;
-  final String titleText;
-  final String subText;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      horizontalTitleGap: 0,
-      contentPadding: EdgeInsets.zero,
-      dense: true,
-      leading: Container(
-        margin: const EdgeInsets.fromLTRB(0, 5, 0, 0.0),
-        child: Icon(
-          icon,
-          size: 30,
-          color: Colors.grey.shade500,
-        ),
-      ),
-      title: Text(
-        titleText,
-        style: const TextStyle(
-          color: greyColor,
-        ),
-      ),
-      subtitle: Text(
-        subText,
-        style: const TextStyle(
-          fontWeight: FontWeight.bold,
+      bottomNavigationBar: Material(
+        elevation: 20,
+        child: Row(
+          children: [
+            Consumer2<CartProvider, HomeProvider>(
+              builder: (context, value, value2, child) {
+                return value.cartList.contains(productId)
+                    ? BottomNavButton(
+                        text: 'Go to Cart',
+                        backgroundColor: Colors.white,
+                        foregroundColor: Colors.black,
+                        onPressed: () {
+                          value2.goToCategory(context);
+                        },
+                      )
+                    : BottomNavButton(
+                        text: 'Add to cart',
+                        backgroundColor: Colors.white,
+                        foregroundColor: Colors.black,
+                        onPressed: () {
+                          value.addToCart(productId, context);
+                        },
+                      );
+              },
+            ),
+            Consumer2<CartProvider, AddressProvider>(
+              builder: (context, value, address, child) {
+                return BottomNavButton(
+                  text: 'BUY NOW',
+                  backgroundColor: themeColor,
+                  foregroundColor: Colors.white,
+                  onPressed: () {
+                    if (address.addressList.isEmpty) {
+                      PopUpSnackBar.popUp(
+                        context,
+                        'Address is required please enter the address',
+                        alertColor,
+                      );
+                      Navigator.of(context).push(CupertinoPageRoute(
+                        builder: (context) {
+                          return const AddressScreen();
+                        },
+                      ));
+                    } else {
+                      value.addToCart(productId, context);
+                      Navigator.of(context).pushNamed(
+                        OrderSummaryScreen.routeName,
+                        arguments: productId,
+                      );
+                    }
+                  },
+                );
+              },
+            ),
+          ],
         ),
       ),
     );

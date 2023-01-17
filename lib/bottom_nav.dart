@@ -11,6 +11,7 @@ class BottomNav extends StatelessWidget {
     return Consumer<BottomNavProvider>(
       builder: (context, provider, child) {
         return Scaffold(
+          body: provider.pages[provider.currentIndex],
           bottomNavigationBar: BottomNavigationBar(
             selectedItemColor: themeColor,
             unselectedItemColor: Colors.grey,
@@ -76,7 +77,6 @@ class BottomNav extends StatelessWidget {
           //   provider.bottomNav(value);
           // }),
           // ),
-          body: provider.pages[provider.currentIndex],
         );
       },
     );

@@ -5,13 +5,15 @@ import 'package:ecommerce/controller/cart/cart_provider.dart';
 import 'package:ecommerce/controller/home/home_provider.dart';
 import 'package:ecommerce/controller/order_summary/order_summary_provider.dart';
 import 'package:ecommerce/controller/otp/otp_provider.dart';
+import 'package:ecommerce/controller/payment/payment_provider.dart';
 import 'package:ecommerce/controller/profile/profile_provider.dart';
 import 'package:ecommerce/controller/sign_in/sign_in_provider.dart';
 import 'package:ecommerce/controller/sign_up/sign_up_provoder.dart';
 import 'package:ecommerce/controller/splash/splash_provider.dart';
 import 'package:ecommerce/controller/wish_list/wishlist_provider.dart';
 import 'package:ecommerce/view/category/category_view/category_view.dart';
-import 'package:ecommerce/view/home/product_view/product_view.dart';
+import 'package:ecommerce/view/order/order_summary_screen.dart';
+import 'package:ecommerce/view/product_view/product_view.dart';
 import 'package:ecommerce/view/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -39,7 +41,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => WishListProvider(context)),
         ChangeNotifierProvider(create: (context) => CartProvider(context)),
         ChangeNotifierProvider(create: (context) => AddressProvider(context)),
-        ChangeNotifierProvider(create: (context) => OrderSummaryProvider(),)
+        ChangeNotifierProvider(create: (context) => OrderSummaryProvider(),),
+        ChangeNotifierProvider(create: (context) => PaymentProvider(),),
+
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -56,7 +60,8 @@ class MyApp extends StatelessWidget {
         ),
         routes: {
           ProductView.routeName: (context) => const ProductView(),
-          CategoryView.routeName: (context) => const CategoryView()
+          CategoryView.routeName: (context) => const CategoryView(),
+          OrderSummaryScreen.routeName:(context) => const OrderSummaryScreen(),
         },
         home: const SplashScreen(),
       ),

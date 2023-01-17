@@ -6,7 +6,7 @@ import 'package:ecommerce/services/home_service/carousal_service.dart';
 import 'package:ecommerce/services/home_service/category_service.dart';
 import 'package:ecommerce/services/home_service/product_service.dart';
 import 'package:ecommerce/view/category/category_view/category_view.dart';
-import 'package:ecommerce/view/home/product_view/product_view.dart';
+import 'package:ecommerce/view/product_view/product_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 

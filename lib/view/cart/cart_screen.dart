@@ -20,53 +20,6 @@ class CartScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Cart'),
       ),
-      bottomNavigationBar: provider.totalSave == 0 || provider.totalSave == null
-          ? const SizedBox()
-          : Container(
-              height: 70,
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                color: whiteColor,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey,
-                    offset: Offset(0.0, 1.0),
-                    blurRadius: 6.0,
-                  ),
-                ],
-              ),
-              child: ListTile(
-                title: Text(
-                  "₹${provider.model?.totalPrice ?? 0}",
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    color: greyColor,
-                    decoration: TextDecoration.lineThrough,
-                  ),
-                ),
-                subtitle: Text(
-                  "₹${provider.totalSave}",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    color: priceColor,
-                  ),
-                ),
-                trailing: SizedBox(
-                  width: 200,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: themeColor,
-                    ),
-                    onPressed: () {},
-                    child: Text(
-                      'PLACE ORDER (${provider.totalProductCount})',
-                    ),
-                  ),
-                ),
-              ),
-            ),
       body: SingleChildScrollView(
         child: provider.model == null || provider.model!.products.isEmpty
             ? SizedBox(
@@ -81,18 +34,18 @@ class CartScreen extends StatelessWidget {
                   ),
                 ),
               )
-            : ListView.separated(
-                physics: const ScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: provider.model?.products.length ?? 0,
-                itemBuilder: (context, index) {
-                  return SizedBox(
-                    width: double.infinity,
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Row(
+            : Container(
+                padding: const EdgeInsets.all(10),
+                child: ListView.separated(
+                  physics: const ScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: provider.model?.products.length ?? 0,
+                  itemBuilder: (context, index) {
+                    return SizedBox(
+                      width: double.infinity,
+                      child: Column(
+                        children: [
+                          Row(
                             children: [
                               provider.isLoading == true
                                   ? const LoadingWidget()
@@ -111,13 +64,17 @@ class CartScreen extends StatelessWidget {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    provider
-                                        .model!.products[index].product.name,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
-                                      overflow: TextOverflow.ellipsis,
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width * .73,
+                                    child: Text(
+                                      provider
+                                          .model!.products[index].product.name,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
                                     ),
                                   ),
                                   RatingBar.builder(
@@ -192,57 +149,105 @@ class CartScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Consumer<CartProvider>(
-                              builder: (context, value, child) {
-                                return CustomOutlineButton(
-                                  text: "Remove",
-                                  icon: Icons.delete_outlined,
-                                  buttonColor: alertColor,
-                                  onPressed: () {
-                                    showCupertinoDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return ShowAlertWidget(
-                                          yesPress: () {
-                                            provider.removeFromCart(
-                                              context,
-                                              value.model!.products[index]
-                                                  .product.id,
-                                            );
-                                          },
-                                          title: 'Remove Item',
-                                          contant:
-                                              'Are you sure you want to remove this item?',
-                                        );
-                                      },
-                                    );
-                                  },
-                                  width:
-                                      MediaQuery.of(context).size.width * .48,
-                                );
-                              },
-                            ),
-                            CustomOutlineButton(
-                              text: "BUY NOW",
-                              icon: Icons.currency_rupee_outlined,
-                              buttonColor: themeColor,
-                              onPressed: () {},
-                              width: MediaQuery.of(context).size.width * .48,
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  );
-                },
-                separatorBuilder: (BuildContext context, int index) =>
-                    const Divider(),
+                          CSizedBox().height5,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Consumer<CartProvider>(
+                                builder: (context, value, child) {
+                                  return CustomOutlineButton(
+                                    text: "Remove",
+                                    icon: Icons.delete_outlined,
+                                    buttonColor: alertColor,
+                                    onPressed: () {
+                                      showCupertinoDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return ShowAlertWidget(
+                                            yesPress: () {
+                                              provider.removeFromCart(
+                                                context,
+                                                value.model!.products[index]
+                                                    .product.id,
+                                              );
+                                            },
+                                            title: 'Remove Item',
+                                            contant:
+                                                'Are you sure you want to remove this item?',
+                                          );
+                                        },
+                                      );
+                                    },
+                                    width:
+                                        MediaQuery.of(context).size.width * .47,
+                                  );
+                                },
+                              ),
+                              CustomOutlineButton(
+                                text: "BUY NOW",
+                                icon: Icons.currency_rupee_outlined,
+                                buttonColor: themeColor,
+                                onPressed: () {},
+                                width: MediaQuery.of(context).size.width * .47,
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    );
+                  },
+                  separatorBuilder: (BuildContext context, int index) =>
+                      const Divider(),
+                ),
               ),
       ),
+      bottomNavigationBar: provider.totalSave == 0 || provider.totalSave == null
+          ? const SizedBox()
+          : Container(
+              height: 70,
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                color: whiteColor,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey,
+                    offset: Offset(0.0, 1.0),
+                    blurRadius: 6.0,
+                  ),
+                ],
+              ),
+              child: ListTile(
+                title: Text(
+                  "₹${provider.model?.totalPrice ?? 0}",
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    color: greyColor,
+                    decoration: TextDecoration.lineThrough,
+                  ),
+                ),
+                subtitle: Text(
+                  "₹${provider.totalSave}",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: priceColor,
+                  ),
+                ),
+                trailing: SizedBox(
+                  width: 200,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: themeColor,
+                    ),
+                    onPressed: () {},
+                    child: Text(
+                      'PLACE ORDER (${provider.totalProductCount})',
+                    ),
+                  ),
+                ),
+              ),
+            ),
     );
   }
 }

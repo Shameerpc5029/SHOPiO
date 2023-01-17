@@ -2,7 +2,7 @@ import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/model/wishlist_model/wishlist_model.dart';
 import 'package:ecommerce/services/wishlist_service/wishlist_service.dart';
 import 'package:ecommerce/utils/exceptions/dio_exceptions.dart';
-import 'package:ecommerce/view/home/product_view/product_view.dart';
+import 'package:ecommerce/view/product_view/product_view.dart';
 import 'package:flutter/material.dart';
 
 class WishListProvider extends ChangeNotifier {
