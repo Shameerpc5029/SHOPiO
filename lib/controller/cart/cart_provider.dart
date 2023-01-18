@@ -3,6 +3,7 @@ import 'package:ecommerce/model/cart_model/add_to_cart.dart';
 import 'package:ecommerce/model/cart_model/get_form_cart_model.dart';
 import 'package:ecommerce/services/cart_service/cart_service.dart';
 import 'package:ecommerce/utils/exceptions/dio_exceptions.dart';
+import 'package:ecommerce/view/product_view/product_view.dart';
 import 'package:flutter/material.dart';
 
 class CartProvider extends ChangeNotifier {
@@ -130,8 +131,10 @@ class CartProvider extends ChangeNotifier {
     }
   }
 
-  // void goToCart(context) {
-  //   Navigator.of(context).pu
-
-  // }
+  void cartToProductView(context, index) {
+    Navigator.of(context).pushNamed(
+      ProductView.routeName,
+      arguments: model!.products[index].product.id,
+    );
+  }
 }

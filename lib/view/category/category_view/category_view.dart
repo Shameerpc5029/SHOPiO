@@ -1,6 +1,7 @@
 import 'package:ecommerce/common/constants/api_url.dart';
 import 'package:ecommerce/common/style/sized_box.dart';
 import 'package:ecommerce/controller/home/home_provider.dart';
+import 'package:ecommerce/view/product_view/product_view.dart';
 import 'package:ecommerce/view/widgets/product_card.dart';
 import 'package:ecommerce/view/widgets/shimmer/product_card_shimmer.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +43,12 @@ class CategoryView extends StatelessWidget {
                           itemCount: providerByCategory.length,
                           itemBuilder: (context, index) {
                             return ProductCard(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.of(context).pushNamed(
+                                  ProductView.routeName,
+                                  arguments: providerByCategory[index].id,
+                                );
+                              },
                               offer: "${providerByCategory[index].offer}%Off",
                               image:
                                   '${ApiUrl.apiUrl}/products/${providerByCategory[index].image[0]}',

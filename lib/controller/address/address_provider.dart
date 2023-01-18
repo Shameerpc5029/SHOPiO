@@ -221,8 +221,11 @@ class AddressProvider extends ChangeNotifier {
     if (value!.isEmpty) {
       return "Please enter your pincode";
     }
+    if (!RegExp(r'(^(?:[+0]9)?[0-9]{6}$)').hasMatch(value)) {
+      return 'Enter Valid pincode';
+    }
     if (value.length > 6 || value.length < 6) {
-      return "Pincode length must be atleast 6 characters";
+      return "Pincode length must be 6 characters";
     } else {
       return null;
     }

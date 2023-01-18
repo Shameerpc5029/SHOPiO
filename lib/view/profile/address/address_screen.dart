@@ -155,6 +155,8 @@ Land Mark - ${value.addressList[index].landMark}
                                                           'Address removed successfully',
                                                           alertColor,
                                                         );
+                                                        value.getAllAddress(
+                                                            context);
                                                       },
                                                       title: 'Remove Address',
                                                       contant:

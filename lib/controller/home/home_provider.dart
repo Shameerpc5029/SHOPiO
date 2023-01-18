@@ -100,6 +100,7 @@ class HomeProvider extends ChangeNotifier {
     );
   }
 
+
   List<ProductModel> findByCategoryId(String categoryId) {
     return productList.where((element) {
       return element.category.contains(
