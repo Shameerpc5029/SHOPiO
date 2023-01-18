@@ -22,4 +22,9 @@ class BottomNavProvider extends ChangeNotifier {
     currentIndex = value;
     notifyListeners();
   }
+
+  void gotoHomescreen() {
+    currentIndex = 0;
+    notifyListeners();
+  }
 }

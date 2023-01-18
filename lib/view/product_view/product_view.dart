@@ -6,13 +6,10 @@ import 'package:ecommerce/controller/address/address_provider.dart';
 import 'package:ecommerce/controller/cart/cart_provider.dart';
 import 'package:ecommerce/controller/home/home_provider.dart';
 import 'package:ecommerce/controller/wish_list/wishlist_provider.dart';
-import 'package:ecommerce/utils/exceptions/dio_exceptions.dart';
 import 'package:ecommerce/view/product_view/widgets/bottom_nav_button.dart';
 import 'package:ecommerce/view/order/order_summary_screen.dart';
 import 'package:ecommerce/view/product_view/widgets/highlights_widget.dart';
-import 'package:ecommerce/view/profile/address/address_screen.dart';
 import 'package:ecommerce/view/widgets/circle_button.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
@@ -312,24 +309,12 @@ class ProductView extends StatelessWidget {
                   backgroundColor: themeColor,
                   foregroundColor: Colors.white,
                   onPressed: () {
-                    if (address.addressList.isEmpty) {
-                      PopUpSnackBar.popUp(
-                        context,
-                        'Address is required please enter the address',
-                        alertColor,
-                      );
-                      Navigator.of(context).push(CupertinoPageRoute(
-                        builder: (context) {
-                          return const AddressScreen();
-                        },
-                      ));
-                    } else {
-                      value.addToCart(productId, context);
-                      Navigator.of(context).pushNamed(
-                        OrderSummaryScreen.routeName,
-                        arguments: productId,
-                      );
-                    }
+                    value.addToCart(productId, context);
+                    Navigator.of(context).pushNamed(
+                      OrderSummaryScreen.routeName,
+                      arguments: productId,
+                    );
+                    // }
                   },
                 );
               },

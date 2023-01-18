@@ -2,7 +2,7 @@ import 'package:ecommerce/common/constants/api_url.dart';
 import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/common/style/sized_box.dart';
 import 'package:ecommerce/controller/home/home_provider.dart';
-import 'package:ecommerce/view/widgets/loading_widget.dart';
+import 'package:ecommerce/view/category/widgets/shimmer/category_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -26,7 +26,7 @@ class CategoryScreen extends StatelessWidget {
                 children: [
                   CSizedBox().height10,
                   value.isLoading == true
-                      ? const LoadingWidget()
+                      ? const CategoryListShimmer()
                       : GridView.builder(
                           physics: const ScrollPhysics(),
                           shrinkWrap: true,

@@ -94,6 +94,7 @@ class AddressProvider extends ChangeNotifier {
       if (value != null) {
         clearController();
         Navigator.pop(context);
+        getAllAddress(context);
         isLoding = false;
         notifyListeners();
       } else {
@@ -148,8 +149,13 @@ class AddressProvider extends ChangeNotifier {
     addressType = 'HOME';
   }
 
-  void saveAddress(context) {
-    addAddress(context);
+  void saveAddress(
+      context, AddressScreenEnum addressScreenCheck, String addressId) {
+    if (addressScreenCheck == AddressScreenEnum.addAddressScreen) {
+      addAddress(context);
+    } else {
+      updateAddress(context, addressId);
+    }
     notifyListeners();
   }
 
@@ -163,31 +169,23 @@ class AddressProvider extends ChangeNotifier {
   void setAddressScreen(
       AddressScreenEnum addressScreenCheck, String? addressId, context) async {
     if (addressScreenCheck == AddressScreenEnum.addAddressScreen) {
-      fullName.clear();
-      phone.clear();
-      pincode.clear();
-      state.clear();
-      place.clear();
-      address.clear();
-      landMark.clear();
-      notifyListeners();
+      clearController();
     } else {
-      await AddressService()
-          .getSingleAddress(context, addressId!)
-          .then((value) {
-        if (value != null) {
-          fullName.text = value.fullName;
-          phone.text = value.phone;
-          pincode.text = value.pin;
-          state.text = value.state;
-          place.text = value.place;
-          address.text = value.address;
-          landMark.text = value.landMark;
-          notifyListeners();
-          value.title == 'Home' ? isSelected = true : isSelected = false;
-          notifyListeners();
-        }
-      });
+      await AddressService().getSingleAddress(context, addressId!).then(
+        (value) {
+          if (value != null) {
+            fullName.text = value.fullName;
+            phone.text = value.phone;
+            pincode.text = value.pin;
+            state.text = value.state;
+            place.text = value.place;
+            address.text = value.address;
+            landMark.text = value.landMark;
+            value.title == 'Home' ? isSelected = true : isSelected = false;
+            notifyListeners();
+          }
+        },
+      );
     }
   }
 

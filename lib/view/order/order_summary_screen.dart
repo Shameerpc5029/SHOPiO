@@ -4,9 +4,10 @@ import 'package:ecommerce/common/style/sized_box.dart';
 import 'package:ecommerce/controller/address/address_provider.dart';
 import 'package:ecommerce/controller/home/home_provider.dart';
 import 'package:ecommerce/controller/payment/payment_provider.dart';
-
 import 'package:ecommerce/view/cart/widgets/count_button.dart';
 import 'package:ecommerce/view/order/widgets/address_widget.dart';
+import 'package:ecommerce/view/profile/address/address_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
@@ -58,15 +59,17 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
             child: Column(
               children: [
                 CSizedBox().height10,
-                AddressWidget(
-                  name: value.addressList[0].fullName,
-                  title: value.addressList[0].title,
-                  address: '''${value.addressList[0].address},
+                value.addressList.isEmpty
+                    ? Container()
+                    : AddressWidget(
+                        name: value.addressList[0].fullName,
+                        title: value.addressList[0].title,
+                        address: '''${value.addressList[0].address},
 ${value.addressList[0].state} - ${value.addressList[0].pin}
 Land Mark - ${value.addressList[0].landMark}
 ''',
-                  number: value.addressList[0].phone,
-                ),
+                        number: value.addressList[0].phone,
+                      ),
                 CSizedBox().height10,
                 ListView.separated(
                   itemCount: 1,
@@ -287,19 +290,40 @@ Land Mark - ${value.addressList[0].landMark}
           ),
           trailing: SizedBox(
             width: 200,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: themeColor,
-              ),
-              onPressed: () {
-                paymentProvider.openCheckout(int.parse(
-                    (provider.price - provider.discountPrice)
-                        .round()
-                        .toString()));
+            child: Consumer<AddressProvider>(
+              builder: (context, value, child) {
+                return value.addressList.isEmpty
+                    ? OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: themeColor,
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).push(CupertinoPageRoute(
+                            builder: (context) {
+                              return const AddressScreen();
+                            },
+                          ));
+                        },
+                        child: const Text(
+                          'Add address',
+                        ),
+                      )
+                    : ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: themeColor,
+                        ),
+                        onPressed: () {
+                          paymentProvider.openCheckout(
+                            int.parse((provider.price - provider.discountPrice)
+                                .round()
+                                .toString()),
+                          );
+                        },
+                        child: const Text(
+                          'CONTINUE',
+                        ),
+                      );
               },
-              child: const Text(
-                'CONTINUE',
-              ),
             ),
           ),
         ),

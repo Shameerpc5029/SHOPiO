@@ -1,8 +1,10 @@
 import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/common/style/sized_box.dart';
 import 'package:ecommerce/controller/address/address_provider.dart';
+import 'package:ecommerce/model/address_model/address_screen_enum.dart';
 import 'package:ecommerce/utils/exceptions/dio_exceptions.dart';
-import 'package:ecommerce/view/profile/address/widgets/add_new_address_widget.dart';
+import 'package:ecommerce/view/profile/address/widgets/add_edit_address_bottomsheet.dart';
+import 'package:ecommerce/view/widgets/loading_widget.dart';
 import 'package:ecommerce/view/widgets/show_alert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,9 +15,11 @@ class AddressScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<FormState> formGlobalKey = GlobalKey<FormState>();
+    final addressProvider =
+        Provider.of<AddressProvider>(context, listen: false);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Provider.of<AddressProvider>(context, listen: false)
-          .getAllAddress(context);
+      addressProvider.getAllAddress(context);
     });
     return Consumer<AddressProvider>(
       builder: (context, value, child) {
@@ -34,7 +38,28 @@ class AddressScreen extends StatelessWidget {
           ),
           bottomNavigationBar: Visibility(
             visible: value.isButtonVisbile,
-            child: const AddNewAddressWidget(),
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * .07,
+              child: TextButton.icon(
+                onPressed: () {
+                  addAndEditBottomSheet(context, formGlobalKey,
+                      AddressScreenEnum.addAddressScreen, '');
+                },
+                style: TextButton.styleFrom(
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero,
+                  ),
+                  backgroundColor: themeColor,
+                  foregroundColor: Colors.white,
+                ),
+                label: const Text(
+                  'Add new address',
+                ),
+                icon: const Icon(
+                  Icons.add,
+                ),
+              ),
+            ),
           ),
           body: NotificationListener<UserScrollNotification>(
             onNotification: (notification) {
@@ -56,143 +81,166 @@ class AddressScreen extends StatelessWidget {
                           ),
                         ),
                       )
-                    : ListView.separated(
-                        shrinkWrap: true,
-                        physics: const ScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          return SizedBox(
-                            width: double.infinity,
-                            child: Card(
-                              margin: EdgeInsets.zero,
-                              child: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
+                    : value.isLoding2 == true
+                        ? const Center(
+                            heightFactor: 20,
+                            child: LoadingWidget(),
+                          )
+                        : ListView.separated(
+                            shrinkWrap: true,
+                            physics: const ScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return SizedBox(
+                                width: double.infinity,
+                                child: Card(
+                                  margin: EdgeInsets.zero,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        Text(
-                                          value.addressList[index].fullName
-                                              .toUpperCase(),
-                                          style: const TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        CSizedBox().width10,
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            color: Colors.grey.shade300,
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(4),
-                                            child: Text(
-                                              value.addressList[index].title,
+                                        Row(
+                                          children: [
+                                            Text(
+                                              value.addressList[index].fullName
+                                                  .toUpperCase(),
                                               style: const TextStyle(
-                                                color:
-                                                    Color.fromARGB(83, 0, 0, 0),
+                                                fontSize: 18,
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 10,
                                               ),
                                             ),
-                                          ),
+                                            CSizedBox().width10,
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                color: Colors.grey.shade300,
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                              ),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(4),
+                                                child: Text(
+                                                  value
+                                                      .addressList[index].title,
+                                                  style: const TextStyle(
+                                                    color: Color.fromARGB(
+                                                        83, 0, 0, 0),
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 10,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
-                                    CSizedBox().height5,
-                                    Text(
-                                      '''${value.addressList[index].address},${value.addressList[index].place},
+                                        CSizedBox().height5,
+                                        Text(
+                                          '''${value.addressList[index].address},${value.addressList[index].place},
 ${value.addressList[index].state} - ${value.addressList[index].pin}
 Land Mark - ${value.addressList[index].landMark}
 ''',
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            const Icon(
-                                              Icons.phone_android_outlined,
-                                            ),
-                                            CSizedBox().width10,
-                                            Text(
-                                              value.addressList[index].phone,
-                                              style: const TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                            ),
-                                          ],
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                          ),
                                         ),
                                         Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
-                                            OutlinedButton.icon(
-                                              style: OutlinedButton.styleFrom(
-                                                foregroundColor: alertColor,
-                                              ),
-                                              onPressed: () {
-                                                showCupertinoDialog(
-                                                  context: context,
-                                                  builder: (context) {
-                                                    return ShowAlertWidget(
-                                                      yesPress: () {
-                                                        value.deleteAdderess(
-                                                            context,
-                                                            value
-                                                                .addressList[
-                                                                    index]
-                                                                .id);
-                                                        Navigator.of(context)
-                                                            .pop();
-                                                        PopUpSnackBar.popUp(
-                                                          context,
-                                                          'Address removed successfully',
-                                                          alertColor,
+                                            Row(
+                                              children: [
+                                                const Icon(
+                                                  Icons.phone_android_outlined,
+                                                ),
+                                                CSizedBox().width10,
+                                                Text(
+                                                  value
+                                                      .addressList[index].phone,
+                                                  style: const TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                OutlinedButton.icon(
+                                                  style:
+                                                      OutlinedButton.styleFrom(
+                                                    foregroundColor: alertColor,
+                                                  ),
+                                                  onPressed: () {
+                                                    showCupertinoDialog(
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return ShowAlertWidget(
+                                                          yesPress: () {
+                                                            value.deleteAdderess(
+                                                                context,
+                                                                value
+                                                                    .addressList[
+                                                                        index]
+                                                                    .id);
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop();
+                                                            PopUpSnackBar.popUp(
+                                                              context,
+                                                              'Address removed successfully',
+                                                              alertColor,
+                                                            );
+                                                            value.getAllAddress(
+                                                                context);
+                                                          },
+                                                          title:
+                                                              'Remove Address',
+                                                          contant:
+                                                              'Are you sure want to delete this address?',
                                                         );
-                                                        value.getAllAddress(
-                                                            context);
                                                       },
-                                                      title: 'Remove Address',
-                                                      contant:
-                                                          'Are you sure want to delete this address?',
                                                     );
                                                   },
-                                                );
-                                              },
-                                              icon: const Icon(Icons
-                                                  .delete_outline_outlined),
-                                              label: const Text('Remove'),
-                                            ),
-                                            CSizedBox().width10,
-                                            OutlinedButton.icon(
-                                              style: OutlinedButton.styleFrom(
-                                                foregroundColor: Colors.green,
-                                              ),
-                                              onPressed: () {},
-                                              icon: const Icon(Icons.edit),
-                                              label: const Text('Edit'),
+                                                  icon: const Icon(Icons
+                                                      .delete_outline_outlined),
+                                                  label: const Text('Remove'),
+                                                ),
+                                                CSizedBox().width10,
+                                                OutlinedButton.icon(
+                                                  style:
+                                                      OutlinedButton.styleFrom(
+                                                    foregroundColor:
+                                                        Colors.green,
+                                                  ),
+                                                  onPressed: () {
+                                                    addAndEditBottomSheet(
+                                                      context,
+                                                      formGlobalKey,
+                                                      AddressScreenEnum
+                                                          .editAddressScreen,
+                                                      value.addressList[index]
+                                                          .id,
+                                                    );
+                                                  },
+                                                  icon: const Icon(Icons.edit),
+                                                  label: const Text('Edit'),
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         ),
                                       ],
                                     ),
-                                  ],
+                                  ),
                                 ),
-                              ),
-                            ),
-                          );
-                        },
-                        itemCount: value.addressList.length,
-                        separatorBuilder: (context, index) {
-                          return CSizedBox().height10;
-                        },
-                      )),
+                              );
+                            },
+                            itemCount: value.addressList.length,
+                            separatorBuilder: (context, index) {
+                              return CSizedBox().height10;
+                            },
+                          )),
           ),
         );
       },

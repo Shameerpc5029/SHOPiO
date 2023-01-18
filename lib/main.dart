@@ -41,9 +41,12 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => WishListProvider(context)),
         ChangeNotifierProvider(create: (context) => CartProvider(context)),
         ChangeNotifierProvider(create: (context) => AddressProvider(context)),
-        ChangeNotifierProvider(create: (context) => OrderSummaryProvider(),),
-        ChangeNotifierProvider(create: (context) => PaymentProvider(),),
-
+        ChangeNotifierProvider(
+          create: (context) => OrderSummaryProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => PaymentProvider(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -61,7 +64,7 @@ class MyApp extends StatelessWidget {
         routes: {
           ProductView.routeName: (context) => const ProductView(),
           CategoryView.routeName: (context) => const CategoryView(),
-          OrderSummaryScreen.routeName:(context) => const OrderSummaryScreen(),
+          OrderSummaryScreen.routeName: (context) => const OrderSummaryScreen(),
         },
         home: const SplashScreen(),
       ),
