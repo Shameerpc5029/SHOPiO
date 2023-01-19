@@ -29,6 +29,13 @@ class AddressProvider extends ChangeNotifier {
   List<GetAddressModel> addressList = [];
   bool isButtonVisbile = true;
 
+  int selectIndex = 0;
+
+  void addressSelect(int index) {
+    selectIndex = index;
+    notifyListeners();
+  }
+
   void isVisible(notification) {
     if (notification.direction == ScrollDirection.reverse) {
       if (isButtonVisbile) {

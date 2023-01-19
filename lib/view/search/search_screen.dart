@@ -33,7 +33,7 @@ class SearchScreen extends StatelessWidget {
                 ? const Center(
                     heightFactor: 40,
                     child: Text(
-                      'No seach result found',
+                      'No search result found',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),

@@ -62,13 +62,21 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                 value.addressList.isEmpty
                     ? Container()
                     : AddressWidget(
-                        name: value.addressList[0].fullName,
-                        title: value.addressList[0].title,
-                        address: '''${value.addressList[0].address},
-${value.addressList[0].state} - ${value.addressList[0].pin}
-Land Mark - ${value.addressList[0].landMark}
+                        name: value.addressList[value.selectIndex].fullName,
+                        title: value.addressList[value.selectIndex].title,
+                        address:
+                            '''${value.addressList[value.selectIndex].address},
+${value.addressList[value.selectIndex].state} - ${value.addressList[value.selectIndex].pin}
+Land Mark - ${value.addressList[value.selectIndex].landMark}
 ''',
-                        number: value.addressList[0].phone,
+                        number: value.addressList[value.selectIndex].phone,
+                        onPreesed: () {
+                          Navigator.of(context).push(CupertinoPageRoute(
+                            builder: (context) {
+                              return AddressScreen();
+                            },
+                          ));
+                        },
                       ),
                 CSizedBox().height10,
                 ListView.separated(
@@ -300,7 +308,7 @@ Land Mark - ${value.addressList[0].landMark}
                         onPressed: () {
                           Navigator.of(context).push(CupertinoPageRoute(
                             builder: (context) {
-                              return const AddressScreen();
+                              return AddressScreen();
                             },
                           ));
                         },

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/common/style/sized_box.dart';
 import 'package:ecommerce/controller/address/address_provider.dart';
@@ -107,7 +109,7 @@ class AddressScreen extends StatelessWidget {
                                               ),
                                             ),
                                             const Spacer(),
-                                            index == 0
+                                            index == value.selectIndex
                                                 ? const Text(
                                                     "Defualt",
                                                     style: TextStyle(
@@ -115,12 +117,20 @@ class AddressScreen extends StatelessWidget {
                                                           FontWeight.bold,
                                                     ),
                                                   )
-                                                : TextButton(
-                                                    onPressed: () {
-
+                                                : Consumer<AddressProvider>(
+                                                    builder: (context, value,
+                                                        child) {
+                                                      return TextButton(
+                                                        onPressed: () {
+                                                          value.addressSelect(
+                                                              index);
+                                                          log(index.toString());
+                                                        },
+                                                        child: const Text(
+                                                          'Set as Default',
+                                                        ),
+                                                      );
                                                     },
-                                                    child: const Text(
-                                                        'Set as Default'),
                                                   )
                                           ],
                                         ),

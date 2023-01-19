@@ -1,4 +1,3 @@
-
 import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/common/style/sized_box.dart';
 import 'package:flutter/material.dart';
@@ -10,11 +9,13 @@ class AddressWidget extends StatelessWidget {
     required this.title,
     required this.address,
     required this.number,
+    required this.onPreesed,
   }) : super(key: key);
   final String name;
   final String title;
   final String address;
   final String number;
+  final void Function() onPreesed;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,7 +40,7 @@ class AddressWidget extends StatelessWidget {
                 style: OutlinedButton.styleFrom(
                   foregroundColor: themeColor,
                 ),
-                onPressed: () {},
+                onPressed: onPreesed,
                 child: const Text(
                   'Change',
                 ),
@@ -49,7 +50,7 @@ class AddressWidget extends StatelessWidget {
           Row(
             children: [
               Text(
-                name,
+                name.toUpperCase(),
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
