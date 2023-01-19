@@ -131,27 +131,28 @@ class ProductView extends StatelessWidget {
                   ),
                   Consumer<WishListProvider>(
                     builder: (context, value, child) {
-                      return OutlinedButton.icon(
-                        style: OutlinedButton.styleFrom(
-                          backgroundColor: value.wishlist.contains(provider.id)
-                              ? redColor
-                              : Colors.transparent,
+                      return SizedBox(
+                        height: 40,
+                        child: FloatingActionButton(
+                          elevation: 1,
                           foregroundColor: value.wishlist.contains(provider.id)
-                              ? whiteColor
-                              : Colors.grey,
-                        ),
-                        onPressed: () {
-                          value.addAndRemoveWishList(context, productId);
-                        },
-                        icon: Icon(
-                          value.wishlist.contains(provider.id)
-                              ? Icons.favorite
-                              : Icons.favorite_border_outlined,
-                        ),
-                        label: const Text(
-                          'Favorite',
+                              ? greyColor
+                              : Colors.red,
+                          backgroundColor: Colors.white,
+                          onPressed: () {
+                            value.addAndRemoveWishList(context, productId);
+                          },
+                          child: const Icon(
+                            Icons.favorite,
+                          ),
                         ),
                       );
+                      // return IconButton(
+                      //   onPressed: () {},
+                      // icon: Icon(
+                      //   Icons.favorite,
+                      // ),
+                      // );
                     },
                   ),
                 ],
@@ -215,6 +216,7 @@ class ProductView extends StatelessWidget {
                 ),
               ),
               CSizedBox().height20,
+
               const Text(
                 "Product Discription",
                 style: TextStyle(

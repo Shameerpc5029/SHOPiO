@@ -45,7 +45,7 @@ class ProfileScreen extends StatelessWidget {
                     onTap: () {
                       Navigator.of(context).push(CupertinoPageRoute(
                         builder: (context) {
-                          return   AddressScreen();
+                          return const AddressScreen();
                         },
                       ));
                     },

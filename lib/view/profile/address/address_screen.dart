@@ -66,178 +66,181 @@ class AddressScreen extends StatelessWidget {
                             shrinkWrap: true,
                             physics: const ScrollPhysics(),
                             itemBuilder: (context, index) {
-                              return SizedBox(
-                                width: double.infinity,
-                                child: Card(
-                                  margin: EdgeInsets.zero,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Text(
-                                              value.addressList[index].fullName
-                                                  .toUpperCase(),
-                                              style: const TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold,
+                              return InkWell(
+                                onTap: () {
+                                  value.addressSelect(index);
+                                  log(index.toString());
+                                },
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  child: Card(
+                                    color: index == value.selectIndex
+                                        ? const Color.fromARGB(
+                                            255, 228, 240, 249)
+                                        : whiteColor,
+                                    margin: EdgeInsets.zero,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Text(
+                                                value
+                                                    .addressList[index].fullName
+                                                    .toUpperCase(),
+                                                style: const TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                               ),
-                                            ),
-                                            CSizedBox().width10,
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                color: Colors.grey.shade300,
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
-                                              ),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(4),
-                                                child: Text(
-                                                  value
-                                                      .addressList[index].title,
-                                                  style: const TextStyle(
-                                                    color: Color.fromARGB(
-                                                        83, 0, 0, 0),
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 10,
+                                              CSizedBox().width10,
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                  color: Colors.grey.shade200,
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                ),
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(4),
+                                                  child: Text(
+                                                    value.addressList[index]
+                                                        .title,
+                                                    style: const TextStyle(
+                                                      color: Color.fromARGB(
+                                                          83, 0, 0, 0),
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 10,
+                                                    ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
-                                            const Spacer(),
-                                            index == value.selectIndex
-                                                ? const Text(
-                                                    "Defualt",
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  )
-                                                : Consumer<AddressProvider>(
-                                                    builder: (context, value,
-                                                        child) {
-                                                      return TextButton(
-                                                        onPressed: () {
-                                                          value.addressSelect(
-                                                              index);
-                                                          log(index.toString());
-                                                        },
-                                                        child: const Text(
-                                                          'Set as Default',
-                                                        ),
-                                                      );
-                                                    },
-                                                  )
-                                          ],
-                                        ),
-                                        CSizedBox().height5,
-                                        Text(
-                                          '''${value.addressList[index].address},${value.addressList[index].place},
+                                              const Spacer(),
+                                              index == value.selectIndex
+                                                  ? const Text(
+                                                      "Defualt",
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    )
+                                                  : const SizedBox()
+                                            ],
+                                          ),
+                                          CSizedBox().height5,
+                                          Text(
+                                            '''${value.addressList[index].address},${value.addressList[index].place},
 ${value.addressList[index].state} - ${value.addressList[index].pin}
 Land Mark - ${value.addressList[index].landMark}
 ''',
-                                          style: const TextStyle(
-                                            fontSize: 16,
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                            ),
                                           ),
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                const Icon(
-                                                  Icons.phone_android_outlined,
-                                                  color: Colors.black54,
-                                                ),
-                                                Text(
-                                                  value
-                                                      .addressList[index].phone,
-                                                  style: const TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.w600,
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  const Icon(
+                                                    Icons
+                                                        .phone_android_outlined,
                                                     color: Colors.black54,
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                            Row(
-                                              children: [
-                                                OutlinedButton.icon(
-                                                  style:
-                                                      OutlinedButton.styleFrom(
-                                                    textStyle: const TextStyle(
-                                                      fontSize: 14,
+                                                  Text(
+                                                    value.addressList[index]
+                                                        .phone,
+                                                    style: const TextStyle(
+                                                      fontSize: 16,
                                                       fontWeight:
-                                                          FontWeight.w400,
+                                                          FontWeight.w600,
+                                                      color: Colors.black54,
                                                     ),
-                                                    foregroundColor: alertColor,
                                                   ),
-                                                  onPressed: () {
-                                                    showCupertinoDialog(
-                                                      context: context,
-                                                      builder: (context) {
-                                                        return ShowAlertWidget(
-                                                          yesPress: () {
-                                                            value.deleteAdderess(
-                                                                context,
-                                                                value
-                                                                    .addressList[
-                                                                        index]
-                                                                    .id);
-                                                          },
-                                                          title:
-                                                              'Remove Address',
-                                                          contant:
-                                                              'Are you sure want to delete this address?',
-                                                        );
-                                                      },
-                                                    );
-                                                  },
-                                                  icon: const Icon(
-                                                    Icons
-                                                        .delete_outline_outlined,
-                                                    size: 18,
-                                                  ),
-                                                  label: const Text('Remove'),
-                                                ),
-                                                CSizedBox().width10,
-                                                OutlinedButton.icon(
-                                                  style:
-                                                      OutlinedButton.styleFrom(
-                                                    textStyle: const TextStyle(
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.w400,
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  OutlinedButton.icon(
+                                                    style: OutlinedButton
+                                                        .styleFrom(
+                                                      textStyle:
+                                                          const TextStyle(
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                      ),
+                                                      foregroundColor:
+                                                          alertColor,
                                                     ),
-                                                    foregroundColor:
-                                                        Colors.green,
+                                                    onPressed: () {
+                                                      showCupertinoDialog(
+                                                        context: context,
+                                                        builder: (context) {
+                                                          return ShowAlertWidget(
+                                                            yesPress: () {
+                                                              value.deleteAdderess(
+                                                                  context,
+                                                                  value
+                                                                      .addressList[
+                                                                          index]
+                                                                      .id);
+                                                            },
+                                                            title:
+                                                                'Remove Address',
+                                                            contant:
+                                                                'Are you sure want to delete this address?',
+                                                          );
+                                                        },
+                                                      );
+                                                    },
+                                                    icon: const Icon(
+                                                      Icons
+                                                          .delete_outline_outlined,
+                                                      size: 18,
+                                                    ),
+                                                    label: const Text('Remove'),
                                                   ),
-                                                  onPressed: () {
-                                                    addAndEditBottomSheet(
-                                                      context,
-                                                      formGlobalKey,
-                                                      AddressScreenEnum
-                                                          .editAddressScreen,
-                                                      value.addressList[index]
-                                                          .id,
-                                                    );
-                                                  },
-                                                  icon: const Icon(
-                                                    Icons.edit,
-                                                    size: 18,
+                                                  CSizedBox().width10,
+                                                  OutlinedButton.icon(
+                                                    style: OutlinedButton
+                                                        .styleFrom(
+                                                      textStyle:
+                                                          const TextStyle(
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                      ),
+                                                      foregroundColor:
+                                                          Colors.green,
+                                                    ),
+                                                    onPressed: () {
+                                                      addAndEditBottomSheet(
+                                                        context,
+                                                        formGlobalKey,
+                                                        AddressScreenEnum
+                                                            .editAddressScreen,
+                                                        value.addressList[index]
+                                                            .id,
+                                                      );
+                                                    },
+                                                    icon: const Icon(
+                                                      Icons.edit,
+                                                      size: 18,
+                                                    ),
+                                                    label: const Text('Edit'),
                                                   ),
-                                                  label: const Text('Edit'),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ],
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),

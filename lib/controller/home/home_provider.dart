@@ -16,12 +16,12 @@ class HomeProvider extends ChangeNotifier {
   }
 
   void allProviders(context) {
-    notifyListeners();
     getCarousals(context);
     getCategory(context);
     getProducts(context);
   }
-bool seachSelected=false;
+
+  bool seachSelected = false;
   bool isLoading = false;
   List<CategoryModel> categoryList = [];
   List<ProductModel> productList = [];
@@ -136,8 +136,7 @@ bool seachSelected=false;
     Provider.of<BottomNavProvider>(context, listen: false).currentIndex = 2;
   }
 
-
- TextEditingController searchController =TextEditingController();
+  TextEditingController searchController = TextEditingController();
   void search(String keyboard) {
     List<ProductModel> results = [];
     if (keyboard.isEmpty) {

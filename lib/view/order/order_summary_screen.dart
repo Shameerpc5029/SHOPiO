@@ -73,7 +73,7 @@ Land Mark - ${value.addressList[value.selectIndex].landMark}
                         onPreesed: () {
                           Navigator.of(context).push(CupertinoPageRoute(
                             builder: (context) {
-                              return AddressScreen();
+                              return const AddressScreen();
                             },
                           ));
                         },
@@ -85,6 +85,7 @@ Land Mark - ${value.addressList[value.selectIndex].landMark}
                   physics: const ScrollPhysics(),
                   itemBuilder: (context, index) {
                     return Container(
+                      padding: const EdgeInsets.all(10),
                       color: whiteColor,
                       child: Row(
                         children: [
@@ -103,7 +104,7 @@ Land Mark - ${value.addressList[value.selectIndex].landMark}
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SizedBox(
-                                width: MediaQuery.of(context).size.width * .77,
+                                width: MediaQuery.of(context).size.width * .7,
                                 child: Text(
                                   provider.name,
                                   style: const TextStyle(
@@ -308,7 +309,7 @@ Land Mark - ${value.addressList[value.selectIndex].landMark}
                         onPressed: () {
                           Navigator.of(context).push(CupertinoPageRoute(
                             builder: (context) {
-                              return AddressScreen();
+                              return const AddressScreen();
                             },
                           ));
                         },
