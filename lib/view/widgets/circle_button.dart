@@ -15,7 +15,7 @@ class CircleButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       shape: const CircleBorder(),
-      elevation: 1,
+      elevation: 0,
       child: CircleAvatar(
           backgroundColor: whiteColor,
           child:

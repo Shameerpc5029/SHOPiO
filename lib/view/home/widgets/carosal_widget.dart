@@ -23,7 +23,7 @@ class CarousellWidget extends StatelessWidget {
                 itemBuilder: (context, index, realIndex) {
                   return SizedBox(
                     width: double.infinity,
-                    child: Card(
+                    child: Container(
                       color: Colors.grey,
                       child: value.isLoading == true
                           ? const LoadingWidget()
@@ -42,14 +42,12 @@ class CarousellWidget extends StatelessWidget {
                   },
                   viewportFraction: 1,
                   initialPage: value.activeIndex,
-                  enableInfiniteScroll: false,
+                  enableInfiniteScroll: true,
                   autoPlay: true,
                   autoPlayInterval: const Duration(
                     seconds: 3,
                   ),
-                  autoPlayAnimationDuration: const Duration(
-                    milliseconds: 800,
-                  ),
+                  aspectRatio: 18 / 9,
                   enlargeCenterPage: true,
                   pageSnapping: true,
                   enlargeFactor: 0.3,

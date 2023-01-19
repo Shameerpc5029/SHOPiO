@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/model/address_model/address_model.dart';
 import 'package:ecommerce/model/address_model/address_screen_enum.dart';
 import 'package:ecommerce/model/address_model/get_adress_model.dart';
@@ -128,13 +129,15 @@ class AddressProvider extends ChangeNotifier {
     isLoding2 = true;
     notifyListeners();
     await AddressService().delectAddress(context, addressId).then((value) {
-      if (value != null) {
-        isLoding2 = false;
-        notifyListeners();
-      } else {
-        isLoding2 = false;
-        notifyListeners();
-      }
+      isLoding2 = false;
+      Navigator.of(context).pop();
+      PopUpSnackBar.popUp(
+        context,
+        'Address removed successfully',
+        alertColor,
+      );
+      getAllAddress(context);
+      notifyListeners();
     });
   }
 

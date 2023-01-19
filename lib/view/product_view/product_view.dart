@@ -9,7 +9,6 @@ import 'package:ecommerce/controller/wish_list/wishlist_provider.dart';
 import 'package:ecommerce/view/product_view/widgets/bottom_nav_button.dart';
 import 'package:ecommerce/view/order/order_summary_screen.dart';
 import 'package:ecommerce/view/product_view/widgets/highlights_widget.dart';
-import 'package:ecommerce/view/widgets/circle_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
@@ -55,53 +54,29 @@ class ProductView extends StatelessWidget {
             children: [
               CSizedBox().height10,
               Center(
-                child: Stack(
-                  alignment: AlignmentDirectional.topEnd,
-                  children: [
-                    Consumer<HomeProvider>(
-                      builder: (context, value, child) {
-                        return CarouselSlider.builder(
-                          itemBuilder: (context, index, realIndex) {
-                            return SizedBox(
-                              width: double.infinity,
-                              height: MediaQuery.of(context).size.height * 0.55,
-                              child: Image(
-                                image: NetworkImage(
-                                  '${ApiUrl.apiUrl}/products/${provider.image[index]}',
-                                ),
-                              ),
-                            );
-                          },
-                          itemCount: provider.image.length,
-                          options: CarouselOptions(
-                            viewportFraction: 1,
-                            onPageChanged: (index, reason) {
-                              value.carosal(index);
-                            },
+                child: Consumer<HomeProvider>(
+                  builder: (context, value, child) {
+                    return CarouselSlider.builder(
+                      itemBuilder: (context, index, realIndex) {
+                        return SizedBox(
+                          width: double.infinity,
+                          height: MediaQuery.of(context).size.height * 0.55,
+                          child: Image(
+                            image: NetworkImage(
+                              '${ApiUrl.apiUrl}/products/${provider.image[index]}',
+                            ),
                           ),
                         );
                       },
-                    ),
-                    Consumer<WishListProvider>(
-                      builder: (context, value, child) {
-                        return Column(
-                          children: [
-                            CircleButtonWidget(
-                              onPressed: () {
-                                value.addAndRemoveWishList(context, productId);
-                              },
-                              icon: Icon(
-                                Icons.favorite,
-                                color: value.wishlist.contains(provider.id)
-                                    ? Colors.red
-                                    : Colors.grey,
-                              ),
-                            )
-                          ],
-                        );
-                      },
-                    )
-                  ],
+                      itemCount: provider.image.length,
+                      options: CarouselOptions(
+                        viewportFraction: 1,
+                        onPageChanged: (index, reason) {
+                          value.carosal(index);
+                        },
+                      ),
+                    );
+                  },
                 ),
               ),
               CSizedBox().height10,
@@ -121,27 +96,67 @@ class ProductView extends StatelessWidget {
                 },
               ),
               CSizedBox().height20,
-              Text(
-                provider.name,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * .6,
+                        child: Text(
+                          provider.name,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                              overflow: TextOverflow.ellipsis),
+                          maxLines: 1,
+                        ),
+                      ),
+                      CSizedBox().height5,
+                      RatingBar.builder(
+                        ignoreGestures: true,
+                        allowHalfRating: true,
+                        onRatingUpdate: (value) {},
+                        itemBuilder: (context, index) {
+                          return const Icon(
+                            Icons.star,
+                            color: Color.fromARGB(255, 24, 110, 29),
+                          );
+                        },
+                        itemSize: 18,
+                        initialRating: double.parse(provider.rating),
+                      ),
+                    ],
+                  ),
+                  Consumer<WishListProvider>(
+                    builder: (context, value, child) {
+                      return OutlinedButton.icon(
+                        style: OutlinedButton.styleFrom(
+                          backgroundColor: value.wishlist.contains(provider.id)
+                              ? redColor
+                              : Colors.transparent,
+                          foregroundColor: value.wishlist.contains(provider.id)
+                              ? whiteColor
+                              : Colors.grey,
+                        ),
+                        onPressed: () {
+                          value.addAndRemoveWishList(context, productId);
+                        },
+                        icon: Icon(
+                          value.wishlist.contains(provider.id)
+                              ? Icons.favorite
+                              : Icons.favorite_border_outlined,
+                        ),
+                        label: const Text(
+                          'Favorite',
+                        ),
+                      );
+                    },
+                  ),
+                ],
               ),
-              CSizedBox().height5,
-              RatingBar.builder(
-                ignoreGestures: true,
-                allowHalfRating: true,
-                onRatingUpdate: (value) {},
-                itemBuilder: (context, index) {
-                  return const Icon(
-                    Icons.star,
-                    color: Color.fromARGB(255, 24, 110, 29),
-                  );
-                },
-                itemSize: 18,
-                initialRating: double.parse(provider.rating),
-              ),
+
               CSizedBox().height10,
               Container(
                 color: const Color.fromARGB(41, 33, 149, 243),

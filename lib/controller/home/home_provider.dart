@@ -21,10 +21,11 @@ class HomeProvider extends ChangeNotifier {
     getCategory(context);
     getProducts(context);
   }
-
+bool seachSelected=false;
   bool isLoading = false;
   List<CategoryModel> categoryList = [];
   List<ProductModel> productList = [];
+  List<ProductModel> seachResult = [];
   List carousalList = [];
   int activeIndex = 0;
   void getCategory(context) async {
@@ -100,7 +101,6 @@ class HomeProvider extends ChangeNotifier {
     );
   }
 
-
   List<ProductModel> findByCategoryId(String categoryId) {
     return productList.where((element) {
       return element.category.contains(
@@ -134,5 +134,25 @@ class HomeProvider extends ChangeNotifier {
       (route) => false,
     );
     Provider.of<BottomNavProvider>(context, listen: false).currentIndex = 2;
+  }
+
+
+ TextEditingController searchController =TextEditingController();
+  void search(String keyboard) {
+    List<ProductModel> results = [];
+    if (keyboard.isEmpty) {
+      results = productList;
+    } else {
+      results = productList
+          .where(
+            (element) => element.name.toLowerCase().contains(
+                  keyboard.toLowerCase(),
+                ),
+          )
+          .toList();
+    }
+
+    seachResult = results;
+    notifyListeners();
   }
 }

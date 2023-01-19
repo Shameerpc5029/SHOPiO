@@ -2,7 +2,6 @@ import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/common/style/sized_box.dart';
 import 'package:ecommerce/controller/address/address_provider.dart';
 import 'package:ecommerce/model/address_model/address_screen_enum.dart';
-import 'package:ecommerce/utils/exceptions/dio_exceptions.dart';
 import 'package:ecommerce/view/profile/address/widgets/add_edit_address_bottomsheet.dart';
 import 'package:ecommerce/view/widgets/loading_widget.dart';
 import 'package:ecommerce/view/widgets/show_alert.dart';
@@ -35,31 +34,6 @@ class AddressScreen extends StatelessWidget {
               ),
             ),
             title: const Text('My Addresses'),
-          ),
-          bottomNavigationBar: Visibility(
-            visible: value.isButtonVisbile,
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height * .07,
-              child: TextButton.icon(
-                onPressed: () {
-                  addAndEditBottomSheet(context, formGlobalKey,
-                      AddressScreenEnum.addAddressScreen, '');
-                },
-                style: TextButton.styleFrom(
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.zero,
-                  ),
-                  backgroundColor: themeColor,
-                  foregroundColor: Colors.white,
-                ),
-                label: const Text(
-                  'Add new address',
-                ),
-                icon: const Icon(
-                  Icons.add,
-                ),
-              ),
-            ),
           ),
           body: NotificationListener<UserScrollNotification>(
             onNotification: (notification) {
@@ -132,6 +106,22 @@ class AddressScreen extends StatelessWidget {
                                                 ),
                                               ),
                                             ),
+                                            const Spacer(),
+                                            index == 0
+                                                ? const Text(
+                                                    "Defualt",
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  )
+                                                : TextButton(
+                                                    onPressed: () {
+
+                                                    },
+                                                    child: const Text(
+                                                        'Set as Default'),
+                                                  )
                                           ],
                                         ),
                                         CSizedBox().height5,
@@ -152,14 +142,15 @@ Land Mark - ${value.addressList[index].landMark}
                                               children: [
                                                 const Icon(
                                                   Icons.phone_android_outlined,
+                                                  color: Colors.black54,
                                                 ),
-                                                CSizedBox().width10,
                                                 Text(
                                                   value
                                                       .addressList[index].phone,
                                                   style: const TextStyle(
                                                     fontSize: 16,
                                                     fontWeight: FontWeight.w600,
+                                                    color: Colors.black54,
                                                   ),
                                                 ),
                                               ],
@@ -169,6 +160,11 @@ Land Mark - ${value.addressList[index].landMark}
                                                 OutlinedButton.icon(
                                                   style:
                                                       OutlinedButton.styleFrom(
+                                                    textStyle: const TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                    ),
                                                     foregroundColor: alertColor,
                                                   ),
                                                   onPressed: () {
@@ -183,16 +179,6 @@ Land Mark - ${value.addressList[index].landMark}
                                                                     .addressList[
                                                                         index]
                                                                     .id);
-                                                            Navigator.of(
-                                                                    context)
-                                                                .pop();
-                                                            PopUpSnackBar.popUp(
-                                                              context,
-                                                              'Address removed successfully',
-                                                              alertColor,
-                                                            );
-                                                            value.getAllAddress(
-                                                                context);
                                                           },
                                                           title:
                                                               'Remove Address',
@@ -202,14 +188,22 @@ Land Mark - ${value.addressList[index].landMark}
                                                       },
                                                     );
                                                   },
-                                                  icon: const Icon(Icons
-                                                      .delete_outline_outlined),
+                                                  icon: const Icon(
+                                                    Icons
+                                                        .delete_outline_outlined,
+                                                    size: 18,
+                                                  ),
                                                   label: const Text('Remove'),
                                                 ),
                                                 CSizedBox().width10,
                                                 OutlinedButton.icon(
                                                   style:
                                                       OutlinedButton.styleFrom(
+                                                    textStyle: const TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                    ),
                                                     foregroundColor:
                                                         Colors.green,
                                                   ),
@@ -223,7 +217,10 @@ Land Mark - ${value.addressList[index].landMark}
                                                           .id,
                                                     );
                                                   },
-                                                  icon: const Icon(Icons.edit),
+                                                  icon: const Icon(
+                                                    Icons.edit,
+                                                    size: 18,
+                                                  ),
                                                   label: const Text('Edit'),
                                                 ),
                                               ],
@@ -241,6 +238,32 @@ Land Mark - ${value.addressList[index].landMark}
                               return CSizedBox().height10;
                             },
                           )),
+          ),
+          bottomNavigationBar: Visibility(
+            visible: value.isButtonVisbile,
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * .08,
+              child: FloatingActionButton.extended(
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.zero,
+                ),
+                backgroundColor: themeColor,
+                onPressed: () {
+                  addAndEditBottomSheet(
+                    context,
+                    formGlobalKey,
+                    AddressScreenEnum.addAddressScreen,
+                    '',
+                  );
+                },
+                label: const Text(
+                  'Add new address',
+                ),
+                icon: const Icon(
+                  Icons.add,
+                ),
+              ),
+            ),
           ),
         );
       },
