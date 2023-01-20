@@ -32,7 +32,7 @@ class AddressScreen extends StatelessWidget {
                 value.isButtonVisbile = true;
               },
               icon: const Icon(
-                Icons.arrow_back_ios,
+                CupertinoIcons.back,
               ),
             ),
             title: const Text('My Addresses'),

@@ -25,7 +25,7 @@ class CategoryScreen extends StatelessWidget {
               return Column(
                 children: [
                   CSizedBox().height10,
-                  value.isLoading == true
+                  value.carousalList.isEmpty
                       ? const CategoryListShimmer()
                       : GridView.builder(
                           physics: const ScrollPhysics(),

@@ -3,6 +3,7 @@ import 'package:ecommerce/common/style/sized_box.dart';
 import 'package:ecommerce/controller/address/address_provider.dart';
 import 'package:ecommerce/model/address_model/address_screen_enum.dart';
 import 'package:ecommerce/view/widgets/custom_textformfiled.dart';
+import 'package:ecommerce/view/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -188,9 +189,11 @@ Future<dynamic> addAndEditBottomSheet(
                             );
                           }
                         },
-                        child: const Text(
-                          'Save Address',
-                        ),
+                        child: provider.isLoding == true
+                            ? const LoadingWidget()
+                            : const Text(
+                                'Save Address',
+                              ),
                       ),
                     ),
                     const SizedBox(

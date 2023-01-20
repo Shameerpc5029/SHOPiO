@@ -19,6 +19,12 @@ class CartProvider extends ChangeNotifier {
   int totalProductCount = 1;
   List<dynamic> cartList = [];
 
+    CartModel findById(String id) {
+    return cartList.firstWhere((element) {
+      return element.id == id;
+    });
+  }
+
   void getCart(context) async {
     isLoading = true;
     notifyListeners();

@@ -32,7 +32,6 @@ class AddressProvider extends ChangeNotifier {
   int selectIndex = 0;
 
   void addressSelect(int index) {
-   
     selectIndex = index;
     notifyListeners();
   }

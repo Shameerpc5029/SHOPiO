@@ -1,6 +1,7 @@
 import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/controller/profile/profile_provider.dart';
 import 'package:ecommerce/view/profile/address/address_screen.dart';
+import 'package:ecommerce/view/widgets/show_alert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -93,7 +94,18 @@ class ProfileScreen extends StatelessWidget {
                     title: 'LogOut',
                     iconData: FontAwesomeIcons.arrowRightToBracket,
                     onTap: () {
-                      value.logOut(context);
+                      showCupertinoDialog(
+                        context: context,
+                        builder: (context) {
+                          return ShowAlertWidget(
+                            yesPress: () {
+                              value.logOut(context);
+                            },
+                            title: 'Logout',
+                            contant: 'Are you sure you wnat to Logout?',
+                          );
+                        },
+                      );
                     },
                   );
                 },

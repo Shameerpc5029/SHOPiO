@@ -9,6 +9,7 @@ import 'package:ecommerce/controller/wish_list/wishlist_provider.dart';
 import 'package:ecommerce/view/product_view/widgets/bottom_nav_button.dart';
 import 'package:ecommerce/view/order/order_summary_screen.dart';
 import 'package:ecommerce/view/product_view/widgets/highlights_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
@@ -34,7 +35,7 @@ class ProductView extends StatelessWidget {
                 value.goToPop(context);
               },
               icon: const Icon(
-                Icons.arrow_back_ios,
+                CupertinoIcons.back,
               ),
             );
           },
@@ -103,7 +104,7 @@ class ProductView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        width: MediaQuery.of(context).size.width * .6,
+                        width: MediaQuery.of(context).size.width * .8,
                         child: Text(
                           provider.name,
                           style: const TextStyle(
@@ -136,8 +137,8 @@ class ProductView extends StatelessWidget {
                         child: FloatingActionButton(
                           elevation: 1,
                           foregroundColor: value.wishlist.contains(provider.id)
-                              ? greyColor
-                              : Colors.red,
+                              ? Colors.red
+                              : greyColor,
                           backgroundColor: Colors.white,
                           onPressed: () {
                             value.addAndRemoveWishList(context, productId);
@@ -147,17 +148,10 @@ class ProductView extends StatelessWidget {
                           ),
                         ),
                       );
-                      // return IconButton(
-                      //   onPressed: () {},
-                      // icon: Icon(
-                      //   Icons.favorite,
-                      // ),
-                      // );
                     },
                   ),
                 ],
               ),
-
               CSizedBox().height10,
               Container(
                 color: const Color.fromARGB(41, 33, 149, 243),
@@ -216,7 +210,6 @@ class ProductView extends StatelessWidget {
                 ),
               ),
               CSizedBox().height20,
-
               const Text(
                 "Product Discription",
                 style: TextStyle(
@@ -238,21 +231,7 @@ class ProductView extends StatelessWidget {
                 trimLength: 150,
                 trimExpandedText: '  show less',
               ),
-
               CSizedBox().height10,
-
-              // Row(
-              //   children: [
-              //     const Icon(
-              //       FontAwesomeIcons.moneyBill1Wave,
-              //       color: Colors.green,
-              //       size: 20,
-              //     ),
-              //     CSizedBox().width10,
-              //     const Text("Cash on delivery available"),
-              //   ],
-              // ),
-
               const Text(
                 "Highlights",
                 style: TextStyle(
@@ -331,7 +310,6 @@ class ProductView extends StatelessWidget {
                       OrderSummaryScreen.routeName,
                       arguments: productId,
                     );
-                    // }
                   },
                 );
               },

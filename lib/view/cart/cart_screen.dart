@@ -24,19 +24,19 @@ class CartScreen extends StatelessWidget {
       body: Container(
         padding: const EdgeInsets.all(10),
         child: SingleChildScrollView(
-          child: provider.model == null || provider.model!.products.isEmpty
-              ? SizedBox(
-                  height: MediaQuery.of(context).size.height * .7,
-                  child: const Center(
-                    child: Image(
-                      image: AssetImage(
-                        'assets/images/empty-cart-1.png',
+          child: provider.model == null || provider.isLoading == true
+              ? const CartShimmer()
+              : provider.model!.products.isEmpty
+                  ? SizedBox(
+                      height: MediaQuery.of(context).size.height * .7,
+                      child: const Center(
+                        child: Image(
+                          image: AssetImage(
+                            'assets/images/empty-cart-1.png',
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                )
-              : provider.isLoading == true
-                  ? const CartShimmer()
+                    )
                   : ListView.separated(
                       physics: const ScrollPhysics(),
                       shrinkWrap: true,
@@ -50,7 +50,8 @@ class CartScreen extends StatelessWidget {
                               },
                               child: Row(
                                 children: [
-                                  provider.isLoading == true
+                                  provider.isLoading == true ||
+                                          provider.cartList.isEmpty
                                       ? const LoadingWidget()
                                       : Container(
                                           height: 90,

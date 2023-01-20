@@ -4,6 +4,7 @@ import 'package:ecommerce/controller/home/home_provider.dart';
 import 'package:ecommerce/view/product_view/product_view.dart';
 import 'package:ecommerce/view/widgets/product_card.dart';
 import 'package:ecommerce/view/widgets/shimmer/product_card_shimmer.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,6 +21,14 @@ class CategoryView extends StatelessWidget {
         .categoryName(productId);
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(
+            CupertinoIcons.back,
+          ),
+        ),
         title: Text(categoryName.name),
       ),
       body: SingleChildScrollView(

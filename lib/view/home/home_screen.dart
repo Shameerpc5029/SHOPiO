@@ -104,7 +104,8 @@ class HomeScreen extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Consumer<HomeProvider>(
                       builder: (context, value, child) {
-                        return value.isLoading
+                        return value.isLoading == true ||
+                                value.carousalList.isEmpty
                             ? const ProductCardShimmer()
                             : GridView.builder(
                                 gridDelegate:

@@ -16,7 +16,7 @@ class CarousellWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<HomeProvider>(
       builder: (context, value, child) {
-        return value.carousalList.isEmpty
+        return value.isLoading == true
             ? const CarouselShimmer()
             : CarouselSlider.builder(
                 itemCount: value.carousalList.length,
@@ -25,14 +25,15 @@ class CarousellWidget extends StatelessWidget {
                     width: double.infinity,
                     child: Container(
                       color: Colors.grey,
-                      child: value.isLoading == true
-                          ? const LoadingWidget()
-                          : Image(
-                              fit: BoxFit.cover,
-                              image: NetworkImage(
-                                '${ApiUrl.apiUrl}/carousal/${value.carousalList[index].image}',
-                              ),
-                            ),
+                      child:
+                          value.isLoading == true || value.carousalList.isEmpty
+                              ? const LoadingWidget()
+                              : Image(
+                                  fit: BoxFit.cover,
+                                  image: NetworkImage(
+                                    '${ApiUrl.apiUrl}/carousal/${value.carousalList[index].image}',
+                                  ),
+                                ),
                     ),
                   );
                 },
