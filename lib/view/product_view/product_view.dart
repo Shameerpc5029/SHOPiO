@@ -218,13 +218,13 @@ class ProductView extends StatelessWidget {
                 ),
               ),
               CSizedBox().height5,
-              const ReadMoreText(
-                "is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose",
-                moreStyle: TextStyle(
+              ReadMoreText(
+                provider.description,
+                moreStyle: const TextStyle(
                   color: blueColor,
                   fontWeight: FontWeight.bold,
                 ),
-                lessStyle: TextStyle(
+                lessStyle: const TextStyle(
                   color: blueColor,
                   fontWeight: FontWeight.bold,
                 ),
@@ -239,35 +239,35 @@ class ProductView extends StatelessWidget {
                   fontSize: 14,
                 ),
               ),
-              const HighlightsWidget(
+              HighlightsWidget(
                 icon: Icons.memory_outlined,
                 titleText: 'Processor',
-                subText: 'A15 Bionic chip',
+                subText: provider.details.processor.toString(),
               ),
-              const HighlightsWidget(
+              HighlightsWidget(
                 icon: Icons.sd_storage,
                 titleText: 'Ram',
-                subText: '6 GB Ram',
+                subText: '${provider.details.ram} GB RAM',
               ),
-              const HighlightsWidget(
+              HighlightsWidget(
                 icon: Icons.camera_alt_outlined,
                 titleText: 'Rear Camera',
-                subText: '12MP | 12MP',
+                subText: '${provider.details.rearCam}',
               ),
-              const HighlightsWidget(
+              HighlightsWidget(
                 icon: Icons.flip_camera_ios_outlined,
                 titleText: 'Front Camera',
-                subText: '12MP',
+                subText: '${provider.details.frontCam}',
               ),
-              const HighlightsWidget(
+              HighlightsWidget(
                 icon: Icons.aod_outlined,
                 titleText: 'Display',
-                subText: '6.53 inch HD+IPS',
+                subText: '${provider.details.display}',
               ),
-              const HighlightsWidget(
+              HighlightsWidget(
                 icon: Icons.battery_charging_full_outlined,
                 titleText: 'Battery',
-                subText: '5000 mAh',
+                subText: '${provider.details.battery}',
               ),
             ],
           ),
@@ -320,4 +320,3 @@ class ProductView extends StatelessWidget {
     );
   }
 }
-
