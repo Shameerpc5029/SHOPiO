@@ -24,9 +24,9 @@ class CartScreen extends StatelessWidget {
       body: Container(
         padding: const EdgeInsets.all(10),
         child: SingleChildScrollView(
-          child: provider.model == null || provider.isLoading == true
+          child: provider.isLoading == true
               ? const CartShimmer()
-              : provider.model!.products.isEmpty
+              : provider.model == null || provider.model!.products.isEmpty
                   ? SizedBox(
                       height: MediaQuery.of(context).size.height * .7,
                       child: const Center(

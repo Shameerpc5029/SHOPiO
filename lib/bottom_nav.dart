@@ -1,5 +1,7 @@
+import 'package:badges/badges.dart';
 import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/controller/bottom_nav/bottom_nav_provider.dart';
+import 'package:ecommerce/controller/cart/cart_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,32 +25,51 @@ class BottomNav extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
             currentIndex: provider.currentIndex,
-            items: const [
-              BottomNavigationBarItem(
+            items: [
+              const BottomNavigationBarItem(
                 icon: Icon(
                   Icons.home_outlined,
                 ),
                 label: 'Home',
               ),
-              BottomNavigationBarItem(
+              const BottomNavigationBarItem(
                 icon: Icon(
                   Icons.category_outlined,
                 ),
                 label: 'Category',
               ),
               BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.shopping_bag_outlined,
+                icon: Consumer<CartProvider>(
+                  builder: (context, value, child) {
+                    return value.totalProductCount == 0
+                        ? const Icon(
+                            Icons.shopping_bag_outlined,
+                          )
+                        : Badge(
+                            padding: const EdgeInsets.all(6),
+                            badgeColor: themeColor,
+                            badgeContent: Text(
+                              value.totalProductCount.toString(),
+                              style: const TextStyle(
+                                color: whiteColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            child: const Icon(
+                              Icons.shopping_bag_outlined,
+                            ),
+                          );
+                  },
                 ),
                 label: 'Cart',
               ),
-              BottomNavigationBarItem(
+              const BottomNavigationBarItem(
                 icon: Icon(
                   Icons.favorite_border_outlined,
                 ),
                 label: 'Wish List',
               ),
-              BottomNavigationBarItem(
+              const BottomNavigationBarItem(
                 icon: Icon(
                   Icons.person_outline,
                 ),
@@ -59,24 +80,6 @@ class BottomNav extends StatelessWidget {
               provider.bottomNav(value);
             }),
           ),
-          // bottomNavigationBar: AnimatedBottomNavigationBar(
-          //   gapLocation: GapLocation.none,
-          //   elevation: 10,
-          //   activeColor: themeColor,
-          //   iconSize: 30,
-
-          //   icons: const [
-          //     Icons.home_outlined,
-          //     Icons.category_outlined,
-          //     Icons.shopping_bag_outlined,
-          //     Icons.favorite_border_outlined,
-          //     Icons.person_outline,
-          //   ],
-          //   activeIndex: provider.currentIndex,
-          // onTap: ((value) {
-          //   provider.bottomNav(value);
-          // }),
-          // ),
         );
       },
     );

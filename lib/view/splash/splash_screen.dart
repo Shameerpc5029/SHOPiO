@@ -1,4 +1,3 @@
-import 'package:ecommerce/common/style/sized_box.dart';
 import 'package:ecommerce/controller/splash/splash_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -27,8 +26,8 @@ class SplashScreen extends StatelessWidget {
                   ),
                 );
               },
-              duration: const Duration(seconds: 2),
-              tween: Tween<double>(begin: 30, end: 100),
+              duration: const Duration(seconds: 3),
+              tween: Tween<double>(begin: 20, end: 100),
             ),
             LoadingAnimationWidget.prograssiveDots(
               color: const Color.fromARGB(255, 10, 59, 132),

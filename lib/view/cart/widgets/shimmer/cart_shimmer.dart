@@ -19,7 +19,7 @@ class CartShimmer extends StatelessWidget {
                 ShimmerWidget.rectagle(
                   height: 100,
                   width: MediaQuery.of(context).size.width * 0.18,
-                  radius: BorderRadius.circular(10),
+                  radius: BorderRadius.circular(5),
                 ),
                 CSizedBox().width10,
                 Column(
@@ -29,28 +29,43 @@ class CartShimmer extends StatelessWidget {
                     ShimmerWidget.rectagle(
                       height: 10,
                       width: MediaQuery.of(context).size.width * 0.3,
+                      radius: BorderRadius.circular(
+                        3,
+                      ),
                     ),
                     CSizedBox().height10,
                     ShimmerWidget.rectagle(
                       height: 10,
                       width: MediaQuery.of(context).size.width * 0.7,
+                      radius: BorderRadius.circular(
+                        3,
+                      ),
                     ),
                     CSizedBox().height5,
                     Row(
                       children: [
-                        const ShimmerWidget.rectagle(
+                        ShimmerWidget.rectagle(
                           height: 10,
                           width: 60,
+                          radius: BorderRadius.circular(
+                            3,
+                          ),
                         ),
                         CSizedBox().width10,
-                        const ShimmerWidget.rectagle(
+                        ShimmerWidget.rectagle(
                           height: 10,
                           width: 60,
+                          radius: BorderRadius.circular(
+                            3,
+                          ),
                         ),
                         CSizedBox().width10,
-                        const ShimmerWidget.rectagle(
+                        ShimmerWidget.rectagle(
                           height: 10,
                           width: 60,
+                          radius: BorderRadius.circular(
+                            3,
+                          ),
                         ),
                       ],
                     ),
@@ -66,20 +81,6 @@ class CartShimmer extends StatelessWidget {
                 ),
               ],
             ),
-            CSizedBox().height5,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ShimmerWidget.rectagle(
-                  height: 40,
-                  width: MediaQuery.of(context).size.width * .47,
-                ),
-                ShimmerWidget.rectagle(
-                  height: 40,
-                  width: MediaQuery.of(context).size.width * .47,
-                ),
-              ],
-            )
           ],
         );
       },

@@ -9,6 +9,6 @@ import flutter_secure_storage_macos
 import package_info_plus_macos
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
-  FlutterSecureStorageMacosPlugin.register(with: registry.registrar(forPlugin: "FlutterSecureStorageMacosPlugin"))
+  FlutterSecureStoragePlugin.register(with: registry.registrar(forPlugin: "FlutterSecureStoragePlugin"))
   FLTPackageInfoPlusPlugin.register(with: registry.registrar(forPlugin: "FLTPackageInfoPlusPlugin"))
 }
