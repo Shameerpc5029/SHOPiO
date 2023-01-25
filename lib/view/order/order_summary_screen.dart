@@ -2,9 +2,10 @@ import 'package:ecommerce/common/constants/api_url.dart';
 import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/common/style/sized_box.dart';
 import 'package:ecommerce/controller/address/address_provider.dart';
-import 'package:ecommerce/controller/home/home_provider.dart';
+import 'package:ecommerce/controller/cart/cart_provider.dart';
+import 'package:ecommerce/controller/order_summary/order_summary_provider.dart';
 import 'package:ecommerce/controller/payment/payment_provider.dart';
-import 'package:ecommerce/view/cart/widgets/count_button.dart';
+import 'package:ecommerce/model/order_summery_enum/order_summery_enum.dart';
 import 'package:ecommerce/view/order/widgets/address_widget.dart';
 import 'package:ecommerce/view/profile/address/address_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,8 +15,17 @@ import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class OrderSummaryScreen extends StatefulWidget {
-  const OrderSummaryScreen({super.key});
-  static const routeName = 'orders_page';
+  const OrderSummaryScreen(
+      {super.key,
+      required this.screenCheck,
+      required this.cartId,
+      required this.productId});
+
+  final OrderSummaryScreenEnum screenCheck;
+
+  final String cartId;
+  final String productId;
+  // static const routeName = 'orders_page';
 
   @override
   State<OrderSummaryScreen> createState() => _OrderSummaryScreenState();
@@ -47,14 +57,18 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final productId = ModalRoute.of(context)?.settings.arguments as String;
-    final provider = Provider.of<HomeProvider>(context).findById(productId);
+    final order = Provider.of<OrderSummaryProvider>(context, listen: false);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      order.getSingleCartProduct(context, widget.productId, widget.cartId);
+    });
+    final provider = Provider.of<CartProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Order summary'),
       ),
-      body: Consumer<AddressProvider>(
-        builder: (context, value, child) {
+      body: Consumer2<AddressProvider, OrderSummaryProvider>(
+        builder: (context, value, order, child) {
           return SingleChildScrollView(
             child: Column(
               children: [
@@ -80,7 +94,10 @@ Land Mark - ${value.addressList[value.selectIndex].landMark}
                       ),
                 CSizedBox().height10,
                 ListView.separated(
-                  itemCount: 1,
+                  itemCount: widget.screenCheck ==
+                          OrderSummaryScreenEnum.normalOrderSummaryScreen
+                      ? provider.model!.products.length
+                      : 1,
                   shrinkWrap: true,
                   physics: const ScrollPhysics(),
                   itemBuilder: (context, index) {
@@ -94,8 +111,13 @@ Land Mark - ${value.addressList[value.selectIndex].landMark}
                             width: MediaQuery.of(context).size.width * 0.2,
                             decoration: BoxDecoration(
                                 image: DecorationImage(
+                              // provider.cartList.length - 1
                               image: NetworkImage(
-                                '${ApiUrl.apiUrl}/products/${provider.image[0]}',
+                                widget.screenCheck ==
+                                        OrderSummaryScreenEnum
+                                            .normalOrderSummaryScreen
+                                    ? '${ApiUrl.apiUrl}/products/${provider.model!.products[index].product.image[0]}'
+                                    : '${ApiUrl.apiUrl}/products/${order.product[0].product.image[0]}',
                               ),
                             )),
                           ),
@@ -106,7 +128,12 @@ Land Mark - ${value.addressList[value.selectIndex].landMark}
                               SizedBox(
                                 width: MediaQuery.of(context).size.width * .7,
                                 child: Text(
-                                  provider.name,
+                                  widget.screenCheck ==
+                                          OrderSummaryScreenEnum
+                                              .normalOrderSummaryScreen
+                                      ? provider
+                                          .model!.products[index].product.name
+                                      : order.product[0].product.name,
                                   style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 18,
@@ -125,13 +152,24 @@ Land Mark - ${value.addressList[value.selectIndex].landMark}
                                   );
                                 },
                                 itemSize: 16,
-                                initialRating: double.parse(provider.rating),
+                                initialRating: double.parse(
+                                  widget.screenCheck ==
+                                          OrderSummaryScreenEnum
+                                              .normalOrderSummaryScreen
+                                      ? provider
+                                          .model!.products[index].product.rating
+                                      : order.product[0].product.rating,
+                                ),
                               ),
                               CSizedBox().height5,
                               Row(
                                 children: [
                                   Text(
-                                    "${provider.offer}%off",
+                                    widget.screenCheck ==
+                                            OrderSummaryScreenEnum
+                                                .normalOrderSummaryScreen
+                                        ? "${provider.model!.products[index].product.offer}%off"
+                                        : "${order.product[0].product.offer}%off",
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: offerColor,
@@ -139,7 +177,11 @@ Land Mark - ${value.addressList[value.selectIndex].landMark}
                                   ),
                                   CSizedBox().width10,
                                   Text(
-                                    "₹${provider.price}",
+                                    widget.screenCheck ==
+                                            OrderSummaryScreenEnum
+                                                .normalOrderSummaryScreen
+                                        ? "₹${provider.model!.products[index].product.price}"
+                                        : "${order.product[0].product.price}",
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       decoration: TextDecoration.lineThrough,
@@ -148,19 +190,25 @@ Land Mark - ${value.addressList[value.selectIndex].landMark}
                                   ),
                                   CSizedBox().width10,
                                   Text(
-                                    "₹${(provider.price - provider.discountPrice).round()}",
+                                    widget.screenCheck ==
+                                            OrderSummaryScreenEnum
+                                                .normalOrderSummaryScreen
+                                        ? "₹${(provider.model!.products[index].product.price - provider.model!.products[index].product.discountPrice).round()}"
+                                        : "₹${(order.product[0].product.price - order.product[0].product.discountPrice).round()}",
                                     style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        overflow: TextOverflow.clip),
+                                      fontWeight: FontWeight.bold,
+                                      overflow: TextOverflow.clip,
+                                    ),
                                   ),
                                 ],
                               ),
                               CSizedBox().height10,
-                              CountButton(
-                                countNumber: '1',
-                                minusPressed: () {},
-                                plusPressed: () {},
-                              ),
+                              // Text("${provider.totalProductCount}")
+                              // CountButton(
+                              //   countNumber: '1',
+                              //   minusPressed: () {},
+                              //   plusPressed: () {},
+                              // ),
                             ],
                           ),
                         ],
@@ -193,7 +241,11 @@ Land Mark - ${value.addressList[value.selectIndex].landMark}
                             'Price',
                           ),
                           Text(
-                            "₹${provider.price}",
+                            widget.screenCheck ==
+                                    OrderSummaryScreenEnum
+                                        .normalOrderSummaryScreen
+                                ? "₹${provider.model!.totalPrice}"
+                                : "₹${order.product[0].product.price}",
                           ),
                         ],
                       ),
@@ -205,7 +257,11 @@ Land Mark - ${value.addressList[value.selectIndex].landMark}
                             'Discount Price',
                           ),
                           Text(
-                            "₹${provider.discountPrice.toStringAsFixed(0)}",
+                            widget.screenCheck ==
+                                    OrderSummaryScreenEnum
+                                        .normalOrderSummaryScreen
+                                ? "₹${provider.model!.totalDiscount.toStringAsFixed(0)}"
+                                : "₹${order.product[0].product.discountPrice.toStringAsFixed(0)}",
                           ),
                         ],
                       ),
@@ -223,7 +279,11 @@ Land Mark - ${value.addressList[value.selectIndex].landMark}
                             ),
                           ),
                           Text(
-                            "₹${(provider.price - provider.discountPrice).round()}",
+                            widget.screenCheck ==
+                                    OrderSummaryScreenEnum
+                                        .normalOrderSummaryScreen
+                                ? "₹${(provider.model!.totalPrice - provider.model!.totalDiscount).round()}"
+                                : "₹${(order.product[0].product.price - order.product[0].product.discountPrice).round()}",
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
@@ -235,7 +295,10 @@ Land Mark - ${value.addressList[value.selectIndex].landMark}
                         thickness: .6,
                       ),
                       Text(
-                        'You will save ₹${provider.discountPrice.toStringAsFixed(0)} on this order',
+                        widget.screenCheck ==
+                                OrderSummaryScreenEnum.normalOrderSummaryScreen
+                            ? 'You will save ₹${provider.model!.totalDiscount.toStringAsFixed(0)} on this order'
+                            : 'You will save ₹${order.product[0].product.discountPrice.toStringAsFixed(0)} on this order',
                         style: const TextStyle(
                           color: Colors.green,
                           fontWeight: FontWeight.bold,
@@ -281,7 +344,10 @@ Land Mark - ${value.addressList[value.selectIndex].landMark}
         ),
         child: ListTile(
           title: Text(
-            "₹${provider.price}",
+            widget.screenCheck ==
+                    OrderSummaryScreenEnum.normalOrderSummaryScreen
+                ? "₹${provider.model!.totalPrice}"
+                : "₹${order.product[0].price}",
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 16,
@@ -290,7 +356,10 @@ Land Mark - ${value.addressList[value.selectIndex].landMark}
             ),
           ),
           subtitle: Text(
-            "₹${(provider.price - provider.discountPrice).round()}",
+            widget.screenCheck ==
+                    OrderSummaryScreenEnum.normalOrderSummaryScreen
+                ? "₹${(provider.model!.totalPrice - provider.model!.totalDiscount).round()}"
+                : "₹${(order.product[0].product.price - order.product[0].product.discountPrice).round()}",
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 20,
@@ -322,14 +391,24 @@ Land Mark - ${value.addressList[value.selectIndex].landMark}
                           backgroundColor: themeColor,
                         ),
                         onPressed: () {
-                          paymentProvider.openCheckout(
-                            int.parse((provider.price - provider.discountPrice)
-                                .round()
-                                .toString()),
-                          );
+                          paymentProvider.openCheckout(widget.screenCheck ==
+                                  OrderSummaryScreenEnum
+                                      .normalOrderSummaryScreen
+                              ? int.parse((provider.model!.totalPrice -
+                                      provider.model!.totalDiscount)
+                                  .round()
+                                  .toString())
+                              : int.parse((order.product[0].price -
+                                      order.product[0].discountPrice)
+                                  .round()
+                                  .toString()));
                         },
-                        child: const Text(
-                          'CONTINUE',
+                        child: Text(
+                          widget.screenCheck ==
+                                  OrderSummaryScreenEnum
+                                      .normalOrderSummaryScreen
+                              ? 'CONTINUE (${provider.totalProductCount})'
+                              : 'CONTINUE',
                         ),
                       );
               },

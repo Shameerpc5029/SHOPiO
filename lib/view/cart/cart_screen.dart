@@ -2,7 +2,10 @@ import 'package:ecommerce/common/constants/api_url.dart';
 import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/common/style/sized_box.dart';
 import 'package:ecommerce/controller/cart/cart_provider.dart';
+import 'package:ecommerce/controller/order_summary/order_summary_provider.dart';
+import 'package:ecommerce/model/order_summery_enum/order_summery_enum.dart';
 import 'package:ecommerce/view/cart/widgets/shimmer/cart_shimmer.dart';
+import 'package:ecommerce/view/order/order_summary_screen.dart';
 import 'package:ecommerce/view/widgets/custom_outline_button.dart';
 import 'package:ecommerce/view/cart/widgets/count_button.dart';
 import 'package:ecommerce/view/widgets/loading_widget.dart';
@@ -207,13 +210,24 @@ class CartScreen extends StatelessWidget {
                                     );
                                   },
                                 ),
-                                CustomOutlineButton(
-                                  text: "BUY NOW",
-                                  icon: Icons.currency_rupee_outlined,
-                                  buttonColor: themeColor,
-                                  onPressed: () {},
-                                  width:
-                                      MediaQuery.of(context).size.width * .47,
+                                Consumer<OrderSummaryProvider>(
+                                  builder: (context, value, child) {
+                                    return CustomOutlineButton(
+                                      text: "BUY NOW",
+                                      icon: Icons.currency_rupee_outlined,
+                                      buttonColor: themeColor,
+                                      onPressed: () {
+                                        value.toOderScreen(
+                                          context,
+                                          provider.model!.products[index]
+                                              .product.id,
+                                          provider.model!.id,
+                                        );
+                                      },
+                                      width: MediaQuery.of(context).size.width *
+                                          .47,
+                                    );
+                                  },
                                 ),
                               ],
                             )
@@ -264,7 +278,18 @@ class CartScreen extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: themeColor,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(CupertinoPageRoute(
+                        builder: (context) {
+                          return const OrderSummaryScreen(
+                            screenCheck:
+                                OrderSummaryScreenEnum.normalOrderSummaryScreen,
+                            cartId: '',
+                            productId: '',
+                          );
+                        },
+                      ));
+                    },
                     child: Text(
                       'PLACE ORDER (${provider.totalProductCount})',
                     ),

@@ -10,6 +10,7 @@ class CartProvider extends ChangeNotifier {
   CartProvider(context) {
     getCart(context);
   }
+
   String size = "5 inch";
   int quantity = 1;
   bool isLoading = false;
@@ -18,6 +19,7 @@ class CartProvider extends ChangeNotifier {
   // List<String> cartItemsId = [];
   int totalProductCount = 1;
   List<String> cartList = [];
+
 
   void getCart(context) async {
     isLoading = true;

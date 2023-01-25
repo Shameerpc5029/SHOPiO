@@ -2,12 +2,10 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecommerce/common/constants/api_url.dart';
 import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/common/style/sized_box.dart';
-import 'package:ecommerce/controller/address/address_provider.dart';
 import 'package:ecommerce/controller/cart/cart_provider.dart';
 import 'package:ecommerce/controller/home/home_provider.dart';
 import 'package:ecommerce/controller/wish_list/wishlist_provider.dart';
 import 'package:ecommerce/view/product_view/widgets/bottom_nav_button.dart';
-import 'package:ecommerce/view/order/order_summary_screen.dart';
 import 'package:ecommerce/view/product_view/widgets/highlights_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -286,14 +284,15 @@ class ProductView extends StatelessWidget {
       bottomNavigationBar: Material(
         elevation: 20,
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Consumer2<CartProvider, HomeProvider>(
               builder: (context, value, value2, child) {
                 return value.cartList.contains(productId)
                     ? BottomNavButton(
                         text: 'Go to Cart',
-                        backgroundColor: Colors.white,
-                        foregroundColor: Colors.black,
+                        backgroundColor: themeColor,
+                        foregroundColor: Colors.white,
                         onPressed: () {
                           value2.goToCategory(context);
                         },
@@ -308,22 +307,24 @@ class ProductView extends StatelessWidget {
                       );
               },
             ),
-            Consumer2<CartProvider, AddressProvider>(
-              builder: (context, value, address, child) {
-                return BottomNavButton(
-                  text: 'BUY NOW',
-                  backgroundColor: themeColor,
-                  foregroundColor: Colors.white,
-                  onPressed: () {
-                    value.addToCart(productId, context);
-                    Navigator.of(context).pushNamed(
-                      OrderSummaryScreen.routeName,
-                      arguments: productId,
-                    );
-                  },
-                );
-              },
-            ),
+            // Consumer2<CartProvider, OrderSummaryProvider>(
+            //   builder: (context, value, order, child) {
+            //     return BottomNavButton(
+            //       text: 'BUY NOW',
+            //       backgroundColor: themeColor,
+            //       foregroundColor: Colors.white,
+            //       onPressed: () {
+            //         value.addToCart(productId, context);
+            //         order.toOderScreen(
+            //           context,
+            //           value.model!.products[index].product.id,
+            //           value.model!.id,
+            //         );
+
+            //       },
+            //     );
+            //   },
+            // ),
           ],
         ),
       ),

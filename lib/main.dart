@@ -12,7 +12,6 @@ import 'package:ecommerce/controller/sign_up/sign_up_provoder.dart';
 import 'package:ecommerce/controller/splash/splash_provider.dart';
 import 'package:ecommerce/controller/wish_list/wishlist_provider.dart';
 import 'package:ecommerce/view/category/category_view/category_view.dart';
-import 'package:ecommerce/view/order/order_summary_screen.dart';
 import 'package:ecommerce/view/product_view/product_view.dart';
 import 'package:ecommerce/view/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -64,7 +63,7 @@ class MyApp extends StatelessWidget {
         routes: {
           ProductView.routeName: (context) => const ProductView(),
           CategoryView.routeName: (context) => const CategoryView(),
-          OrderSummaryScreen.routeName: (context) => const OrderSummaryScreen(),
+          // OrderSummaryScreen.routeName: (context) =>  OrderSummaryScreen(screenCheck: OrderSummaryScreenEnum.buyOneProductOrderSummaryScreen)
         },
         home: const SplashScreen(),
       ),
