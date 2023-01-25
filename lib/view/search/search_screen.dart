@@ -52,6 +52,7 @@ class SearchScreen extends StatelessWidget {
                       itemCount: value.seachResult.length,
                       itemBuilder: (context, index) {
                         return ProductCard(
+                          index: index,
                           onTap: () => value.goToProdutScreen(context, index),
                           offer: "${value.seachResult[index].offer}%Off",
                           image:

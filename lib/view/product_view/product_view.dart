@@ -19,7 +19,6 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 class ProductView extends StatelessWidget {
   static const routeName = "product_view";
   const ProductView({super.key});
-  final int offerPrice = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -153,63 +152,74 @@ class ProductView extends StatelessWidget {
                 ],
               ),
               CSizedBox().height10,
-              Container(
-                color: const Color.fromARGB(41, 33, 149, 243),
-                child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            'Special price',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: themeColor,
-                            ),
-                          ),
-                        ],
+              provider.offer == 0
+                  ? Padding(
+                      padding: const EdgeInsets.only(left: 2),
+                      child: Text(
+                        "₹${provider.price}",
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
                       ),
-                      CSizedBox().height5,
-                      Row(
-                        children: [
-                          Text(
-                            '${provider.offer}% off',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: themeColor,
+                    )
+                  : Container(
+                      color: const Color.fromARGB(41, 33, 149, 243),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  'Special price',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: themeColor,
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                          CSizedBox().width10,
-                          Text(
-                            "₹${provider.price}",
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16,
-                              color: greyColor,
-                              decoration: TextDecoration.lineThrough,
-                            ),
-                          ),
-                          CSizedBox().width10,
-                          Text(
-                            "₹${(provider.price - provider.discountPrice).round()}",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              color: themeColor,
-                              overflow: TextOverflow.clip,
-                            ),
-                            maxLines: 1,
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              CSizedBox().height20,
+                            CSizedBox().height5,
+                            Row(
+                              children: [
+                                Text(
+                                  '${provider.offer}% off',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: themeColor,
+                                  ),
+                                ),
+                                CSizedBox().width10,
+                                Text(
+                                  "₹${provider.price}",
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16,
+                                    color: greyColor,
+                                    decoration: TextDecoration.lineThrough,
+                                  ),
+                                ),
+                                CSizedBox().width10,
+                                Text(
+                                  "₹${(provider.price - provider.discountPrice).round()}",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                    color: themeColor,
+                                    overflow: TextOverflow.clip,
+                                  ),
+                                  maxLines: 1,
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+              CSizedBox().height10,
               const Text(
                 "Product Discription",
                 style: TextStyle(

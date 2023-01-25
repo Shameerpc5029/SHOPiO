@@ -118,6 +118,7 @@ class HomeScreen extends StatelessWidget {
                                 itemCount: value.productList.length,
                                 itemBuilder: (context, index) {
                                   return ProductCard(
+                                    index: index,
                                     onTap: () =>
                                         value.goToProdutScreen(context, index),
                                     offer:

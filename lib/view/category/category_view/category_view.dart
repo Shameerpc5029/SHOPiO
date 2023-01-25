@@ -52,6 +52,7 @@ class CategoryView extends StatelessWidget {
                           itemCount: providerByCategory.length,
                           itemBuilder: (context, index) {
                             return ProductCard(
+                              index: index,
                               onTap: () {
                                 Navigator.of(context).pushNamed(
                                   ProductView.routeName,

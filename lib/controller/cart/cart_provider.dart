@@ -15,15 +15,9 @@ class CartProvider extends ChangeNotifier {
   bool isLoading = false;
   CartModel? model;
   int? totalSave;
-  List<String> cartItemsId = [];
+  // List<String> cartItemsId = [];
   int totalProductCount = 1;
-  List<dynamic> cartList = [];
-
-    CartModel findById(String id) {
-    return cartList.firstWhere((element) {
-      return element.id == id;
-    });
-  }
+  List<String> cartList = [];
 
   void getCart(context) async {
     isLoading = true;
@@ -120,7 +114,7 @@ class CartProvider extends ChangeNotifier {
               notifyListeners();
               totalProductsCount();
               notifyListeners();
-              cartItemsId = model!.products.map((e) => e.product.id).toList();
+              cartList = model!.products.map((e) => e.product.id).toList();
               notifyListeners();
               totalSave = (model!.totalPrice - model!.totalDiscount).toInt();
               notifyListeners();

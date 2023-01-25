@@ -1,6 +1,8 @@
 import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/common/style/sized_box.dart';
+import 'package:ecommerce/controller/home/home_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
@@ -11,6 +13,7 @@ class ProductCard extends StatelessWidget {
     required this.name,
     required this.price,
     required this.discountPrice,
+    required this.index,
   }) : super(key: key);
 
   final void Function() onTap;
@@ -19,6 +22,7 @@ class ProductCard extends StatelessWidget {
   final String name;
   final String price;
   final String discountPrice;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -29,30 +33,36 @@ class ProductCard extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         child: GridTile(
-          header: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                decoration: const BoxDecoration(
-                  color: offerColor,
-                  borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(10),
-                    topLeft: Radius.circular(10),
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(5),
-                  child: Text(
-                    offer,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-            ],
+          header: Consumer<HomeProvider>(
+            builder: (context, value, child) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  value.productList[index].offer == 0
+                      ? const SizedBox()
+                      : Container(
+                          decoration: const BoxDecoration(
+                            color: offerColor,
+                            borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(10),
+                              topLeft: Radius.circular(10),
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(5),
+                            child: Text(
+                              offer,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                ],
+              );
+            },
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

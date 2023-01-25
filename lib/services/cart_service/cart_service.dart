@@ -6,6 +6,7 @@ import 'package:ecommerce/common/constants/api_endpoints.dart';
 import 'package:ecommerce/common/constants/api_url.dart';
 import 'package:ecommerce/model/cart_model/add_to_cart.dart';
 import 'package:ecommerce/model/cart_model/get_form_cart_model.dart';
+import 'package:ecommerce/model/cart_model/get_single_cart_model.dart';
 import 'package:ecommerce/utils/exceptions/dio_exceptions.dart';
 import 'package:ecommerce/utils/interceptor/interceptor.dart';
 
@@ -76,6 +77,32 @@ class CartService {
       if (response.statusCode == 200 || response.statusCode == 201) {
         final remove = response.data['message'];
         return remove;
+      }
+    } on DioError catch (e) {
+      log(e.message);
+      DioException().dioError(e, context);
+    }
+    return null;
+  }
+
+  Future<List<GetSingelCartProduct>?> getSingleCart(
+      context, String productId, String cartId) async {
+    Dio dios = await  IntercepterApi().getApiUser(context);
+    try {
+      final Response response = await dios.get(
+        "${ApiUrl.apiUrl+ ApiEndPoints.cart}/$cartId/product/$productId",
+      );
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        if (response.data == null) {
+          return null;
+        } else {
+          final List<GetSingelCartProduct> model = (response.data as List)
+              .map((e) => GetSingelCartProduct.fromJson(e))
+              .toList();
+
+          log(response.data.toString());
+          return model;
+        }
       }
     } on DioError catch (e) {
       log(e.message);
