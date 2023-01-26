@@ -217,6 +217,7 @@ class CartScreen extends StatelessWidget {
                                       icon: Icons.currency_rupee_outlined,
                                       buttonColor: themeColor,
                                       onPressed: () {
+                                        value.loading = true;
                                         value.toOderScreen(
                                           context,
                                           provider.model!.products[index]
@@ -265,7 +266,7 @@ class CartScreen extends StatelessWidget {
                   ),
                 ),
                 subtitle: Text(
-                  "₹${provider.totalSave}",
+                  "₹${(provider.model!.totalPrice - provider.model!.totalDiscount).round()}",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
@@ -274,25 +275,30 @@ class CartScreen extends StatelessWidget {
                 ),
                 trailing: SizedBox(
                   width: 200,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: themeColor,
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).push(CupertinoPageRoute(
-                        builder: (context) {
-                          return const OrderSummaryScreen(
-                            screenCheck:
-                                OrderSummaryScreenEnum.normalOrderSummaryScreen,
-                            cartId: '',
-                            productId: '',
-                          );
+                  child: Consumer<OrderSummaryProvider>(
+                    builder: (context, value, child) {
+                      return ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: themeColor,
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).push(CupertinoPageRoute(
+                            builder: (context) {
+                              return const OrderSummaryScreen(
+                                screenCheck: OrderSummaryScreenEnum
+                                    .normalOrderSummaryScreen,
+                                cartId: '',
+                                productId: '',
+                              );
+                            },
+                          ));
+                          value.loading = false;
                         },
-                      ));
+                        child: Text(
+                          'PLACE ORDER (${provider.totalProductCount})',
+                        ),
+                      );
                     },
-                    child: Text(
-                      'PLACE ORDER (${provider.totalProductCount})',
-                    ),
                   ),
                 ),
               ),

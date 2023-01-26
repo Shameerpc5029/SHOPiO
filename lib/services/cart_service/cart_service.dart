@@ -87,10 +87,10 @@ class CartService {
 
   Future<List<GetSingelCartProduct>?> getSingleCart(
       context, String productId, String cartId) async {
-    Dio dios = await  IntercepterApi().getApiUser(context);
+    Dio dios = await IntercepterApi().getApiUser(context);
     try {
       final Response response = await dios.get(
-        "${ApiUrl.apiUrl+ ApiEndPoints.cart}/$cartId/product/$productId",
+        "${ApiUrl.apiUrl + ApiEndPoints.cart}/$cartId/product/$productId",
       );
       if (response.statusCode == 200 || response.statusCode == 201) {
         if (response.data == null) {

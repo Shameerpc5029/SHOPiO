@@ -127,26 +127,26 @@ class ProductView extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Consumer<WishListProvider>(
-                    builder: (context, value, child) {
-                      return SizedBox(
-                        height: 40,
-                        child: FloatingActionButton(
-                          elevation: 1,
-                          foregroundColor: value.wishlist.contains(provider.id)
-                              ? Colors.red
-                              : greyColor,
-                          backgroundColor: Colors.white,
-                          onPressed: () {
-                            value.addAndRemoveWishList(context, productId);
-                          },
-                          child: const Icon(
-                            Icons.favorite,
-                          ),
-                        ),
-                      );
-                    },
-                  ),
+                  // Consumer<WishListProvider>(
+                  //   builder: (context, value, child) {
+                  //     return SizedBox(
+                  //       height: 40,
+                  //       child: FloatingActionButton(
+                  //         elevation: 1,
+                  //         foregroundColor: value.wishlist.contains(provider.id)
+                  //             ? Colors.red
+                  //             : greyColor,
+                  //         backgroundColor: Colors.white,
+                  //         onPressed: () {
+                  //           value.addAndRemoveWishList(context, productId);
+                  //         },
+                  //         child: const Icon(
+                  //           Icons.favorite,
+                  //         ),
+                  //       ),
+                  //     );
+                  //   },
+                  // ),
                 ],
               ),
               CSizedBox().height10,
@@ -284,8 +284,23 @@ class ProductView extends StatelessWidget {
       bottomNavigationBar: Material(
         elevation: 20,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
           children: [
+            Consumer<WishListProvider>(
+              builder: (context, value, child) {
+                return BottomNavButton(
+                  text: 'wishList',
+                  backgroundColor: value.wishlist.contains(provider.id)
+                      ? Colors.red
+                      : whiteColor,
+                  foregroundColor: value.wishlist.contains(provider.id)
+                      ? Colors.white
+                      : Colors.black,
+                  onPressed: () {
+                    value.addAndRemoveWishList(context, productId);
+                  },
+                );
+              },
+            ),
             Consumer2<CartProvider, HomeProvider>(
               builder: (context, value, value2, child) {
                 return value.cartList.contains(productId)
@@ -307,24 +322,6 @@ class ProductView extends StatelessWidget {
                       );
               },
             ),
-            // Consumer2<CartProvider, OrderSummaryProvider>(
-            //   builder: (context, value, order, child) {
-            //     return BottomNavButton(
-            //       text: 'BUY NOW',
-            //       backgroundColor: themeColor,
-            //       foregroundColor: Colors.white,
-            //       onPressed: () {
-            //         value.addToCart(productId, context);
-            //         order.toOderScreen(
-            //           context,
-            //           value.model!.products[index].product.id,
-            //           value.model!.id,
-            //         );
-
-            //       },
-            //     );
-            //   },
-            // ),
           ],
         ),
       ),

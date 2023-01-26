@@ -11,7 +11,7 @@ class OrderSummaryProvider with ChangeNotifier {
 
   bool loading = false;
   List<GetSingelCartProduct> product = [];
-  int? totalSave;
+  String? totalSave;
   List<String> productIds = [];
 
   void startLoading() {
@@ -55,12 +55,8 @@ class OrderSummaryProvider with ChangeNotifier {
   Future<void> getSingleCartProduct(
       context, String productId, String cartId) async {
     await CartService().getSingleCart(context, productId, cartId).then((value) {
-      loading = true;
-      notifyListeners();
       if (value != null) {
         product = value;
-        notifyListeners();
-        totalSave = product[0].discountPrice.toInt() - product[0].price.toInt();
         notifyListeners();
         loading = false;
         notifyListeners();
