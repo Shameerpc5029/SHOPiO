@@ -16,6 +16,7 @@ class SearchScreen extends StatelessWidget {
         title: Consumer<HomeProvider>(
           builder: (context, value, child) {
             return CupertinoSearchTextField(
+              autofocus: true,
               padding: const EdgeInsets.all(10),
               placeholder: 'Search for products',
               controller: value.searchController,

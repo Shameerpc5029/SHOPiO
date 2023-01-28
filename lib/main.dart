@@ -63,7 +63,6 @@ class MyApp extends StatelessWidget {
         routes: {
           ProductView.routeName: (context) => const ProductView(),
           CategoryView.routeName: (context) => const CategoryView(),
-          // OrderSummaryScreen.routeName: (context) =>  OrderSummaryScreen(screenCheck: OrderSummaryScreenEnum.buyOneProductOrderSummaryScreen)
         },
         home: const SplashScreen(),
       ),

@@ -7,7 +7,7 @@ import 'package:razorpay_flutter/razorpay_flutter.dart';
 class PaymentProvider extends ChangeNotifier {
   Razorpay razorpay = Razorpay();
 
-  void openCheckout(price) async {
+  void openCheckout(price, context) async {
     var options = {
       'key': 'rzp_test_7Oy2L1XgmtnASJ',
       'amount': price * 100,
@@ -21,16 +21,28 @@ class PaymentProvider extends ChangeNotifier {
 
     try {
       razorpay.open(options);
+
+      razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS,
+          (PaymentSuccessResponse response) {
+        handlePaymentSuccess(response);
+      });
+      razorpay.on(Razorpay.EVENT_PAYMENT_ERROR,
+          (PaymentFailureResponse response) {
+        handlePaymentError(response);
+      });
+      razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET,
+          (ExternalWalletResponse response) {
+        handleExternalWallet(response);
+      });
     } on PaymentFailureResponse catch (e) {
       log(e.error.toString());
     }
   }
 
-  void handlePaymentSuccess(PaymentSuccessResponse response, context) {
+  void handlePaymentSuccess(PaymentSuccessResponse response) {
     Fluttertoast.showToast(
         msg: "SUCCESS:${response.paymentId}", timeInSecForIosWeb: 4);
     notifyListeners();
-    // PopUpSnackBar.popUp(context, "SUCCESS:${response.paymentId}", greyColor);
   }
 
   void handlePaymentError(PaymentFailureResponse response) {
@@ -38,17 +50,11 @@ class PaymentProvider extends ChangeNotifier {
         msg: "ERROR:${response.code} - ${response.message}",
         timeInSecForIosWeb: 4);
     notifyListeners();
-
-    // PopUpSnackBar.popUp(
-    //     context, "ERROR:${response.code} - ${response.message}", greyColor);
   }
 
-  void handleExternalWallet(ExternalWalletResponse response, context) {
+  void handleExternalWallet(ExternalWalletResponse response) {
     Fluttertoast.showToast(
         msg: "EXTERNAL_WALLET:${response.walletName}", timeInSecForIosWeb: 4);
     notifyListeners();
-
-    // PopUpSnackBar.popUp(
-    //     context, "EXTERNAL_WALLET:${response.walletName}", greyColor);
   }
 }

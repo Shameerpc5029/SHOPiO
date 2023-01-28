@@ -20,7 +20,6 @@ class CartProvider extends ChangeNotifier {
   int totalProductCount = 1;
   List<String> cartList = [];
 
-
   void getCart(context) async {
     isLoading = true;
     notifyListeners();

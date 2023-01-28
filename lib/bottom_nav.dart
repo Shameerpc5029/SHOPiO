@@ -1,4 +1,3 @@
-import 'package:badges/badges.dart';
 import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/controller/bottom_nav/bottom_nav_provider.dart';
 import 'package:ecommerce/controller/cart/cart_provider.dart';
@@ -41,34 +40,32 @@ class BottomNav extends StatelessWidget {
               BottomNavigationBarItem(
                 icon: Consumer<CartProvider>(
                   builder: (context, value, child) {
-                    return value.totalProductCount == 0
-                        ? const Icon(
-                            Icons.shopping_bag_outlined,
-                          )
-                        : Badge(
-                            padding: const EdgeInsets.all(6),
-                            badgeColor: themeColor,
-                            badgeContent: Text(
-                              value.totalProductCount.toString(),
-                              style: const TextStyle(
-                                color: whiteColor,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            child: const Icon(
-                              Icons.shopping_bag_outlined,
-                            ),
-                          );
+                    return Badge(
+                      isLabelVisible:
+                          value.totalProductCount > 0 ? true : false,
+                      alignment: AlignmentDirectional.topEnd,
+                      backgroundColor: themeColor,
+                      textColor: whiteColor,
+                      label: Text(
+                        value.totalProductCount.toString(),
+                      ),
+                      textStyle: const TextStyle(
+                        color: whiteColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      child: const Icon(
+                        Icons.shopping_bag_outlined,
+                      ),
+                    );
                   },
                 ),
                 label: 'Cart',
               ),
               const BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.favorite_border_outlined,
-                ),
-                label: 'Wish List',
-              ),
+                  icon: Icon(
+                    Icons.favorite_border_outlined,
+                  ),
+                  label: 'Wish List'),
               const BottomNavigationBarItem(
                 icon: Icon(
                   Icons.person_outline,

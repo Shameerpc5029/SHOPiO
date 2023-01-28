@@ -29,4 +29,24 @@ class ProductService {
     }
     return null;
   }
+
+  Future<List<ProductModel>?> searchProducts(
+      String searchValue, context) async {
+    Dio dios = await IntercepterApi().getApiUser(context);
+    try {
+      final Response response = await dios.get(
+          ApiUrl.apiUrl + ApiEndPoints.product,
+          queryParameters: {"search": searchValue});
+      if (response.statusCode! >= 200 && response.statusCode! <= 299) {
+        final List<ProductModel> products = (response.data as List)
+            .map((e) => ProductModel.fromJson(e))
+            .toList();
+
+        return products;
+      }
+    } catch (e) {
+      DioException().dioError(e, context);
+    }
+    return null;
+  }
 }

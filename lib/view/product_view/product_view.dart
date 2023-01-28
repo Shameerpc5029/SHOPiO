@@ -4,6 +4,7 @@ import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/common/style/sized_box.dart';
 import 'package:ecommerce/controller/cart/cart_provider.dart';
 import 'package:ecommerce/controller/home/home_provider.dart';
+import 'package:ecommerce/controller/order_summary/order_summary_provider.dart';
 import 'package:ecommerce/controller/wish_list/wishlist_provider.dart';
 import 'package:ecommerce/view/product_view/widgets/bottom_nav_button.dart';
 import 'package:ecommerce/view/product_view/widgets/highlights_widget.dart';
@@ -84,7 +85,7 @@ class ProductView extends StatelessWidget {
                     child: AnimatedSmoothIndicator(
                       activeIndex: value.activeIndex,
                       count: provider.image.length,
-                      effect: WormEffect(
+                      effect: const WormEffect(
                         activeDotColor: themeColor,
                         dotHeight: 10,
                         dotWidth: 10,
@@ -169,7 +170,7 @@ class ProductView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Row(
-                              children: [
+                              children: const [
                                 Text(
                                   'Special price',
                                   style: TextStyle(
@@ -184,7 +185,7 @@ class ProductView extends StatelessWidget {
                               children: [
                                 Text(
                                   '${provider.offer}% off',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
                                     color: themeColor,
@@ -203,7 +204,7 @@ class ProductView extends StatelessWidget {
                                 CSizedBox().width10,
                                 Text(
                                   "₹${(provider.price - provider.discountPrice).round()}",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
                                     color: themeColor,
@@ -290,7 +291,7 @@ class ProductView extends StatelessWidget {
                 return BottomNavButton(
                   text: 'wishList',
                   backgroundColor: value.wishlist.contains(provider.id)
-                      ? Colors.red
+                      ? Colors.green.shade600
                       : whiteColor,
                   foregroundColor: value.wishlist.contains(provider.id)
                       ? Colors.white

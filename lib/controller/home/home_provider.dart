@@ -5,6 +5,7 @@ import 'package:ecommerce/model/home_model/product_model.dart';
 import 'package:ecommerce/services/home_service/carousal_service.dart';
 import 'package:ecommerce/services/home_service/category_service.dart';
 import 'package:ecommerce/services/home_service/product_service.dart';
+import 'package:ecommerce/utils/debouncer.dart';
 import 'package:ecommerce/view/category/category_view/category_view.dart';
 import 'package:ecommerce/view/product_view/product_view.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,7 +20,10 @@ class HomeProvider extends ChangeNotifier {
     getCarousals(context);
     getCategory(context);
     getProducts(context);
+    // searchProducts('', context);
   }
+
+  final debouncer = Debouncer(milliseconds: 200);
 
   bool seachSelected = false;
   bool isLoading = false;
@@ -135,6 +139,22 @@ class HomeProvider extends ChangeNotifier {
     );
     Provider.of<BottomNavProvider>(context, listen: false).currentIndex = 2;
   }
+
+  // Future<void> searchProducts(String text, context) async {
+  //   isLoading = true;
+  //   notifyListeners();
+  //   await ProductService().searchProducts(text, context).then((value) {
+  //     if (value != null) {
+  //       productList = value;
+  //       notifyListeners();
+  //       isLoading = false;
+  //       notifyListeners();
+  //     } else {
+  //       isLoading = false;
+  //       notifyListeners();
+  //     }
+  //   });
+  // }
 
   TextEditingController searchController = TextEditingController();
   void search(String keyboard) {

@@ -105,7 +105,7 @@ class HomeScreen extends StatelessWidget {
                     child: Consumer<HomeProvider>(
                       builder: (context, value, child) {
                         return value.isLoading == true ||
-                                value.carousalList.isEmpty
+                                value.productList.isEmpty
                             ? const ProductCardShimmer()
                             : GridView.builder(
                                 gridDelegate:

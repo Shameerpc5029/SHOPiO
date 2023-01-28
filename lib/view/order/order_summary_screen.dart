@@ -88,11 +88,13 @@ Land Mark - ${value.addressList[value.selectIndex].landMark}
                               number:
                                   value.addressList[value.selectIndex].phone,
                               onPreesed: () {
-                                Navigator.of(context).push(CupertinoPageRoute(
-                                  builder: (context) {
-                                    return const AddressScreen();
-                                  },
-                                ));
+                                Navigator.of(context).push(
+                                  CupertinoPageRoute(
+                                    builder: (context) {
+                                      return const AddressScreen();
+                                    },
+                                  ),
+                                );
                               },
                             ),
                       CSizedBox().height10,
@@ -115,7 +117,6 @@ Land Mark - ${value.addressList[value.selectIndex].landMark}
                                       MediaQuery.of(context).size.width * 0.2,
                                   decoration: BoxDecoration(
                                       image: DecorationImage(
-                                    // provider.cartList.length - 1
                                     image: NetworkImage(
                                       widget.screenCheck ==
                                               OrderSummaryScreenEnum
@@ -388,8 +389,8 @@ Land Mark - ${value.addressList[value.selectIndex].landMark}
                     ),
                     trailing: SizedBox(
                       width: 200,
-                      child: Consumer<AddressProvider>(
-                        builder: (context, address, child) {
+                      child: Consumer2<AddressProvider, PaymentProvider>(
+                        builder: (context, address, payment, child) {
                           return address.addressList.isEmpty
                               ? OutlinedButton(
                                   style: OutlinedButton.styleFrom(
@@ -412,18 +413,45 @@ Land Mark - ${value.addressList[value.selectIndex].landMark}
                                     backgroundColor: themeColor,
                                   ),
                                   onPressed: () {
-                                    paymentProvider.openCheckout(widget
-                                                .screenCheck ==
-                                            OrderSummaryScreenEnum
-                                                .normalOrderSummaryScreen
-                                        ? int.parse((cart.model!.totalPrice -
-                                                cart.model!.totalDiscount)
-                                            .round()
-                                            .toString())
-                                        : int.parse((value.product[0].price -
-                                                value.product[0].discountPrice)
-                                            .round()
-                                            .toString()));
+                                    paymentProvider.openCheckout(
+                                      widget.screenCheck ==
+                                              OrderSummaryScreenEnum
+                                                  .normalOrderSummaryScreen
+                                          ? int.parse((cart.model!.totalPrice -
+                                                  cart.model!.totalDiscount)
+                                              .round()
+                                              .toString())
+                                          : int.parse((value.product[0].price -
+                                                  value
+                                                      .product[0].discountPrice)
+                                              .round()
+                                              .toString()),
+                                      context,
+                                    );
+                                    // paymentProvider.openCheckout(
+                                    // widget.screenCheck ==
+                                    //         OrderSummaryScreenEnum
+                                    //             .normalOrderSummaryScreen
+                                    //     ? int.parse((cart
+                                    //                 .model!.totalPrice -
+                                    //             cart.model!.totalDiscount)
+                                    //         .round()
+                                    //         .toString())
+                                    //     : int.parse(
+                                    //         (value.product[0].price -
+                                    //                 value.product[0]
+                                    //                     .discountPrice)
+                                    //             .round()
+                                    //             .toString()),
+                                    // address.addressList[address.selectIndex]
+                                    //     .id,
+                                    //     '',
+                                    // widget.screenCheck ==
+                                    //         OrderSummaryScreenEnum
+                                    //             .normalOrderSummaryScreen
+                                    //     ? cart.model!.products[0].id
+                                    //     : value.product[0].id,
+                                    //     context);
                                   },
                                   child: Text(
                                     widget.screenCheck ==
