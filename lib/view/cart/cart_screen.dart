@@ -97,10 +97,9 @@ class CartScreen extends StatelessWidget {
                                           allowHalfRating: true,
                                           onRatingUpdate: (value) {},
                                           itemBuilder: (context, hello) {
-                                            return const Icon(
+                                            return Icon(
                                               Icons.star,
-                                              color: Color.fromARGB(
-                                                  255, 24, 110, 29),
+                                              color: Colors.green.shade700,
                                             );
                                           },
                                           itemSize: 16,
@@ -113,14 +112,6 @@ class CartScreen extends StatelessWidget {
                                         CSizedBox().height5,
                                         Row(
                                           children: [
-                                            Text(
-                                              "${provider.model!.products[index].product.offer}%off",
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: offerColor,
-                                              ),
-                                            ),
-                                            CSizedBox().width10,
                                             Text(
                                               '₹${provider.model!.products[index].price}',
                                               style: const TextStyle(
@@ -136,6 +127,14 @@ class CartScreen extends StatelessWidget {
                                               style: const TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   overflow: TextOverflow.clip),
+                                            ),
+                                            CSizedBox().width10,
+                                            Text(
+                                              "${provider.model!.products[index].product.offer}% off",
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: offerColor,
+                                              ),
                                             ),
                                           ],
                                         ),

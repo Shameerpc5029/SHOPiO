@@ -59,7 +59,7 @@ class CategoryView extends StatelessWidget {
                                   arguments: providerByCategory[index].id,
                                 );
                               },
-                              offer: "${providerByCategory[index].offer}%Off",
+                              offer: "${providerByCategory[index].offer}% Off",
                               image:
                                   '${ApiUrl.apiUrl}/products/${providerByCategory[index].image[0]}',
                               name: providerByCategory[index].name,

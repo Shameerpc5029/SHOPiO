@@ -175,18 +175,6 @@ Land Mark - ${value.addressList[value.selectIndex].landMark}
                                           widget.screenCheck ==
                                                   OrderSummaryScreenEnum
                                                       .normalOrderSummaryScreen
-                                              ? "${cart.model!.products[index].product.offer}%off"
-                                              : "${order.product[0].product.offer}%off",
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: offerColor,
-                                          ),
-                                        ),
-                                        CSizedBox().width10,
-                                        Text(
-                                          widget.screenCheck ==
-                                                  OrderSummaryScreenEnum
-                                                      .normalOrderSummaryScreen
                                               ? "₹${cart.model!.products[index].product.price}"
                                               : "${order.product[0].product.price}",
                                           style: const TextStyle(
@@ -206,6 +194,18 @@ Land Mark - ${value.addressList[value.selectIndex].landMark}
                                           style: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             overflow: TextOverflow.clip,
+                                          ),
+                                        ),
+                                        CSizedBox().width10,
+                                        Text(
+                                          widget.screenCheck ==
+                                                  OrderSummaryScreenEnum
+                                                      .normalOrderSummaryScreen
+                                              ? "${cart.model!.products[index].product.offer}% off"
+                                              : "${order.product[0].product.offer}% off",
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: offerColor,
                                           ),
                                         ),
                                       ],
