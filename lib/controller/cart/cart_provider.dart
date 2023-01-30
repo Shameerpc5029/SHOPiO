@@ -16,7 +16,6 @@ class CartProvider extends ChangeNotifier {
   bool isLoading = false;
   CartModel? model;
   int? totalSave;
-  // List<String> cartItemsId = [];
   int totalProductCount = 1;
   List<String> cartList = [];
 

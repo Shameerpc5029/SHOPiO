@@ -98,7 +98,7 @@ Land Mark - ${value.addressList[value.selectIndex].landMark}
                               },
                             ),
                       CSizedBox().height10,
-                      ListView.separated(
+                      ListView.builder(
                         itemCount: widget.screenCheck ==
                                 OrderSummaryScreenEnum.normalOrderSummaryScreen
                             ? cart.model!.products.length
@@ -228,9 +228,6 @@ Land Mark - ${value.addressList[value.selectIndex].landMark}
                             ),
                           );
                         },
-                        separatorBuilder: (BuildContext context, int index) {
-                          return CSizedBox().height20;
-                        },
                       ),
                       CSizedBox().height10,
                       Container(
@@ -278,6 +275,7 @@ Land Mark - ${value.addressList[value.selectIndex].landMark}
                                 ),
                               ],
                             ),
+                            CSizedBox().height10,
                             const Divider(
                               thickness: .6,
                               height: 30,

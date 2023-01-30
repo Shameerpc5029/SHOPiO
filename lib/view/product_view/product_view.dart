@@ -4,7 +4,6 @@ import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/common/style/sized_box.dart';
 import 'package:ecommerce/controller/cart/cart_provider.dart';
 import 'package:ecommerce/controller/home/home_provider.dart';
-import 'package:ecommerce/controller/order_summary/order_summary_provider.dart';
 import 'package:ecommerce/controller/wish_list/wishlist_provider.dart';
 import 'package:ecommerce/view/product_view/widgets/bottom_nav_button.dart';
 import 'package:ecommerce/view/product_view/widgets/highlights_widget.dart';
