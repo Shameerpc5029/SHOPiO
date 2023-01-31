@@ -106,11 +106,13 @@ class WishListScreen extends StatelessWidget {
                                     provider
                                         .model!.products[index].product.name,
                                     style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: greyColor,
-                                    ),
+                                        fontWeight: FontWeight.bold,
+                                        color: greyColor,
+                                        overflow: TextOverflow.ellipsis),
                                   ),
                                   Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
                                     children: [
                                       Text(
                                         "₹${provider.model!.products[index].product.price}",
@@ -119,7 +121,7 @@ class WishListScreen extends StatelessWidget {
                                               TextDecoration.lineThrough,
                                         ),
                                       ),
-                                      CSizedBox().width10,
+                                      // CSizedBox().width10,
                                       Text(
                                         "₹${(provider.model!.products[index].product.price - provider.model!.products[index].product.discountPrice).round()}",
                                         style: TextStyle(
@@ -127,12 +129,13 @@ class WishListScreen extends StatelessWidget {
                                           color: priceColor,
                                         ),
                                       ),
-                                      CSizedBox().width10,
+                                      // CSizedBox().width10,
                                       Text(
                                         "${provider.model!.products[index].product.offer}% off",
                                         style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: offerColor,
+                                          overflow: TextOverflow.ellipsis,
                                         ),
                                       ),
                                     ],

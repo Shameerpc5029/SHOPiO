@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:ecommerce/common/constants/api_endpoints.dart';
 import 'package:ecommerce/common/constants/api_url.dart';
@@ -23,8 +21,8 @@ class ProductService {
           return product;
         }
       }
-    } on DioError catch (e) {
-      log(e.message);
+    } catch (e) {
+      // log(e.message);
       DioException().dioError(e, context);
     }
     return null;

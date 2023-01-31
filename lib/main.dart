@@ -2,6 +2,7 @@ import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/controller/address/address_provider.dart';
 import 'package:ecommerce/controller/bottom_nav/bottom_nav_provider.dart';
 import 'package:ecommerce/controller/cart/cart_provider.dart';
+import 'package:ecommerce/controller/connection/connecton_provider.dart';
 import 'package:ecommerce/controller/home/home_provider.dart';
 import 'package:ecommerce/controller/order_summary/order_summary_provider.dart';
 import 'package:ecommerce/controller/otp/otp_provider.dart';
@@ -40,12 +41,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => WishListProvider(context)),
         ChangeNotifierProvider(create: (context) => CartProvider(context)),
         ChangeNotifierProvider(create: (context) => AddressProvider(context)),
-        ChangeNotifierProvider(
-          create: (context) => OrderSummaryProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => PaymentProvider(),
-        ),
+        ChangeNotifierProvider(create: (context) => OrderSummaryProvider()),
+        ChangeNotifierProvider(create: (context) => PaymentProvider()),
+        ChangeNotifierProvider(create: (context) => InternetCheck())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

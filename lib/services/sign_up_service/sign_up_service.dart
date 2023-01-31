@@ -31,8 +31,8 @@ class SignUpService {
         log(response.data.toString());
         return model;
       }
-    } on DioError catch (e) {
-      log(e.toString());
+    } catch (e) {
+      // log(e.toString());
       DioException().dioError(e, context);
     }
     return null;

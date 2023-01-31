@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -6,34 +7,8 @@ import 'package:ecommerce/common/style/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class DioException {
-  void dioError(Object e, BuildContext context) {
-    if (e is PlatformException) {
-      PopUpSnackBar.popUp(
-        context,
-        'Platform Error Occured',
-        alertColor,
-      );
-    }
-    if (e is SocketException) {
-      PopUpSnackBar.popUp(
-        context,
-        'No Internet Connection',
-        alertColor,
-      );
-    } else if (e is TimeoutException) {
-      PopUpSnackBar.popUp(
-        context,
-        'Connection Timeout',
-        alertColor,
-      );
-    } else if (e is MissingPluginException) {
-      PopUpSnackBar.popUp(
-        context,
-        'Plugin error occured',
-        alertColor,
-      );
-    }
+class DioException implements Exception {
+  void dioError(Object e, context) {
     if (e is DioError) {
       if (e.response?.statusCode == 401) {
         PopUpSnackBar.popUp(
@@ -61,6 +36,35 @@ class DioException {
           alertColor,
         );
       }
+    }
+    if (e is SocketException) {
+      PopUpSnackBar.popUp(
+        context,
+        'No Internet Connection',
+        alertColor,
+      );
+      log('No Internet');
+    }
+    if (e is TimeoutException) {
+      PopUpSnackBar.popUp(
+        context,
+        'Connection Timeout',
+        alertColor,
+      );
+    }
+    if (e is MissingPluginException) {
+      PopUpSnackBar.popUp(
+        context,
+        'Plugin error occured',
+        alertColor,
+      );
+    }
+    if (e is PlatformException) {
+      PopUpSnackBar.popUp(
+        context,
+        'Platform Error Occured',
+        alertColor,
+      );
     }
   }
 }

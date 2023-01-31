@@ -1,4 +1,4 @@
-import 'dart:developer';
+
 
 import 'package:dio/dio.dart';
 import 'package:ecommerce/common/constants/api_endpoints.dart';
@@ -22,8 +22,7 @@ class WishListService {
           return wishlists;
         }
       }
-    } on DioError catch (e) {
-      log(e.message);
+    } catch (e) {
       DioException().dioError(e, context);
     }
     return null;
@@ -43,8 +42,8 @@ class WishListService {
       } else if (response.statusCode == 204) {
         return response.statusCode;
       }
-    } on DioError catch (e) {
-      log(e.message);
+    } catch (e) {
+      // log(e.message);
       DioException().dioError(e, context);
     }
     return null;

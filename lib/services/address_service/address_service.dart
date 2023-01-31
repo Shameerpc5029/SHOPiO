@@ -29,8 +29,8 @@ class AddressService {
           return addressRes;
         }
       }
-    } on DioError catch (e) {
-      log(e.message);
+    } catch (e) {
+      // log(e.message);
       DioException().dioError(e, context);
     }
     return null;
@@ -52,8 +52,8 @@ class AddressService {
           return model;
         }
       }
-    } on DioError catch (e) {
-      log(e.message);
+    } catch (e) {
+      // log(e.message);
       DioException().dioError(e, context);
     }
     return null;
@@ -69,8 +69,8 @@ class AddressService {
         final GetAddressModel model = GetAddressModel.fromJson(response.data);
         return model;
       }
-    } on DioError catch (e) {
-      log(e.message);
+    } catch (e) {
+      // log(e.message);
       DioException().dioError(e, context);
     }
     return null;
@@ -89,8 +89,8 @@ class AddressService {
           return model;
         }
       }
-    } on DioError catch (e) {
-      log(e.message);
+    } catch (e) {
+      // log(e.message);
       DioException().dioError(e, context);
     }
     return null;
@@ -109,8 +109,8 @@ class AddressService {
         final String result = response.data['message'];
         return result;
       }
-    } on DioError catch (e) {
-      log(e.message);
+    } catch (e) {
+      // log(e.message);
       DioException().dioError(e, context);
     }
     return null;

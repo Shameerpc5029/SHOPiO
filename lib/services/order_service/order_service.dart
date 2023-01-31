@@ -28,8 +28,8 @@ class OrderService {
       } else {
         return null;
       }
-    } on DioError catch (e) {
-      log(e.message.toString());
+    } catch (e) {
+      // log(e.message.toString());
       DioException().dioError(e, context);
     }
     return null;
@@ -53,8 +53,8 @@ class OrderService {
           return model;
         }
       }
-    } on DioError catch (e) {
-      log(e.message);
+    } catch (e) {
+      // log(e.message);
       DioException().dioError(e, context);
     }
     return null;
@@ -76,8 +76,8 @@ class OrderService {
           return model;
         }
       }
-    } on DioError catch (e) {
-      log(e.message);
+    } catch (e) {
+      // log(e.message);
       DioException().dioError(e, context);
     }
     return null;
@@ -100,8 +100,8 @@ class OrderService {
       } else {
         return null;
       }
-    } on DioError catch (e) {
-      log(e.message.toString());
+    } catch (e) {
+      // log(e.message.toString());
       DioException().dioError(e, context);
     }
     return null;

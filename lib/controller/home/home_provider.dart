@@ -1,5 +1,6 @@
 import 'package:ecommerce/bottom_nav.dart';
 import 'package:ecommerce/controller/bottom_nav/bottom_nav_provider.dart';
+import 'package:ecommerce/model/home_model/carousal_model.dart';
 import 'package:ecommerce/model/home_model/category_model.dart';
 import 'package:ecommerce/model/home_model/product_model.dart';
 import 'package:ecommerce/services/home_service/carousal_service.dart';
@@ -30,8 +31,13 @@ class HomeProvider extends ChangeNotifier {
   List<CategoryModel> categoryList = [];
   List<ProductModel> productList = [];
   List<ProductModel> seachResult = [];
-  List carousalList = [];
+  List<CarousalModel> carousalList = [];
   int activeIndex = 0;
+  void loadingStart() {
+    isLoading = true;
+    notifyListeners();
+  }
+
   void getCategory(context) async {
     isLoading = true;
     notifyListeners();
@@ -71,7 +77,6 @@ class HomeProvider extends ChangeNotifier {
       } else {
         isLoading = false;
         notifyListeners();
-        return null;
       }
     });
   }

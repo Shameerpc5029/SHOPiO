@@ -23,8 +23,8 @@ class CartService {
         final cartResponse = response.data['message'];
         return cartResponse;
       }
-    } on DioError catch (e) {
-      log(e.message);
+    }  catch (e) {
+      // log(e.message);
       DioException().dioError(e, context);
     }
     return null;
@@ -58,8 +58,8 @@ class CartService {
         log(response.data.toString());
         return model;
       }
-    } on DioError catch (e) {
-      log(e.message);
+    }  catch (e) {
+      // log(e.message);
       DioException().dioError(e, context);
     }
     return null;
@@ -78,8 +78,8 @@ class CartService {
         final remove = response.data['message'];
         return remove;
       }
-    } on DioError catch (e) {
-      log(e.message);
+    }  catch (e) {
+      // log(e.message);
       DioException().dioError(e, context);
     }
     return null;
@@ -104,8 +104,8 @@ class CartService {
           return model;
         }
       }
-    } on DioError catch (e) {
-      log(e.message);
+    }  catch (e) {
+      // log(e.message);
       DioException().dioError(e, context);
     }
     return null;

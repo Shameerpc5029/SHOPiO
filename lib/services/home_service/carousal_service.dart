@@ -14,16 +14,20 @@ class CarousalService {
       final Response response =
           await dio.get(ApiUrl.apiUrl + ApiEndPoints.carousal);
       if (response.statusCode == 200 || response.statusCode == 201) {
-        final List<CarousalModel> carousals = (response.data as List)
-            .map((e) => CarousalModel.fromJson(e))
-            .toList();
-        return carousals;
+        if (response.data == null) {
+          return null;
+        } else {
+          final List<CarousalModel> carousals = (response.data as List)
+              .map((e) => CarousalModel.fromJson(e))
+              .toList();
+          return carousals;
+        }
       } else {
         return null;
       }
-    } on DioError catch (e) {
+    } catch (e) {
       log("catch working");
-      log(e.message);
+      // log(e.message);
       DioException().dioError(e, context);
     }
     return null;

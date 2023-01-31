@@ -20,8 +20,8 @@ class CategoryService {
             .toList();
         return listCategory;
       }
-    } on DioError catch (e) {
-      log(e.message);
+    } catch (e) {
+      // log(e.message);
       DioException().dioError(e, context);
     }
     return null;

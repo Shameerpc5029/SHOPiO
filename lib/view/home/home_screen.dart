@@ -1,10 +1,12 @@
 import 'package:ecommerce/common/constants/api_url.dart';
+import 'package:ecommerce/controller/connection/connecton_provider.dart';
 import 'package:ecommerce/controller/home/home_provider.dart';
 import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/common/style/sized_box.dart';
 import 'package:ecommerce/view/home/widgets/carosal_widget.dart';
 import 'package:ecommerce/view/home/widgets/category_widget.dart';
 import 'package:ecommerce/view/search/search_screen.dart';
+import 'package:ecommerce/view/widgets/loading_widget.dart';
 import 'package:ecommerce/view/widgets/product_card.dart';
 import 'package:ecommerce/view/widgets/shimmer/product_card_shimmer.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +19,10 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Provider.of<InternetCheck>(context, listen: false)
+          .getConnectivity(context);
+    });
     return Consumer<HomeProvider>(
       builder: (context, value, child) {
         return Scaffold(
@@ -65,29 +71,31 @@ class HomeScreen extends StatelessWidget {
                   CSizedBox().height10,
                   const CategoryWidget(),
                   CSizedBox().height10,
-                  Stack(
-                    alignment: AlignmentDirectional.bottomCenter,
-                    children: [
-                      const CarousellWidget(),
-                      Consumer<HomeProvider>(
-                        builder: (context, value, child) => Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: AnimatedSmoothIndicator(
-                            effect: ExpandingDotsEffect(
-                              dotColor: Colors.grey.shade300,
-                              activeDotColor: themeColor,
-                              spacing: 10,
-                              dotHeight: 10,
-                              dotWidth: 10,
+                  value.isLoading == true
+                      ? const LoadingWidget()
+                      : Stack(
+                          alignment: AlignmentDirectional.bottomCenter,
+                          children: [
+                            const CarousellWidget(),
+                            Consumer<HomeProvider>(
+                              builder: (context, value, child) => Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: AnimatedSmoothIndicator(
+                                  effect: ExpandingDotsEffect(
+                                    dotColor: Colors.grey.shade300,
+                                    activeDotColor: themeColor,
+                                    spacing: 10,
+                                    dotHeight: 10,
+                                    dotWidth: 10,
+                                  ),
+                                  curve: Curves.ease,
+                                  activeIndex: value.activeIndex,
+                                  count: value.carousalList.length,
+                                ),
+                              ),
                             ),
-                            curve: Curves.ease,
-                            activeIndex: value.activeIndex,
-                            count: value.carousalList.length,
-                          ),
+                          ],
                         ),
-                      ),
-                    ],
-                  ),
                   CSizedBox().height10,
                   const Padding(
                     padding: EdgeInsets.symmetric(

@@ -16,13 +16,16 @@ class BottomNav extends StatelessWidget {
           bottomNavigationBar: BottomNavigationBar(
             selectedItemColor: themeColor,
             unselectedItemColor: Colors.grey,
-            iconSize: 30,
             selectedIconTheme: const IconThemeData(
-              size: 35,
+              size: 30,
             ),
             selectedLabelStyle: const TextStyle(
               fontWeight: FontWeight.bold,
             ),
+            elevation: 10,
+            selectedFontSize: 14,
+            unselectedFontSize: 10,
+            showUnselectedLabels: true,
             currentIndex: provider.currentIndex,
             items: [
               const BottomNavigationBarItem(
@@ -43,11 +46,15 @@ class BottomNav extends StatelessWidget {
                     return Badge(
                       isLabelVisible:
                           value.totalProductCount > 0 ? true : false,
-                      alignment: AlignmentDirectional.topEnd,
+                      alignment: AlignmentDirectional.topStart,
                       backgroundColor: themeColor,
                       textColor: whiteColor,
                       label: Text(
                         value.totalProductCount.toString(),
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 8,
+                        ),
                       ),
                       textStyle: const TextStyle(
                         color: whiteColor,
@@ -62,10 +69,11 @@ class BottomNav extends StatelessWidget {
                 label: 'Cart',
               ),
               const BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.favorite_border_outlined,
-                  ),
-                  label: 'Wish List'),
+                icon: Icon(
+                  Icons.favorite_border_outlined,
+                ),
+                label: 'Wish List',
+              ),
               const BottomNavigationBarItem(
                 icon: Icon(
                   Icons.person_outline,
