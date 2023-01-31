@@ -65,20 +65,25 @@ class CategoryScreen extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(10),
                             child: InkWell(
+                              customBorder: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(45),
+                              ),
+                              radius: 45,
                               onTap: () {
                                 value.goToCategoryProductView(context, index);
                               },
                               child: value.isLoading == true
                                   ? const LoadingWidget()
-                                  : Container(
-                                      height: 90,
-                                      width: 90,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: Colors.white,
-                                        image: DecorationImage(
-                                          fit: BoxFit.cover,
-                                          image: NetworkImage(
+                                  : CircleAvatar(
+                                      backgroundColor: Colors.white24,
+                                      radius: 40,
+                                      child: Hero(
+                                        transitionOnUserGestures: true,
+                                        tag: value.categoryList[index].id,
+                                        child: CircleAvatar(
+                                          radius: 35,
+                                          backgroundColor: whiteColor,
+                                          backgroundImage: NetworkImage(
                                             '${ApiUrl.apiUrl}/category/${value.categoryList[index].image}',
                                           ),
                                         ),

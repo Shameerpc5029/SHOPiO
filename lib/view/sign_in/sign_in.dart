@@ -27,9 +27,14 @@ class SignInScreen extends StatelessWidget {
               autovalidateMode: AutovalidateMode.onUserInteraction,
               child: Column(
                 children: [
-                  const Image(
-                    image: AssetImage(
-                      'assets/images/logo 3.png',
+                  const Hero(
+                  transitionOnUserGestures: true,
+
+                    tag: 'assets/images/logo 3.png',
+                    child: Image(
+                      image: AssetImage(
+                        'assets/images/logo 3.png',
+                      ),
                     ),
                   ),
                   const SizedBox(

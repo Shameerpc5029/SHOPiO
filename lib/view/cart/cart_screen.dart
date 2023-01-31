@@ -279,6 +279,7 @@ class CartScreen extends StatelessWidget {
                       return ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: themeColor,
+                          foregroundColor: whiteColor,
                         ),
                         onPressed: () {
                           Navigator.of(context).push(CupertinoPageRoute(

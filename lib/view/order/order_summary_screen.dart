@@ -409,6 +409,7 @@ Land Mark - ${value.addressList[value.selectIndex].landMark}
                               : ElevatedButton(
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: themeColor,
+                                    foregroundColor: whiteColor,
                                   ),
                                   onPressed: () {
                                     paymentProvider.openCheckout(

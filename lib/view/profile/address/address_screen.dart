@@ -257,6 +257,7 @@ Land Mark - ${value.addressList[index].landMark}
             child: SizedBox(
               height: MediaQuery.of(context).size.height * .08,
               child: FloatingActionButton.extended(
+                foregroundColor: whiteColor,
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.zero,
                 ),

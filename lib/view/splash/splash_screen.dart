@@ -19,10 +19,13 @@ class SplashScreen extends StatelessWidget {
             TweenAnimationBuilder(
               curve: Curves.bounceOut,
               builder: (context, value, child) {
-                return Image(
-                  height: value,
-                  image: const AssetImage(
-                    'assets/images/logo 3.png',
+                return Hero(
+                  tag: 'assets/images/logo 3.png',
+                  child: Image(
+                    height: value,
+                    image: const AssetImage(
+                      'assets/images/logo 3.png',
+                    ),
                   ),
                 );
               },

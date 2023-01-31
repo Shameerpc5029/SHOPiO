@@ -38,7 +38,7 @@ class SignUpScreen extends StatelessWidget {
                       fontSize: 20,
                     ),
                   ),
-                  CSizedBox().   height20,
+                  CSizedBox().height20,
                   TextFormFieldCustom(
                     validator: ((value) {
                       return provider.nameValidation(value);
@@ -97,7 +97,7 @@ class SignUpScreen extends StatelessWidget {
                     obscureText: provider.obscureText,
                     controller: provider.conformPassword,
                   ),
-                 CSizedBox().    height20,
+                  CSizedBox().height20,
                   Consumer<SignUpProvider>(
                     builder: (context, provideSignup, child) {
                       return SizedBox(

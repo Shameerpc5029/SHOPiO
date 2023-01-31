@@ -19,5 +19,6 @@ class ProfileProvider extends ChangeNotifier {
     );
     Provider.of<BottomNavProvider>(context, listen: false).currentIndex = 0;
     log(storage.toString());
+    notifyListeners();
   }
 }

@@ -1,4 +1,5 @@
 import 'package:ecommerce/common/constants/api_url.dart';
+import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/common/style/sized_box.dart';
 import 'package:ecommerce/controller/home/home_provider.dart';
 import 'package:ecommerce/view/product_view/product_view.dart';
@@ -30,6 +31,21 @@ class CategoryView extends StatelessWidget {
           ),
         ),
         title: Text(categoryName.name),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: Hero(
+              transitionOnUserGestures: true,
+              tag: categoryName.id,
+              child: CircleAvatar(
+                backgroundColor: whiteColor,
+                backgroundImage: NetworkImage(
+                  '${ApiUrl.apiUrl}/category/${categoryName.image}',
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(

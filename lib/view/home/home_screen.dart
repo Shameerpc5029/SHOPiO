@@ -29,10 +29,14 @@ class HomeScreen extends StatelessWidget {
           appBar: AppBar(
             centerTitle: false,
             backgroundColor: Colors.white,
-            title: const Image(
-              height: 25,
-              image: AssetImage(
-                'assets/images/logo 3.png',
+            title: const Hero(
+              transitionOnUserGestures: true,
+              tag: 'assets/images/logo 3.png',
+              child: Image(
+                height: 25,
+                image: AssetImage(
+                  'assets/images/logo 3.png',
+                ),
               ),
             ),
             actions: [

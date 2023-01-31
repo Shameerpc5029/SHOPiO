@@ -30,11 +30,15 @@ class CategoryWidget extends StatelessWidget {
                         },
                         child: Column(
                           children: [
-                            CircleAvatar(
-                              backgroundColor: whiteColor,
-                              radius: 33,
-                              backgroundImage: NetworkImage(
-                                '${ApiUrl.apiUrl}/category/${value.categoryList[index].image}',
+                            Hero(
+                              transitionOnUserGestures: true,
+                              tag: value.categoryList[index].id,
+                              child: CircleAvatar(
+                                backgroundColor: whiteColor,
+                                radius: 33,
+                                backgroundImage: NetworkImage(
+                                  '${ApiUrl.apiUrl}/category/${value.categoryList[index].image}',
+                                ),
                               ),
                             ),
                             CSizedBox().height10,

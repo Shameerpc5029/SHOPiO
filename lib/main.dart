@@ -49,8 +49,11 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           // fontFamily: 'Manrope',
+          useMaterial3: true,
+
           // primarySwatch: Colors.blueGrey,
-          primaryColor: themeColor,
+          // primaryColor: themeColor,
+          colorSchemeSeed: themeColor,
           appBarTheme: const AppBarTheme(
             centerTitle: true,
             elevation: 0,
