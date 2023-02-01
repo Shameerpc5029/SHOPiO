@@ -6,7 +6,7 @@ import 'package:ecommerce/controller/cart/cart_provider.dart';
 import 'package:ecommerce/controller/order_summary/order_summary_provider.dart';
 import 'package:ecommerce/controller/payment/payment_provider.dart';
 import 'package:ecommerce/model/order_summery_enum/order_summery_enum.dart';
-import 'package:ecommerce/view/order/widgets/address_widget.dart';
+import 'package:ecommerce/view/order_summary/widgets/address_widget.dart';
 import 'package:ecommerce/view/profile/address/address_screen.dart';
 import 'package:ecommerce/view/widgets/loading_widget.dart';
 import 'package:flutter/cupertino.dart';

@@ -1,7 +1,7 @@
 import 'package:ecommerce/model/cart_model/get_single_cart_model.dart';
 import 'package:ecommerce/model/order_summery_enum/order_summery_enum.dart';
 import 'package:ecommerce/services/cart_service/cart_service.dart';
-import 'package:ecommerce/view/order/order_summary_screen.dart';
+import 'package:ecommerce/view/order_summary/order_summary_screen.dart';
 import 'package:flutter/cupertino.dart';
 
 class OrderSummaryProvider with ChangeNotifier {
