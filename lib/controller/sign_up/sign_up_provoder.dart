@@ -53,7 +53,6 @@ class SignUpProvider extends ChangeNotifier {
     }
   }
 
-
   String? phoneNumberValidation(String? value) {
     if (value!.isEmpty) {
       return "Please enter your password";
@@ -100,7 +99,7 @@ class SignUpProvider extends ChangeNotifier {
       mobileNumber: mobileNumber.text,
       password: password.text,
     );
-    OtpService().sendOtp(model.email, context).then((value) {
+    await OtpService().sendOtp(model.email, context).then((value) {
       if (value != null) {
         Navigator.of(context).push(CupertinoPageRoute(
           builder: (context) {
@@ -111,7 +110,7 @@ class SignUpProvider extends ChangeNotifier {
         ));
         clearTextfield();
       } else {
-        return;
+        return null;
       }
     });
     isLoading = false;

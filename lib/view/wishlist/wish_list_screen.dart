@@ -13,7 +13,10 @@ class WishListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<WishListProvider>(context);
+    final provider = Provider.of<WishListProvider>(context, listen: false);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      return provider.getWishList(context);
+    });
     return Scaffold(
       appBar: AppBar(
         title: const Text('Wish List'),

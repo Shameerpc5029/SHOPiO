@@ -50,7 +50,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           // fontFamily: 'Manrope',
           useMaterial3: true,
-
           // primarySwatch: Colors.blueGrey,
           // primaryColor: themeColor,
           colorSchemeSeed: themeColor,

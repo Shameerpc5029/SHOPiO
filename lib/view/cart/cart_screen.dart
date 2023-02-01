@@ -19,7 +19,10 @@ class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<CartProvider>(context);
+    final provider = Provider.of<CartProvider>(context, listen: false);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      return provider.getCart(context);
+    });
     return Scaffold(
       appBar: AppBar(
         title: const Text('Cart'),

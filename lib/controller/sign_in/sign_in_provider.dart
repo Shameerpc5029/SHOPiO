@@ -13,14 +13,14 @@ class SignInProvider extends ChangeNotifier {
   bool isLoading = false;
   FlutterSecureStorage storage = const FlutterSecureStorage();
   SignInService signInService = SignInService();
-  void singIn(BuildContext context) {
+  void singIn(context) async {
     isLoading = true;
     notifyListeners();
     final SignInModel signInModel = SignInModel(
       email: email.text,
       password: password.text,
     );
-    signInService.signUser(signInModel, context).then(
+    await signInService.signUser(signInModel, context).then(
       (value) async {
         if (value != null) {
           await storage.write(key: 'token', value: value.accessToken);
@@ -31,13 +31,14 @@ class SignInProvider extends ChangeNotifier {
             },
           ), (route) => false);
           clearTextfild();
+          isLoading = false;
+          notifyListeners();
         } else {
-          return;
+          isLoading = false;
+          notifyListeners();
         }
       },
     );
-    isLoading = false;
-    notifyListeners();
   }
 
   void clearTextfild() {
