@@ -1,6 +1,7 @@
 import 'package:ecommerce/common/constants/api_url.dart';
 import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/common/style/sized_box.dart';
+import 'package:ecommerce/controller/address/address_provider.dart';
 import 'package:ecommerce/controller/cart/cart_provider.dart';
 import 'package:ecommerce/controller/order_summary/order_summary_provider.dart';
 import 'package:ecommerce/model/order_summery_enum/order_summery_enum.dart';
@@ -21,7 +22,7 @@ class CartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // final provider = Provider.of<CartProvider>(context, listen: false);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      return Provider.of<CartProvider>(context, listen: false).getCart(context);
+      return Provider.of<CartProvider>(context, listen: false).getCart();
     });
     return Consumer<CartProvider>(
       builder: (context, value, child) {
@@ -214,8 +215,10 @@ class CartScreen extends StatelessWidget {
                                       backgroundColor: whiteColor,
                                     ),
                                     CSizedBox().width10,
-                                    Consumer<OrderSummaryProvider>(
-                                      builder: (context, order, child) {
+                                    Consumer2<OrderSummaryProvider,
+                                        AddressProvider>(
+                                      builder:
+                                          (context, order, address, child) {
                                         return CustomButton(
                                           text: "BUY NOW",
                                           icon: Icons.currency_rupee_outlined,
@@ -223,11 +226,14 @@ class CartScreen extends StatelessWidget {
                                           onPressed: () {
                                             order.loading = true;
                                             order.toOderScreen(
-                                              context,
-                                              value.model!.products[index]
-                                                  .product.id,
-                                              value.model!.id,
-                                            );
+                                                context,
+                                                value.model!.products[index]
+                                                    .product.id,
+                                                value.model!.id,
+                                                address
+                                                    .addressList[
+                                                        address.selectIndex]
+                                                    .id);
                                           },
                                           backgroundColor: themeColor,
                                         );
@@ -278,8 +284,8 @@ class CartScreen extends StatelessWidget {
                     ),
                     trailing: SizedBox(
                       width: 200,
-                      child: Consumer<OrderSummaryProvider>(
-                        builder: (context, order, child) {
+                      child: Consumer2<OrderSummaryProvider, AddressProvider>(
+                        builder: (context, order, address, child) {
                           return ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               backgroundColor: themeColor,

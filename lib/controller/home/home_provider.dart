@@ -13,14 +13,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
 class HomeProvider extends ChangeNotifier {
-  HomeProvider(context) {
-    allProviders(context);
+  HomeProvider() {
+    allProviders();
   }
 
-  void allProviders(context) {
-    getCarousals(context);
-    getCategory(context);
-    getProducts(context);
+  void allProviders() {
+    getCarousals();
+    getCategory();
+    getProducts();
     // searchProducts('', context);
   }
 
@@ -38,10 +38,10 @@ class HomeProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void getCategory(context) async {
+  void getCategory() async {
     isLoading = true;
     notifyListeners();
-    await CategoryService().getCategories(context).then((value) {
+    await CategoryService().getCategories().then((value) {
       if (value != null) {
         categoryList = value;
         notifyListeners();
@@ -65,10 +65,10 @@ class HomeProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void getCarousals(context) async {
+  void getCarousals() async {
     isLoading = true;
     notifyListeners();
-    await CarousalService().getCarousals(context).then((value) {
+    await CarousalService().getCarousals().then((value) {
       if (value != null) {
         carousalList = value;
         notifyListeners();
@@ -81,10 +81,10 @@ class HomeProvider extends ChangeNotifier {
     });
   }
 
-  void getProducts(context) async {
+  void getProducts() async {
     isLoading = true;
     notifyListeners();
-    await ProductService().getAllProduct(context).then((value) {
+    await ProductService().getAllProduct().then((value) {
       if (value != null) {
         productList = value;
         notifyListeners();

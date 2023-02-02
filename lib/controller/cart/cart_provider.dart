@@ -7,8 +7,8 @@ import 'package:ecommerce/view/product_view/product_view.dart';
 import 'package:flutter/material.dart';
 
 class CartProvider extends ChangeNotifier {
-  CartProvider(context) {
-    getCart(context);
+  CartProvider() {
+    getCart();
   }
 
   String size = "5 inch";
@@ -18,15 +18,19 @@ class CartProvider extends ChangeNotifier {
   int? totalSave;
   int totalProductCount = 1;
   List<String> cartList = [];
+  List<String> cartItemsId = [];
+  List<String> cartitemsPayId = [];
 
-  void getCart(context) async {
+  void getCart() async {
     isLoading = true;
     notifyListeners();
-    await CartService().getCart(context).then(
+    await CartService().getCart().then(
       (value) {
         if (value != null) {
           model = value;
           notifyListeners();
+          cartItemsId = model!.products.map((e) => e.product.id).toList();
+          cartitemsPayId = model!.products.map((e) => e.id).toList();
           cartList = model!.products.map((e) => e.product.id).toList();
           totalSave = (model!.totalPrice - model!.totalDiscount).toInt();
           totalProductsCount();
@@ -50,9 +54,9 @@ class CartProvider extends ChangeNotifier {
       quantity: quantity,
       productId: productId,
     );
-    await CartService().addToCart(model, context).then((value) {
+    await CartService().addToCart(model).then((value) {
       if (value != null) {
-        getCart(context);
+        getCart();
       }
       if (value == "product added to cart successfully") {
         PopUpSnackBar.popUp(
@@ -74,9 +78,9 @@ class CartProvider extends ChangeNotifier {
   }
 
   void removeFromCart(context, String productId) {
-    CartService().removeFromCart(context, productId).then((value) {
+    CartService().removeFromCart(productId).then((value) {
       if (value != null) {
-        getCart(context);
+        getCart();
         PopUpSnackBar.popUp(
             context, 'Product removed from cart Successfully', alertColor);
         pop(context);
@@ -104,11 +108,9 @@ class CartProvider extends ChangeNotifier {
       size: productSize.toString(),
     );
     if (qty == 1 && productquantity >= 1 || qty == -1 && productquantity > 1) {
-      await CartService()
-          .addToCart(addToCartModel, context)
-          .then((value) async {
+      await CartService().addToCart(addToCartModel).then((value) async {
         if (value != null) {
-          await CartService().getCartItems(context).then((value) {
+          await CartService().getCartItems().then((value) {
             if (value != null) {
               model = value;
               notifyListeners();

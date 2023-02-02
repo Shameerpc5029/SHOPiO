@@ -6,8 +6,8 @@ import 'package:ecommerce/utils/exceptions/dio_exceptions.dart';
 import 'package:ecommerce/utils/interceptor/interceptor.dart';
 
 class ProductService {
-  Future<List<ProductModel>?> getAllProduct(context) async {
-    Dio dio = await IntercepterApi().getApiUser(context);
+  Future<List<ProductModel>?> getAllProduct() async {
+    Dio dio = await IntercepterApi().getApiUser();
     try {
       final Response response =
           await dio.get(ApiUrl.apiUrl + ApiEndPoints.product);
@@ -23,14 +23,14 @@ class ProductService {
       }
     } catch (e) {
       // log(e.message);
-      DioException().dioError(e, context);
+      DioException().dioError(e);
     }
     return null;
   }
 
   Future<List<ProductModel>?> searchProducts(
       String searchValue, context) async {
-    Dio dios = await IntercepterApi().getApiUser(context);
+    Dio dios = await IntercepterApi().getApiUser();
     try {
       final Response response = await dios.get(
           ApiUrl.apiUrl + ApiEndPoints.product,
@@ -43,7 +43,7 @@ class ProductService {
         return products;
       }
     } catch (e) {
-      DioException().dioError(e, context);
+      DioException().dioError(e);
     }
     return null;
   }

@@ -11,8 +11,10 @@ import 'package:ecommerce/utils/exceptions/dio_exceptions.dart';
 import 'package:ecommerce/utils/interceptor/interceptor.dart';
 
 class CartService {
-  Future<String?> addToCart(AddToCartModel model, context) async {
-    Dio dios = await IntercepterApi().getApiUser(context);
+  Future<String?> addToCart(
+    AddToCartModel model,
+  ) async {
+    Dio dios = await IntercepterApi().getApiUser();
     try {
       final Response response = await dios.post(
         ApiUrl.apiUrl + ApiEndPoints.cart,
@@ -23,15 +25,17 @@ class CartService {
         final cartResponse = response.data['message'];
         return cartResponse;
       }
-    }  catch (e) {
+    } catch (e) {
       // log(e.message);
-      DioException().dioError(e, context);
+      DioException().dioError(
+        e,
+      );
     }
     return null;
   }
 
-  Future<CartModel?> getCartItems(context) async {
-    Dio dios = await IntercepterApi().getApiUser(context);
+  Future<CartModel?> getCartItems() async {
+    Dio dios = await IntercepterApi().getApiUser();
     try {
       final Response response =
           await dios.get(ApiUrl.apiUrl + ApiEndPoints.cart);
@@ -41,13 +45,15 @@ class CartService {
         return model;
       }
     } catch (e) {
-      DioException().dioError(e, context);
+      DioException().dioError(
+        e,
+      );
     }
     return null;
   }
 
-  Future<CartModel?> getCart(context) async {
-    Dio dio = await IntercepterApi().getApiUser(context);
+  Future<CartModel?> getCart() async {
+    Dio dio = await IntercepterApi().getApiUser();
     try {
       final Response response =
           await dio.get(ApiUrl.apiUrl + ApiEndPoints.cart);
@@ -58,15 +64,17 @@ class CartService {
         log(response.data.toString());
         return model;
       }
-    }  catch (e) {
+    } catch (e) {
       // log(e.message);
-      DioException().dioError(e, context);
+      DioException().dioError(
+        e,
+      );
     }
     return null;
   }
 
-  Future<String?> removeFromCart(context, id) async {
-    Dio dio = await IntercepterApi().getApiUser(context);
+  Future<String?> removeFromCart(id) async {
+    Dio dio = await IntercepterApi().getApiUser();
     try {
       final Response response = await dio.patch(
         ApiUrl.apiUrl + ApiEndPoints.cart,
@@ -78,16 +86,18 @@ class CartService {
         final remove = response.data['message'];
         return remove;
       }
-    }  catch (e) {
+    } catch (e) {
       // log(e.message);
-      DioException().dioError(e, context);
+      DioException().dioError(
+        e,
+      );
     }
     return null;
   }
 
   Future<List<GetSingelCartProduct>?> getSingleCart(
-      context, String productId, String cartId) async {
-    Dio dios = await IntercepterApi().getApiUser(context);
+      String productId, String cartId) async {
+    Dio dios = await IntercepterApi().getApiUser();
     try {
       final Response response = await dios.get(
         "${ApiUrl.apiUrl + ApiEndPoints.cart}/$cartId/product/$productId",
@@ -104,9 +114,11 @@ class CartService {
           return model;
         }
       }
-    }  catch (e) {
+    } catch (e) {
       // log(e.message);
-      DioException().dioError(e, context);
+      DioException().dioError(
+        e,
+      );
     }
     return null;
   }

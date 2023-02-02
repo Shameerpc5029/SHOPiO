@@ -9,9 +9,9 @@ import 'package:ecommerce/utils/exceptions/dio_exceptions.dart';
 import 'package:ecommerce/utils/interceptor/interceptor.dart';
 
 class OrderService {
-  Future<String?> placeOrder(OrdersModel model, context) async {
+  Future<String?> placeOrder(OrdersModel model) async {
     try {
-      final Dio dios = await IntercepterApi().getApiUser(context);
+      final Dio dios = await IntercepterApi().getApiUser();
       final Response response =
           await dios.post(ApiUrl.apiUrl + ApiEndPoints.orders, data: {
         model.toJson(),
@@ -30,13 +30,13 @@ class OrderService {
       }
     } catch (e) {
       // log(e.message.toString());
-      DioException().dioError(e, context);
+      DioException().dioError(e);
     }
     return null;
   }
 
-  Future<List<GetOrderModel>?> getAllOrders(context) async {
-    Dio dios = await IntercepterApi().getApiUser(context);
+  Future<List<GetOrderModel>?> getAllOrders() async {
+    Dio dios = await IntercepterApi().getApiUser();
     try {
       final Response response = await dios.get(
         ApiUrl.apiUrl + ApiEndPoints.orders,
@@ -55,13 +55,13 @@ class OrderService {
       }
     } catch (e) {
       // log(e.message);
-      DioException().dioError(e, context);
+      DioException().dioError(e);
     }
     return null;
   }
 
   Future<GetOrderModel?> getSingleOrders(context, String orderId) async {
-    Dio dios = await IntercepterApi().getApiUser(context);
+    Dio dios = await IntercepterApi().getApiUser();
     try {
       final Response response = await dios.get(
         "${ApiUrl.apiUrl + ApiEndPoints.orders}/$orderId",
@@ -78,14 +78,14 @@ class OrderService {
       }
     } catch (e) {
       // log(e.message);
-      DioException().dioError(e, context);
+      DioException().dioError(e);
     }
     return null;
   }
 
   Future<String?> cancelOrder(orderId, context) async {
     try {
-      final Dio dios = await IntercepterApi().getApiUser(context);
+      final Dio dios = await IntercepterApi().getApiUser();
       final Response response = await dios.patch(
         "${ApiUrl.apiUrl + ApiEndPoints.orders}/$orderId",
       );
@@ -102,7 +102,7 @@ class OrderService {
       }
     } catch (e) {
       // log(e.message.toString());
-      DioException().dioError(e, context);
+      DioException().dioError(e);
     }
     return null;
   }

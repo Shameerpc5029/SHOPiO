@@ -16,16 +16,19 @@ import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class OrderSummaryScreen extends StatefulWidget {
-  const OrderSummaryScreen(
-      {super.key,
-      required this.screenCheck,
-      required this.cartId,
-      required this.productId});
+  const OrderSummaryScreen({
+    super.key,
+    required this.screenCheck,
+    required this.cartId,
+    required this.productId,
+
+  });
 
   final OrderSummaryScreenEnum screenCheck;
 
   final String cartId;
   final String productId;
+
 
   @override
   State<OrderSummaryScreen> createState() => _OrderSummaryScreenState();
@@ -57,9 +60,21 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final paymentProvier = Provider.of<PaymentProvider>(context, listen: false);
+    final cartprovider = Provider.of<CartProvider>(context, listen: false);
+
+    final addressProvider =
+        Provider.of<AddressProvider>(context, listen: false);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<OrderSummaryProvider>(context, listen: false)
           .getSingleCartProduct(context, widget.productId, widget.cartId);
+
+      paymentProvier.setAddressId(
+          addressProvider.addressList[addressProvider.selectIndex].id);
+      Provider.of<OrderSummaryProvider>(context, listen: false)
+          .productIds
+          .insert(0,
+              cartprovider.cartitemsPayId[cartprovider.cartItemsId.length - 1]);
     });
 
     return Scaffold(
@@ -413,7 +428,7 @@ Land Mark - ${value.addressList[value.selectIndex].landMark}
                                     foregroundColor: whiteColor,
                                   ),
                                   onPressed: () {
-                                    paymentProvider.openCheckout(
+                                    paymentProvider.setTotalAmount(
                                       widget.screenCheck ==
                                               OrderSummaryScreenEnum
                                                   .normalOrderSummaryScreen
@@ -426,8 +441,27 @@ Land Mark - ${value.addressList[value.selectIndex].landMark}
                                                       .product[0].discountPrice)
                                               .round()
                                               .toString()),
-                                      context,
+                                      widget.screenCheck ==
+                                              OrderSummaryScreenEnum
+                                                  .normalOrderSummaryScreen
+                                          ? cart.cartitemsPayId
+                                          : value.productIds,
                                     );
+                                 
+                                    // paymentProvider.openCheckout(
+                                    //   widget.screenCheck ==
+                                    //           OrderSummaryScreenEnum
+                                    //               .normalOrderSummaryScreen
+                                    //       ? int.parse((cart.model!.totalPrice -
+                                    //               cart.model!.totalDiscount)
+                                    //           .round()
+                                    //           .toString())
+                                    //       : int.parse((value.product[0].price -
+                                    //               value
+                                    //                   .product[0].discountPrice)
+                                    //           .round()
+                                    //           .toString()),
+                                    // );
                                     // paymentProvider.openCheckout(
                                     // widget.screenCheck ==
                                     //         OrderSummaryScreenEnum

@@ -8,7 +8,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 class AccountService {
   FlutterSecureStorage storage = const FlutterSecureStorage();
   Future<String?> logOutUser(context) async {
-    final dios = await IntercepterApi().getApiUser(context);
+    final dios = await IntercepterApi().getApiUser();
     try {
       final token = storage.read(key: 'token');
       final refreshToken = storage.read(key: 'refreshToken');
@@ -21,7 +21,7 @@ class AccountService {
         return response.data['message'];
       }
     } catch (e) {
-      DioException().dioError(e, context);
+      DioException().dioError(e);
     }
     return null;
   }

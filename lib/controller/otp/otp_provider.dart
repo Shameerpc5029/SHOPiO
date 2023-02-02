@@ -30,9 +30,9 @@ class VerifyOtpProvider extends ChangeNotifier {
     } else {
       isLoading = true;
       notifyListeners();
-      otpService.verifyOtp(model.email, context, code).then((value) {
+      otpService.verifyOtp(model.email, code).then((value) {
         if (value != null) {
-          SignUpService().signUp(model, context).then((value) async {
+          SignUpService().signUp(model).then((value) async {
             if (value != null) {
               await storage.write(key: 'token', value: value.accessToken);
               await storage.write(

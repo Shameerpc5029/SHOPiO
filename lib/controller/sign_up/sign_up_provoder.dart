@@ -99,7 +99,7 @@ class SignUpProvider extends ChangeNotifier {
       mobileNumber: mobileNumber.text,
       password: password.text,
     );
-    await OtpService().sendOtp(model.email, context).then((value) {
+    await OtpService().sendOtp(model.email).then((value) {
       if (value != null) {
         Navigator.of(context).push(CupertinoPageRoute(
           builder: (context) {

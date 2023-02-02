@@ -7,7 +7,7 @@ import 'package:ecommerce/utils/exceptions/dio_exceptions.dart';
 
 class ForgotPasswordService {
   final dio = Dio();
-  Future<SignUpModel?> getUser(email, context) async {
+  Future<SignUpModel?> getUser(email) async {
     try {
       Response response = await dio.get(
         ApiUrl.apiUrl + ApiEndPoints.userCheck,
@@ -22,12 +22,12 @@ class ForgotPasswordService {
         return null;
       }
     } catch (e) {
-      DioException().dioError(e, context);
+      DioException().dioError(e);
     }
     return null;
   }
 
-  Future<String?> changePassword(email, newPassword, context) async {
+  Future<String?> changePassword(email, newPassword) async {
     try {
       Response response = await dio.post(
         ApiUrl.apiUrl + ApiEndPoints.forgotpassword,
@@ -41,7 +41,7 @@ class ForgotPasswordService {
         return response.data['message'];
       }
     } catch (e) {
-      DioException().dioError(e, context);
+      DioException().dioError(e);
     }
     return null;
   }

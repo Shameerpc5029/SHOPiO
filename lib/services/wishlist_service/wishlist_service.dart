@@ -1,5 +1,3 @@
-
-
 import 'package:dio/dio.dart';
 import 'package:ecommerce/common/constants/api_endpoints.dart';
 import 'package:ecommerce/common/constants/api_url.dart';
@@ -8,8 +6,8 @@ import 'package:ecommerce/utils/exceptions/dio_exceptions.dart';
 import 'package:ecommerce/utils/interceptor/interceptor.dart';
 
 class WishListService {
-  Future<WishListModel?> getWishList(context) async {
-    Dio dio = await IntercepterApi().getApiUser(context);
+  Future<WishListModel?> getWishList() async {
+    Dio dio = await IntercepterApi().getApiUser();
     try {
       final Response response =
           await dio.get(ApiUrl.apiUrl + ApiEndPoints.wishlist);
@@ -23,13 +21,13 @@ class WishListService {
         }
       }
     } catch (e) {
-      DioException().dioError(e, context);
+      DioException().dioError(e);
     }
     return null;
   }
 
-  Future<int?> addAndRemoveWishList(context, productId) async {
-    Dio dio = await IntercepterApi().getApiUser(context);
+  Future<int?> addAndRemoveWishList(productId) async {
+    Dio dio = await IntercepterApi().getApiUser();
     try {
       final Response response = await dio.post(
         ApiUrl.apiUrl + ApiEndPoints.wishlist,
@@ -44,7 +42,7 @@ class WishListService {
       }
     } catch (e) {
       // log(e.message);
-      DioException().dioError(e, context);
+      DioException().dioError(e);
     }
     return null;
   }

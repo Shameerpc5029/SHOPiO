@@ -8,8 +8,8 @@ import 'package:ecommerce/utils/exceptions/dio_exceptions.dart';
 import 'package:ecommerce/utils/interceptor/interceptor.dart';
 
 class CarousalService {
-  Future<List<CarousalModel>?> getCarousals(context) async {
-    Dio dio = await IntercepterApi().getApiUser(context);
+  Future<List<CarousalModel>?> getCarousals() async {
+    Dio dio = await IntercepterApi().getApiUser();
     try {
       final Response response =
           await dio.get(ApiUrl.apiUrl + ApiEndPoints.carousal);
@@ -28,7 +28,7 @@ class CarousalService {
     } catch (e) {
       log("catch working");
       // log(e.message);
-      DioException().dioError(e, context);
+      DioException().dioError(e);
     }
     return null;
   }

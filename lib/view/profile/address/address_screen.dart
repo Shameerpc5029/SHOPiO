@@ -20,7 +20,7 @@ class AddressScreen extends StatelessWidget {
     final addressProvider =
         Provider.of<AddressProvider>(context, listen: false);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      addressProvider.getAllAddress(context);
+      addressProvider.getAllAddress();
     });
     return Consumer<AddressProvider>(
       builder: (context, value, child) {

@@ -12,7 +12,7 @@ import 'package:ecommerce/utils/exceptions/dio_exceptions.dart';
 class SignInService {
   Dio dio = Dio();
   SignInModel? signInModel;
-  Future<SignInTokenModel?> signUser(SignInModel model, context) async {
+  Future<SignInTokenModel?> signUser(SignInModel model) async {
     try {
       Response response = await dio.post(
         ApiUrl.apiUrl + ApiEndPoints.signIn,
@@ -30,7 +30,7 @@ class SignInService {
     }  catch (e) {
       log("sign in  failed ");
       // log(e.message);
-      DioException().dioError(e, context);
+      DioException().dioError(e);
     }
     return null;
   }

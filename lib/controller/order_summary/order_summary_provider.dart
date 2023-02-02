@@ -19,7 +19,7 @@ class OrderSummaryProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void toOderScreen(context, productId, cartId) {
+  void toOderScreen(context, productId, cartId, addressId) {
     getSingleCartProduct(
       context,
       productId,
@@ -54,7 +54,7 @@ class OrderSummaryProvider with ChangeNotifier {
 
   Future<void> getSingleCartProduct(
       context, String productId, String cartId) async {
-    await CartService().getSingleCart(context, productId, cartId).then((value) {
+    await CartService().getSingleCart(productId, cartId).then((value) {
       if (value != null) {
         product = value;
         notifyListeners();

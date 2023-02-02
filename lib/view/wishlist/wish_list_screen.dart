@@ -15,7 +15,7 @@ class WishListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       return Provider.of<WishListProvider>(context, listen: false)
-          .getWishList(context);
+          .getWishList();
     });
     return Consumer<WishListProvider>(
       builder: (context, value, child) {

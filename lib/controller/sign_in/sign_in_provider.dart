@@ -20,7 +20,7 @@ class SignInProvider extends ChangeNotifier {
       email: email.text,
       password: password.text,
     );
-    await signInService.signUser(signInModel, context).then(
+    await signInService.signUser(signInModel).then(
       (value) async {
         if (value != null) {
           await storage.write(key: 'token', value: value.accessToken);

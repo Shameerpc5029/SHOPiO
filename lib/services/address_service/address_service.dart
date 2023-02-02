@@ -10,8 +10,8 @@ import 'package:ecommerce/utils/exceptions/dio_exceptions.dart';
 import 'package:ecommerce/utils/interceptor/interceptor.dart';
 
 class AddressService {
-  Future<String?> addAddress(AddressModel model, context) async {
-    Dio dio = await IntercepterApi().getApiUser(context);
+  Future<String?> addAddress(AddressModel model) async {
+    Dio dio = await IntercepterApi().getApiUser();
     try {
       final Response response = await dio.post(
         ApiUrl.apiUrl + ApiEndPoints.address,
@@ -31,13 +31,13 @@ class AddressService {
       }
     } catch (e) {
       // log(e.message);
-      DioException().dioError(e, context);
+      DioException().dioError(e);
     }
     return null;
   }
 
-  Future<List<GetAddressModel>?> getAddress(context) async {
-    Dio dio = await IntercepterApi().getApiUser(context);
+  Future<List<GetAddressModel>?> getAddress() async {
+    Dio dio = await IntercepterApi().getApiUser();
     try {
       final Response response =
           await dio.get(ApiUrl.apiUrl + ApiEndPoints.address);
@@ -54,13 +54,13 @@ class AddressService {
       }
     } catch (e) {
       // log(e.message);
-      DioException().dioError(e, context);
+      DioException().dioError(e);
     }
     return null;
   }
 
   Future<GetAddressModel?> getSingleAddress(context, String addressId) async {
-    Dio dio = await IntercepterApi().getApiUser(context);
+    Dio dio = await IntercepterApi().getApiUser();
     try {
       final Response response =
           await dio.get("${ApiUrl.apiUrl + ApiEndPoints.address}/$addressId");
@@ -71,13 +71,13 @@ class AddressService {
       }
     } catch (e) {
       // log(e.message);
-      DioException().dioError(e, context);
+      DioException().dioError(e);
     }
     return null;
   }
 
   Future<String?> delectAddress(context, String addressId) async {
-    Dio dio = await IntercepterApi().getApiUser(context);
+    Dio dio = await IntercepterApi().getApiUser();
     try {
       final Response response = await dio
           .delete("${ApiUrl.apiUrl + ApiEndPoints.address}/$addressId");
@@ -91,14 +91,14 @@ class AddressService {
       }
     } catch (e) {
       // log(e.message);
-      DioException().dioError(e, context);
+      DioException().dioError(e);
     }
     return null;
   }
 
   Future<String?> updateAddress(
       context, AddressModel model, String addressId) async {
-    Dio dios = await IntercepterApi().getApiUser(context);
+    Dio dios = await IntercepterApi().getApiUser();
     try {
       final Response response = await dios.patch(
         "${ApiUrl.apiUrl + ApiEndPoints.address}/$addressId",
@@ -111,7 +111,7 @@ class AddressService {
       }
     } catch (e) {
       // log(e.message);
-      DioException().dioError(e, context);
+      DioException().dioError(e);
     }
     return null;
   }

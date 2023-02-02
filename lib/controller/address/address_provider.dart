@@ -10,8 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class AddressProvider extends ChangeNotifier {
-  AddressProvider(context) {
-    getAllAddress(context);
+  AddressProvider() {
+    getAllAddress();
   }
 
   final TextEditingController fullName = TextEditingController();
@@ -63,7 +63,7 @@ class AddressProvider extends ChangeNotifier {
       landMark: landMark.text,
       title: addressType,
     );
-    await AddressService().addAddress(model, context).then((value) {
+    await AddressService().addAddress(model).then((value) {
       if (value != null) {
         log("helo");
         isLoding = true;
@@ -72,7 +72,7 @@ class AddressProvider extends ChangeNotifier {
         PopUpSnackBar.popUp(
             context, 'Address added successfully', Colors.green);
         isLoding = false;
-        getAllAddress(context);
+        getAllAddress();
         clearController();
         notifyListeners();
       } else {
@@ -102,7 +102,7 @@ class AddressProvider extends ChangeNotifier {
       if (value != null) {
         clearController();
         Navigator.pop(context);
-        getAllAddress(context);
+        getAllAddress();
         isLoding = false;
         notifyListeners();
       } else {
@@ -112,10 +112,10 @@ class AddressProvider extends ChangeNotifier {
     });
   }
 
-  getAllAddress(context) async {
+  getAllAddress() async {
     isLoding2 = true;
     notifyListeners();
-    await AddressService().getAddress(context).then((value) {
+    await AddressService().getAddress().then((value) {
       if (value != null) {
         log(value.toString());
         addressList = value;
@@ -143,7 +143,7 @@ class AddressProvider extends ChangeNotifier {
         'Address removed successfully',
         alertColor,
       );
-      getAllAddress(context);
+      getAllAddress();
       notifyListeners();
     });
   }

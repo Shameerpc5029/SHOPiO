@@ -7,12 +7,11 @@ import 'package:ecommerce/common/constants/api_url.dart';
 import 'package:ecommerce/model/sign_up_model/sign_up_model.dart';
 import 'package:ecommerce/model/sign_up_model/sign_up_token.dart';
 import 'package:ecommerce/utils/exceptions/dio_exceptions.dart';
-import 'package:flutter/material.dart';
+
 
 class SignUpService {
   final dio = Dio();
-  Future<SignUpTokenModel?> signUp(
-      SignUpModel model, BuildContext context) async {
+  Future<SignUpTokenModel?> signUp(SignUpModel model) async {
     log(model.toString());
     try {
       Response response = await dio.post(
@@ -33,7 +32,7 @@ class SignUpService {
       }
     } catch (e) {
       // log(e.toString());
-      DioException().dioError(e, context);
+      DioException().dioError(e);
     }
     return null;
   }

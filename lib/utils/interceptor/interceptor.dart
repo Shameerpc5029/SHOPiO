@@ -9,7 +9,7 @@ class IntercepterApi {
   FlutterSecureStorage storage = const FlutterSecureStorage();
   Dio dio = Dio();
 
-  Future<Dio> getApiUser(context) async {
+  Future<Dio> getApiUser() async {
     dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
@@ -46,7 +46,9 @@ class IntercepterApi {
                   storage.write(key: 'refreshToken', value: refreshToken);
                 }
               } catch (e) {
-                DioException().dioError(e, context);
+                DioException().dioError(
+                  e,
+                );
               }
               try {
                 final token = await storage.read(key: 'token');
@@ -62,7 +64,9 @@ class IntercepterApi {
                 );
                 return handler.resolve(response);
               } catch (e) {
-                DioException().dioError(e, context);
+                DioException().dioError(
+                  e,
+                );
               }
             }
           } else {

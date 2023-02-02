@@ -7,7 +7,7 @@ import 'package:ecommerce/utils/exceptions/dio_exceptions.dart';
 
 class OtpService {
   Dio dio = Dio();
-  Future<String?> sendOtp(email, context) async {
+  Future<String?> sendOtp(email) async {
     try {
       final Response response = await dio.get(
           ApiUrl.apiUrl + ApiEndPoints.verifyOrSendOtp,
@@ -16,18 +16,20 @@ class OtpService {
         log('otp send');
         return response.data['message'];
       }
-    }catch (e) {
+    } catch (e) {
       // log(e.message);
-      DioException().dioError(e, context);
+      DioException().dioError(
+        e,
+      );
     }
     return null;
   }
 
-  Future<String?> verifyOtp(email, context,otpCode) async {
+  Future<String?> verifyOtp(email, otpCode) async {
     try {
       final Response response = await dio.post(
         ApiUrl.apiUrl + ApiEndPoints.verifyOrSendOtp,
-        data: {'email': email,'otp':otpCode},
+        data: {'email': email, 'otp': otpCode},
       );
       if (response.statusCode == 200 || response.statusCode == 201) {
         log("otp verifyed");
@@ -35,7 +37,7 @@ class OtpService {
       }
     } catch (e) {
       // log(e.message);
-      DioException().dioError(e, context);
+      DioException().dioError(e);
     }
     return null;
   }
