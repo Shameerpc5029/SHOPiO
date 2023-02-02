@@ -8,7 +8,7 @@ import 'package:ecommerce/model/order_summery_enum/order_summery_enum.dart';
 import 'package:ecommerce/view/cart/widgets/shimmer/cart_shimmer.dart';
 import 'package:ecommerce/view/order_summary/order_summary_screen.dart';
 import 'package:ecommerce/view/profile/address/address_screen.dart';
-import 'package:ecommerce/view/widgets/custom_outline_button.dart';
+import 'package:ecommerce/view/widgets/custom_button.dart';
 import 'package:ecommerce/view/cart/widgets/count_button.dart';
 import 'package:ecommerce/view/widgets/loading_widget.dart';
 import 'package:ecommerce/view/widgets/show_alert.dart';

@@ -4,6 +4,7 @@ import 'package:ecommerce/controller/bottom_nav/bottom_nav_provider.dart';
 import 'package:ecommerce/controller/cart/cart_provider.dart';
 import 'package:ecommerce/controller/connection/connecton_provider.dart';
 import 'package:ecommerce/controller/home/home_provider.dart';
+import 'package:ecommerce/controller/order/order_provider.dart';
 import 'package:ecommerce/controller/order_summary/order_summary_provider.dart';
 import 'package:ecommerce/controller/otp/otp_provider.dart';
 import 'package:ecommerce/controller/payment/payment_provider.dart';
@@ -43,7 +44,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => AddressProvider()),
         ChangeNotifierProvider(create: (context) => OrderSummaryProvider()),
         ChangeNotifierProvider(create: (context) => PaymentProvider()),
-        ChangeNotifierProvider(create: (context) => InternetCheck())
+        ChangeNotifierProvider(create: (context) => InternetCheck()),
+        ChangeNotifierProvider(create: (context) => OrderProvider())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

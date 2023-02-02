@@ -53,13 +53,13 @@ class OrderService {
         }
       }
     } catch (e) {
-      // log(e.message);
+      log(e.toString());
       DioException().dioError(e);
     }
     return null;
   }
 
-  Future<GetOrderModel?> getSingleOrders(context, String orderId) async {
+  Future<GetOrderModel?> getSingleOrders(String orderId) async {
     Dio dios = await IntercepterApi().getApiUser();
     try {
       final Response response = await dios.get(
@@ -76,13 +76,13 @@ class OrderService {
         }
       }
     } catch (e) {
-      // log(e.message);
+      log(e.toString());
       DioException().dioError(e);
     }
     return null;
   }
 
-  Future<String?> cancelOrder(orderId, context) async {
+  Future<String?> cancelOrder(orderId) async {
     try {
       final Dio dios = await IntercepterApi().getApiUser();
       final Response response = await dios.patch(
@@ -100,7 +100,7 @@ class OrderService {
         return null;
       }
     } catch (e) {
-      // log(e.message.toString());
+      log(e.toString());
       DioException().dioError(e);
     }
     return null;

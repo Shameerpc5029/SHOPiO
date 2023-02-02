@@ -1,6 +1,7 @@
 import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/controller/profile/profile_provider.dart';
 import 'package:ecommerce/view/profile/address/address_screen.dart';
+import 'package:ecommerce/view/profile/order/order_screen.dart';
 import 'package:ecommerce/view/widgets/show_alert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +37,15 @@ class ProfileScreen extends StatelessWidget {
                             fontSize: 18,
                           ),
                         ),
+                      ),
+                      ProfileTextWidget(
+                        title: 'Orders',
+                        iconData: FontAwesomeIcons.box,
+                        onTap: () {
+                          Navigator.of(context).push(CupertinoPageRoute(
+                            builder: (context) => const OrderScreen(),
+                          ));
+                        },
                       ),
                       ProfileTextWidget(
                         title: 'Saved Addresses',

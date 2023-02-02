@@ -42,19 +42,7 @@ class OrderSummaryProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> checkScreen(OrderSummaryScreenEnum screenCheck,
-      String? productId, String? cartId, context) async {
-    if (screenCheck == OrderSummaryScreenEnum.normalOrderSummaryScreen) {
-      return;
-    } else if (screenCheck ==
-        OrderSummaryScreenEnum.buyOneProductOrderSummaryScreen) {
-      await getSingleCartProduct(productId!, cartId!, context).then((value) {
-        loading = false;
-        notifyListeners();
-        return;
-      });
-    }
-  }
+
 
   Future<void> getSingleCartProduct(
       context, String productId, String cartId) async {
