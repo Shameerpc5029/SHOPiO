@@ -10,26 +10,25 @@ import 'package:ecommerce/utils/interceptor/interceptor.dart';
 
 class OrderService {
   Future<String?> placeOrder(OrdersModel model) async {
+    final Dio dios = await IntercepterApi().getApiUser();
+
     try {
-      final Dio dios = await IntercepterApi().getApiUser();
-      final Response response =
-          await dios.post(ApiUrl.apiUrl + ApiEndPoints.orders, data: {
-        model.toJson(),
-      });
-      if (response.statusCode == 200 || response.statusCode == 201) {
+      final Response response = await dios.post(
+        ApiUrl.apiUrl + ApiEndPoints.orders,
+        data: model.toJson(),
+      );
+      if (response.statusCode == 201) {
         if (response.data == null) {
           return null;
         } else {
-          final GetOrderModel order =
+          final GetOrderModel model =
               GetOrderModel.fromJson(response.data['order']);
-          log(order.toString());
-          return order.id;
+          log(model.toString());
+          return model.id;
         }
-      } else {
-        return null;
       }
     } catch (e) {
-      // log(e.message.toString());
+      log(e.toString());
       DioException().dioError(e);
     }
     return null;

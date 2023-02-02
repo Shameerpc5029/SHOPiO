@@ -1,10 +1,7 @@
 import 'dart:developer';
 
-import 'package:ecommerce/bottom_nav.dart';
 import 'package:ecommerce/model/order_model/order_model.dart';
 import 'package:ecommerce/services/order_service/order_service.dart';
-import 'package:ecommerce/view/order_detials/order_detials.dart';
-import 'package:ecommerce/view/widgets/navigator_key.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
@@ -12,7 +9,7 @@ import 'package:razorpay_flutter/razorpay_flutter.dart';
 class PaymentProvider extends ChangeNotifier {
   Razorpay razorpay = Razorpay();
   List<Product> products = [];
-  String addressId = '';
+  String? addressId;
   Map<String, dynamic> options = {};
 
   void setAddressId(String addressid) {
@@ -20,12 +17,12 @@ class PaymentProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setTotalAmount(amount, List<String> productIds) {
+  void setTotalAmount(amount, List<String> productIds, address) {
     final total = "${amount * 100}";
     final amountPayable = total.toString();
     setOptions(amountPayable);
     products = productIds.map((e) => Product(id: e)).toList();
-    addressId;
+    addressId = address;
     notifyListeners();
   }
 
@@ -64,7 +61,7 @@ class PaymentProvider extends ChangeNotifier {
   void handlePaymentSuccess(PaymentSuccessResponse response) {
     Fluttertoast.showToast(
         msg: "SUCCESS:${response.paymentId}", timeInSecForIosWeb: 4);
-    orderProducts(addressId, 'ONLINE_PAYMENT');
+    orderProducts(addressId!, 'ONLINE_PAYMENT');
     notifyListeners();
   }
 
@@ -96,28 +93,20 @@ class PaymentProvider extends ChangeNotifier {
         loading = false;
         notifyListeners();
 
-        // final OrderPlacedScreenArguementModel args =
-        //     OrderPlacedScreenArguementModel(orderId: value);
         // Navigator.of(NavigationService.navigatorKey.currentContext!)
-        //     .pushReplacementNamed(RouteNames.orderPlacedScreen, arguments: args)
-        //     .then((value) {
-        //   Navigator.of(NavigationService.navigatorKey.currentContext!)
-        //       .pushNamedAndRemoveUntil(RouteNames.bottomNav, (route) => false);
-        // });
-        Navigator.of(NavigationService.navigatorKey.currentContext!)
-            .pushReplacement(CupertinoPageRoute(
-          builder: (context) {
-            return OrderDetials(
-              orderId: value,
-            );
-          },
-        )).then((value) =>
-                Navigator.of(NavigationService.navigatorKey.currentContext!)
-                    .pushAndRemoveUntil(CupertinoPageRoute(
-                  builder: (context) {
-                    return const BottomNav();
-                  },
-                ), (route) => false));
+        //     .pushReplacement(CupertinoPageRoute(
+        //   builder: (context) {
+        //     return OrderDetials(
+        //       orderId: value,
+        //     );
+        //   },
+        // )).then((value) =>
+        //         Navigator.of(NavigationService.navigatorKey.currentContext!)
+        //             .pushAndRemoveUntil(CupertinoPageRoute(
+        //           builder: (context) {
+        //             return const BottomNav();
+        //           },
+        //         ), (route) => false));
       } else {
         loading = false;
         notifyListeners();

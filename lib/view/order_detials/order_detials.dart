@@ -1,3 +1,4 @@
+import 'package:ecommerce/view/widgets/navigator_key.dart';
 import 'package:flutter/material.dart';
 
 class OrderDetials extends StatelessWidget {
@@ -7,6 +8,9 @@ class OrderDetials extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      NavigationService.navigatorKey.currentContext;
+    });
     return const Scaffold(
       body: Center(child: Text('order')),
     );

@@ -71,8 +71,10 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
           addressProvider.addressList[addressProvider.selectIndex].id);
       Provider.of<OrderSummaryProvider>(context, listen: false)
           .productIds
-          .insert(0,
-              cartprovider.cartitemsPayId[cartprovider.cartItemsId.length - 1]);
+          .insert(
+              0,
+              cartprovider
+                  .cartitemsPayId[cartprovider.cartitemsPayId.length - 1]);
     });
 
     return Scaffold(
@@ -444,6 +446,8 @@ Land Mark - ${value.addressList[value.selectIndex].landMark}
                                                   .normalOrderSummaryScreen
                                           ? cart.cartitemsPayId
                                           : value.productIds,
+                                      address
+                                          .addressList[address.selectIndex].id,
                                     );
 
                                     // paymentProvider.openCheckout(

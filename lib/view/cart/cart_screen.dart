@@ -230,7 +230,7 @@ class CartScreen extends StatelessWidget {
                                                 ? Navigator.of(context)
                                                     .push(CupertinoPageRoute(
                                                     builder: (context) =>
-                                                        AddressScreen(),
+                                                        const AddressScreen(),
                                                   ))
                                                 : order.toOderScreen(
                                                     context,
