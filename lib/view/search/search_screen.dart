@@ -30,7 +30,7 @@ class SearchScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Consumer<HomeProvider>(
           builder: (context, value, child) {
-            return value.seachResult.isEmpty
+            return value.searchResult.isEmpty
                 ? const Center(
                     heightFactor: 40,
                     child: Text(
@@ -50,18 +50,18 @@ class SearchScreen extends StatelessWidget {
                       ),
                       physics: const ScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: value.seachResult.length,
+                      itemCount: value.searchResult.length,
                       itemBuilder: (context, index) {
                         return ProductCard(
                           index: index,
                           onTap: () => value.goToProdutScreen(context, index),
-                          offer: "${value.seachResult[index].offer}%Off",
+                          offer: "${value.searchResult[index].offer}%Off",
                           image:
-                              '${ApiUrl.apiUrl}/products/${value.seachResult[index].image[0]}',
-                          name: value.seachResult[index].name,
-                          price: "₹${value.seachResult[index].price}",
+                              '${ApiUrl.apiUrl}/products/${value.searchResult[index].image[0]}',
+                          name: value.searchResult[index].name,
+                          price: "₹${value.searchResult[index].price}",
                           discountPrice:
-                              "₹${(value.seachResult[index].price - value.seachResult[index].discountPrice).round()}",
+                              "₹${(value.searchResult[index].price - value.searchResult[index].discountPrice).round()}",
                         );
                       },
                     ),

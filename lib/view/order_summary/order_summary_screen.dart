@@ -21,14 +21,12 @@ class OrderSummaryScreen extends StatefulWidget {
     required this.screenCheck,
     required this.cartId,
     required this.productId,
-
   });
 
   final OrderSummaryScreenEnum screenCheck;
 
   final String cartId;
   final String productId;
-
 
   @override
   State<OrderSummaryScreen> createState() => _OrderSummaryScreenState();
@@ -447,7 +445,7 @@ Land Mark - ${value.addressList[value.selectIndex].landMark}
                                           ? cart.cartitemsPayId
                                           : value.productIds,
                                     );
-                                 
+
                                     // paymentProvider.openCheckout(
                                     //   widget.screenCheck ==
                                     //           OrderSummaryScreenEnum

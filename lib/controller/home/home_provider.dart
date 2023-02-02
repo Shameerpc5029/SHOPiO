@@ -30,7 +30,7 @@ class HomeProvider extends ChangeNotifier {
   bool isLoading = false;
   List<CategoryModel> categoryList = [];
   List<ProductModel> productList = [];
-  List<ProductModel> seachResult = [];
+  List<ProductModel> searchResult = [];
   List<CarousalModel> carousalList = [];
   int activeIndex = 0;
   void loadingStart() {
@@ -163,7 +163,7 @@ class HomeProvider extends ChangeNotifier {
 
   TextEditingController searchController = TextEditingController();
   void search(String keyboard) {
-    List<ProductModel> results = [];
+    List<ProductModel> results;
     if (keyboard.isEmpty) {
       results = productList;
     } else {
@@ -176,7 +176,7 @@ class HomeProvider extends ChangeNotifier {
           .toList();
     }
 
-    seachResult = results;
+    searchResult = results;
     notifyListeners();
   }
 }

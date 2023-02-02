@@ -7,6 +7,7 @@ import 'package:ecommerce/controller/order_summary/order_summary_provider.dart';
 import 'package:ecommerce/model/order_summery_enum/order_summery_enum.dart';
 import 'package:ecommerce/view/cart/widgets/shimmer/cart_shimmer.dart';
 import 'package:ecommerce/view/order_summary/order_summary_screen.dart';
+import 'package:ecommerce/view/profile/address/address_screen.dart';
 import 'package:ecommerce/view/widgets/custom_outline_button.dart';
 import 'package:ecommerce/view/cart/widgets/count_button.dart';
 import 'package:ecommerce/view/widgets/loading_widget.dart';
@@ -225,15 +226,18 @@ class CartScreen extends StatelessWidget {
                                           buttonColor: whiteColor,
                                           onPressed: () {
                                             order.loading = true;
-                                            order.toOderScreen(
-                                                context,
-                                                value.model!.products[index]
-                                                    .product.id,
-                                                value.model!.id,
-                                                address
-                                                    .addressList[
-                                                        address.selectIndex]
-                                                    .id);
+                                            address.addressList.isEmpty
+                                                ? Navigator.of(context)
+                                                    .push(CupertinoPageRoute(
+                                                    builder: (context) =>
+                                                        AddressScreen(),
+                                                  ))
+                                                : order.toOderScreen(
+                                                    context,
+                                                    value.model!.products[index]
+                                                        .product.id,
+                                                    value.model!.id,
+                                                  );
                                           },
                                           backgroundColor: themeColor,
                                         );
@@ -286,28 +290,48 @@ class CartScreen extends StatelessWidget {
                       width: 200,
                       child: Consumer2<OrderSummaryProvider, AddressProvider>(
                         builder: (context, order, address, child) {
-                          return ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: themeColor,
-                              foregroundColor: whiteColor,
-                            ),
-                            onPressed: () {
-                              Navigator.of(context).push(CupertinoPageRoute(
-                                builder: (context) {
-                                  return const OrderSummaryScreen(
-                                    screenCheck: OrderSummaryScreenEnum
-                                        .normalOrderSummaryScreen,
-                                    cartId: '',
-                                    productId: '',
-                                  );
-                                },
-                              ));
-                              order.loading = false;
-                            },
-                            child: Text(
-                              'PLACE ORDER (${value.totalProductCount})',
-                            ),
-                          );
+                          return address.addressList.isEmpty
+                              ? ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: whiteColor,
+                                    foregroundColor: themeColor,
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .push(CupertinoPageRoute(
+                                      builder: (context) {
+                                        return const AddressScreen();
+                                      },
+                                    ));
+                                    order.loading = false;
+                                  },
+                                  child: const Text(
+                                    'Go the address',
+                                  ),
+                                )
+                              : ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: themeColor,
+                                    foregroundColor: whiteColor,
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .push(CupertinoPageRoute(
+                                      builder: (context) {
+                                        return const OrderSummaryScreen(
+                                          screenCheck: OrderSummaryScreenEnum
+                                              .normalOrderSummaryScreen,
+                                          cartId: '',
+                                          productId: '',
+                                        );
+                                      },
+                                    ));
+                                    order.loading = false;
+                                  },
+                                  child: Text(
+                                    'PLACE ORDER (${value.totalProductCount})',
+                                  ),
+                                );
                         },
                       ),
                     ),
