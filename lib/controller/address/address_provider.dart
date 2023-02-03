@@ -141,7 +141,7 @@ class AddressProvider extends ChangeNotifier {
       PopUpSnackBar.popUp(
         context,
         'Address removed successfully',
-        alertColor,
+        AppColor().alertColor,
       );
       getAllAddress();
       notifyListeners();

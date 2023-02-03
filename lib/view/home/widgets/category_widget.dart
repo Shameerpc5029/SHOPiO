@@ -34,7 +34,7 @@ class CategoryWidget extends StatelessWidget {
                               transitionOnUserGestures: true,
                               tag: value.categoryList[index].id,
                               child: CircleAvatar(
-                                backgroundColor: whiteColor,
+                                backgroundColor:AppColor(). whiteColor,
                                 radius: 33,
                                 backgroundImage: NetworkImage(
                                   '${ApiUrl.apiUrl}/category/${value.categoryList[index].image}',

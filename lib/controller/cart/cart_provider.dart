@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 class CartProvider extends ChangeNotifier {
   CartProvider() {
     getCart();
+    notifyListeners();
   }
 
   String size = "5 inch";
@@ -81,8 +82,8 @@ class CartProvider extends ChangeNotifier {
     CartService().removeFromCart(productId).then((value) {
       if (value != null) {
         getCart();
-        PopUpSnackBar.popUp(
-            context, 'Product removed from cart Successfully', alertColor);
+        PopUpSnackBar.popUp(context, 'Product removed from cart Successfully',
+            AppColor().alertColor);
         pop(context);
         notifyListeners();
       } else {

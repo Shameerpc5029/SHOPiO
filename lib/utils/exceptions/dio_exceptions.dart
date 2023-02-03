@@ -12,7 +12,7 @@ class DioException implements Exception {
   void dioError(Object e) {
     if (e is DioError) {
       if (e.response?.statusCode == 401) {
-        AppToast.showToast('Invalid input', redColor);
+        AppToast.showToast('Invalid input', AppColor().redColor);
 
         // PopUpSnackBar.popUp(
         //   context,
@@ -20,7 +20,7 @@ class DioException implements Exception {
         //   alertColor,
         // );
       } else if (e.response?.statusCode == 400) {
-        AppToast.showToast('Unknown fieldt', redColor);
+        AppToast.showToast('Unknown fieldt', AppColor().redColor);
 
         // PopUpSnackBar.popUp(
         //   context,
@@ -28,7 +28,7 @@ class DioException implements Exception {
         //   alertColor,
         // );
       } else if (e.response?.statusCode == 403) {
-        AppToast.showToast('User credential is not working', redColor);
+        AppToast.showToast('User credential is not working', AppColor().redColor);
 
         // PopUpSnackBar.popUp(
         //   context,
@@ -43,7 +43,7 @@ class DioException implements Exception {
         //   alertColor,
 
         // );
-        AppToast.showToast('Failed, Please try again', redColor);
+        AppToast.showToast('Failed, Please try again', AppColor().redColor);
       }
     }
     if (e is SocketException) {
@@ -53,7 +53,7 @@ class DioException implements Exception {
       //   alertColor,
       // );
       log('No Internet');
-      AppToast.showToast('No Internet Connection', redColor);
+      AppToast.showToast('No Internet Connection', AppColor().redColor);
     }
     if (e is TimeoutException) {
       // PopUpSnackBar.popUp(
@@ -61,7 +61,7 @@ class DioException implements Exception {
       //   'Connection Timeout',
       //   alertColor,
       // );
-      AppToast.showToast('Connection Timeout', redColor);
+      AppToast.showToast('Connection Timeout', AppColor().redColor);
     }
     if (e is MissingPluginException) {
       // PopUpSnackBar.popUp(
@@ -69,7 +69,7 @@ class DioException implements Exception {
       //   'Plugin error occured',
       //   alertColor,
       // );
-      AppToast.showToast('Plugin error occured', redColor);
+      AppToast.showToast('Plugin error occured', AppColor().redColor);
     }
     if (e is PlatformException) {
       // PopUpSnackBar.popUp(
@@ -77,7 +77,7 @@ class DioException implements Exception {
       //   'Platform Error Occured',
       //   alertColor,
       // );
-      AppToast.showToast('Platform Error Occured', redColor);
+      AppToast.showToast('Platform Error Occured', AppColor().redColor);
     }
   }
 }
@@ -90,9 +90,9 @@ class PopUpSnackBar {
       SnackBar(
         content: Text(
           text,
-          style: const TextStyle(
+          style:  TextStyle(
             fontWeight: FontWeight.w400,
-            color: whiteColor,
+            color:AppColor(). whiteColor,
           ),
         ),
         backgroundColor: color,

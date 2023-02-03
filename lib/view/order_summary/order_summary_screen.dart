@@ -123,7 +123,7 @@ Land Mark - ${value.addressList[value.selectIndex].landMark}
                         itemBuilder: (context, index) {
                           return Container(
                             padding: const EdgeInsets.all(10),
-                            color: whiteColor,
+                            color: AppColor().whiteColor,
                             child: Row(
                               children: [
                                 Container(
@@ -192,11 +192,11 @@ Land Mark - ${value.addressList[value.selectIndex].landMark}
                                                       .normalOrderSummaryScreen
                                               ? "₹${cart.model!.products[index].product.price}"
                                               : "${order.product[0].product.price}",
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             decoration:
                                                 TextDecoration.lineThrough,
-                                            color: greyColor,
+                                            color: AppColor().greyColor,
                                           ),
                                         ),
                                         CSizedBox().width10,
@@ -218,9 +218,9 @@ Land Mark - ${value.addressList[value.selectIndex].landMark}
                                                       .normalOrderSummaryScreen
                                               ? "${cart.model!.products[index].product.offer}% off"
                                               : "${order.product[0].product.offer}% off",
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                             fontWeight: FontWeight.bold,
-                                            color: offerColor,
+                                            color: AppColor().offerColor,
                                           ),
                                         ),
                                       ],
@@ -231,9 +231,9 @@ Land Mark - ${value.addressList[value.selectIndex].landMark}
                                                 .normalOrderSummaryScreen
                                         ? Text(
                                             '${cart.model!.products[index].qty} Item',
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                               fontWeight: FontWeight.bold,
-                                              color: greyColor,
+                                              color: AppColor().greyColor,
                                             ),
                                           )
                                         : const SizedBox()
@@ -246,7 +246,7 @@ Land Mark - ${value.addressList[value.selectIndex].landMark}
                       ),
                       CSizedBox().height10,
                       Container(
-                        color: whiteColor,
+                        color: AppColor().whiteColor,
                         padding: const EdgeInsets.all(10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -363,9 +363,9 @@ Land Mark - ${value.addressList[value.selectIndex].landMark}
               : Container(
                   height: 70,
                   width: double.infinity,
-                  decoration: const BoxDecoration(
-                    color: whiteColor,
-                    boxShadow: [
+                  decoration: BoxDecoration(
+                    color: AppColor().whiteColor,
+                    boxShadow: const [
                       BoxShadow(
                         color: Colors.grey,
                         offset: Offset(0.0, 1.0),
@@ -382,10 +382,10 @@ Land Mark - ${value.addressList[value.selectIndex].landMark}
                                         .normalOrderSummaryScreen
                                 ? "₹${cart.model!.totalPrice}"
                                 : "₹${value.product[0].price}",
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
-                              color: greyColor,
+                              color: AppColor().greyColor,
                               decoration: TextDecoration.lineThrough,
                             ),
                           ),
@@ -397,7 +397,7 @@ Land Mark - ${value.addressList[value.selectIndex].landMark}
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
-                        color: priceColor,
+                        color: AppColor().priceColor,
                       ),
                     ),
                     trailing: SizedBox(
@@ -407,8 +407,8 @@ Land Mark - ${value.addressList[value.selectIndex].landMark}
                           return address.addressList.isEmpty
                               ? OutlinedButton(
                                   style: OutlinedButton.styleFrom(
-                                    foregroundColor: themeColor,
-                                    backgroundColor: whiteColor,
+                                    foregroundColor: AppColor().themeColor,
+                                    backgroundColor: AppColor().whiteColor,
                                   ),
                                   onPressed: () {
                                     Navigator.of(context)
@@ -424,8 +424,8 @@ Land Mark - ${value.addressList[value.selectIndex].landMark}
                                 )
                               : ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: themeColor,
-                                    foregroundColor: whiteColor,
+                                    backgroundColor: AppColor().themeColor,
+                                    foregroundColor: AppColor().whiteColor,
                                   ),
                                   onPressed: () {
                                     paymentProvider.setTotalAmount(

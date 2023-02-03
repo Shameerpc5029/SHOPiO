@@ -54,9 +54,9 @@ class CategoryScreen extends StatelessWidget {
                               },
                               title: Text(
                                 value.categoryList[index].name,
-                                style: const TextStyle(
+                                style:  TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: whiteColor,
+                                  color:AppColor(). whiteColor,
                                   fontSize: 20,
                                 ),
                               ),
@@ -82,7 +82,7 @@ class CategoryScreen extends StatelessWidget {
                                         tag: value.categoryList[index].id,
                                         child: CircleAvatar(
                                           radius: 35,
-                                          backgroundColor: whiteColor,
+                                          backgroundColor:AppColor(). whiteColor,
                                           backgroundImage: NetworkImage(
                                             '${ApiUrl.apiUrl}/category/${value.categoryList[index].image}',
                                           ),

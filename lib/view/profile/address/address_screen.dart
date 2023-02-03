@@ -44,8 +44,8 @@ class AddressScreen extends StatelessWidget {
             },
             child: SingleChildScrollView(
                 child: value.addressList.isEmpty
-                    ? const Padding(
-                        padding: EdgeInsets.symmetric(
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(
                           vertical: 30,
                           horizontal: 10,
                         ),
@@ -53,7 +53,7 @@ class AddressScreen extends StatelessWidget {
                           'NO SAVED ADDRESS',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: greyColor,
+                            color: AppColor().greyColor,
                           ),
                         ),
                       )
@@ -77,7 +77,7 @@ class AddressScreen extends StatelessWidget {
                                     color: index == value.selectIndex
                                         ? const Color.fromARGB(
                                             255, 228, 240, 249)
-                                        : whiteColor,
+                                        : AppColor().whiteColor,
                                     margin: EdgeInsets.zero,
                                     child: Padding(
                                       padding: const EdgeInsets.all(10),
@@ -176,7 +176,7 @@ Land Mark - ${value.addressList[index].landMark}
                                                             FontWeight.w400,
                                                       ),
                                                       foregroundColor:
-                                                          alertColor,
+                                                          AppColor().alertColor,
                                                     ),
                                                     onPressed: () {
                                                       showCupertinoDialog(
@@ -257,11 +257,11 @@ Land Mark - ${value.addressList[index].landMark}
             child: SizedBox(
               height: MediaQuery.of(context).size.height * .08,
               child: FloatingActionButton.extended(
-                foregroundColor: whiteColor,
+                foregroundColor: AppColor().whiteColor,
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.zero,
                 ),
-                backgroundColor: themeColor,
+                backgroundColor: AppColor().themeColor,
                 onPressed: () {
                   addAndEditBottomSheet(
                     context,

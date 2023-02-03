@@ -30,9 +30,9 @@ class ProfileScreen extends StatelessWidget {
                   centerTitle: false,
                   title: Text(
                     'Hey! ${value.userDetials?.fullname.toUpperCase()}',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: themeColor,
+                      color: AppColor().themeColor,
                     ),
                   ),
                 ),

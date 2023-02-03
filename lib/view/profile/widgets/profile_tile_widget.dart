@@ -1,4 +1,3 @@
-import 'package:ecommerce/common/style/colors.dart';
 import 'package:flutter/material.dart';
 
 class ProfileTextWidget extends StatelessWidget {
@@ -7,7 +6,7 @@ class ProfileTextWidget extends StatelessWidget {
     required this.title,
     required this.iconData,
     required this.onTap,
-    this.color = themeColor,
+    this.color = const Color.fromARGB(255, 10, 59, 132),
     this.trailing = const Icon(
       Icons.arrow_forward_ios_rounded,
     ),

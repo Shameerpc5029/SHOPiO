@@ -29,8 +29,8 @@ class HighlightsWidget extends StatelessWidget {
       ),
       title: Text(
         titleText,
-        style: const TextStyle(
-          color: greyColor,
+        style:  TextStyle(
+          color:AppColor(). greyColor,
         ),
       ),
       subtitle: Text(

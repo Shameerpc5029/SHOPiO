@@ -84,8 +84,8 @@ class ProductView extends StatelessWidget {
                     child: AnimatedSmoothIndicator(
                       activeIndex: value.activeIndex,
                       count: provider.image.length,
-                      effect: const WormEffect(
-                        activeDotColor: themeColor,
+                      effect: WormEffect(
+                        activeDotColor: AppColor().themeColor,
                         dotHeight: 10,
                         dotWidth: 10,
                       ),
@@ -169,12 +169,12 @@ class ProductView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Row(
-                              children: const [
+                              children: [
                                 Text(
                                   'Special price',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: themeColor,
+                                    color: AppColor().themeColor,
                                   ),
                                 ),
                               ],
@@ -184,29 +184,29 @@ class ProductView extends StatelessWidget {
                               children: [
                                 Text(
                                   '${provider.offer}% off',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
-                                    color: themeColor,
+                                    color: AppColor().themeColor,
                                   ),
                                 ),
                                 CSizedBox().width10,
                                 Text(
                                   "₹${provider.price}",
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 16,
-                                    color: greyColor,
+                                    color: AppColor().greyColor,
                                     decoration: TextDecoration.lineThrough,
                                   ),
                                 ),
                                 CSizedBox().width10,
                                 Text(
                                   "₹${(provider.price - provider.discountPrice).round()}",
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
-                                    color: themeColor,
+                                    color: AppColor().themeColor,
                                     overflow: TextOverflow.clip,
                                   ),
                                   maxLines: 1,
@@ -228,12 +228,12 @@ class ProductView extends StatelessWidget {
               CSizedBox().height5,
               ReadMoreText(
                 provider.description,
-                moreStyle: const TextStyle(
-                  color: blueColor,
+                moreStyle: TextStyle(
+                  color: AppColor().blueColor,
                   fontWeight: FontWeight.bold,
                 ),
-                lessStyle: const TextStyle(
-                  color: blueColor,
+                lessStyle: TextStyle(
+                  color: AppColor().blueColor,
                   fontWeight: FontWeight.bold,
                 ),
                 trimLength: 150,
@@ -291,7 +291,7 @@ class ProductView extends StatelessWidget {
                   text: 'wishList',
                   backgroundColor: value.wishlist.contains(provider.id)
                       ? Colors.green.shade600
-                      : whiteColor,
+                      : AppColor().whiteColor,
                   foregroundColor: value.wishlist.contains(provider.id)
                       ? Colors.white
                       : Colors.black,
@@ -306,7 +306,7 @@ class ProductView extends StatelessWidget {
                 return value.cartList.contains(productId)
                     ? BottomNavButton(
                         text: 'Go to Cart',
-                        backgroundColor: themeColor,
+                        backgroundColor: AppColor().themeColor,
                         foregroundColor: Colors.white,
                         onPressed: () {
                           value2.goToCategory(context);

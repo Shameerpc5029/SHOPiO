@@ -42,9 +42,9 @@ class ProductCard extends StatelessWidget {
                   value.productList[index].offer == 0
                       ? const SizedBox()
                       : Container(
-                          decoration: const BoxDecoration(
-                            color: offerColor,
-                            borderRadius: BorderRadius.only(
+                          decoration: BoxDecoration(
+                            color: AppColor().offerColor,
+                            borderRadius: const BorderRadius.only(
                               bottomRight: Radius.circular(10),
                               topLeft: Radius.circular(10),
                             ),
@@ -87,10 +87,10 @@ class ProductCard extends StatelessWidget {
               CSizedBox().height10,
               Text(
                 price,
-                style: const TextStyle(
+                style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
-                  color: greyColor,
+                  color: AppColor().greyColor,
                   decoration: TextDecoration.lineThrough,
                 ),
               ),
@@ -99,7 +99,7 @@ class ProductCard extends StatelessWidget {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
-                  color: priceColor,
+                  color: AppColor().priceColor,
                 ),
               ),
             ],

@@ -43,18 +43,18 @@ class WishListScreen extends StatelessWidget {
                           color: Colors.black54,
                         ),
                       ),
-                      const Text(
+                      Text(
                         'Click ❤️to save products',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: greyColor,
+                          color: AppColor().greyColor,
                         ),
                       ),
                       CSizedBox().height20,
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: themeColor,
-                          foregroundColor: whiteColor,
+                          backgroundColor: AppColor().themeColor,
+                          foregroundColor: AppColor().whiteColor,
                           elevation: 0,
                         ),
                         onPressed: () {
@@ -107,9 +107,9 @@ class WishListScreen extends StatelessWidget {
                                   CSizedBox().height10,
                                   Text(
                                     value.model!.products[index].product.name,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        color: greyColor,
+                                        color: AppColor().greyColor,
                                         overflow: TextOverflow.ellipsis),
                                   ),
                                   Row(
@@ -127,14 +127,14 @@ class WishListScreen extends StatelessWidget {
                                         "₹${(value.model!.products[index].product.price - value.model!.products[index].product.discountPrice).round()}",
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          color: priceColor,
+                                          color: AppColor().priceColor,
                                         ),
                                       ),
                                       Text(
                                         "${value.model!.products[index].product.offer}% off",
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          color: offerColor,
+                                          color: AppColor().offerColor,
                                           overflow: TextOverflow.ellipsis,
                                         ),
                                       ),
@@ -167,7 +167,8 @@ class WishListScreen extends StatelessWidget {
                                         )
                                             ? OutlinedButton.icon(
                                                 style: OutlinedButton.styleFrom(
-                                                  foregroundColor: themeColor,
+                                                  foregroundColor:
+                                                      AppColor().themeColor,
                                                 ),
                                                 onPressed: null,
                                                 label:
@@ -179,7 +180,8 @@ class WishListScreen extends StatelessWidget {
                                               )
                                             : OutlinedButton(
                                                 style: OutlinedButton.styleFrom(
-                                                  foregroundColor: themeColor,
+                                                  foregroundColor:
+                                                      AppColor().themeColor,
                                                 ),
                                                 onPressed: () {
                                                   cart.addToCart(
@@ -206,9 +208,9 @@ class WishListScreen extends StatelessWidget {
                                   value.model!.products[index].product.id);
                             },
                             splashRadius: 20,
-                            icon: const Icon(
+                            icon: Icon(
                               Icons.favorite,
-                              color: redColor,
+                              color: AppColor().redColor,
                               size: 30,
                             ),
                           ),

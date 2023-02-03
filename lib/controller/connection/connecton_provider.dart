@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:ecommerce/common/style/colors.dart';
+
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
@@ -33,11 +34,11 @@ class InternetCheck extends ChangeNotifier {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: const Text(
+        content: Text(
           "No Internet Connection",
           style: TextStyle(
             fontWeight: FontWeight.w400,
-            color: whiteColor,
+            color: AppColor().whiteColor,
           ),
         ),
         action: SnackBarAction(
@@ -46,9 +47,9 @@ class InternetCheck extends ChangeNotifier {
             subscription.cancel();
             notifyListeners();
           },
-          textColor: whiteColor,
+          textColor: AppColor().whiteColor,
         ),
-        backgroundColor: alertColor,
+        backgroundColor: AppColor().alertColor,
       ),
     );
   }

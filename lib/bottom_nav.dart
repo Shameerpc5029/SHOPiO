@@ -9,12 +9,15 @@ class BottomNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Provider.of<CartProvider>(context, listen: false).getCart();
+    });
     return Consumer<BottomNavProvider>(
       builder: (context, provider, child) {
         return Scaffold(
           body: provider.pages[provider.currentIndex],
           bottomNavigationBar: BottomNavigationBar(
-            selectedItemColor: themeColor,
+            selectedItemColor: AppColor().themeColor,
             unselectedItemColor: Colors.grey,
             selectedIconTheme: const IconThemeData(
               size: 30,
@@ -51,7 +54,7 @@ class BottomNav extends StatelessWidget {
                         AlignmentDirectional.topEnd,
                         15,
                       ),
-                      textColor: whiteColor,
+                      textColor: AppColor().whiteColor,
                       label: Text(
                         value.totalProductCount.toString(),
                         style: const TextStyle(
@@ -59,8 +62,8 @@ class BottomNav extends StatelessWidget {
                           fontSize: 12,
                         ),
                       ),
-                      textStyle: const TextStyle(
-                        color: whiteColor,
+                      textStyle: TextStyle(
+                        color: AppColor().whiteColor,
                         fontWeight: FontWeight.bold,
                       ),
                       child: const Icon(

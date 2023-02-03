@@ -25,11 +25,11 @@ class OrderScreen extends StatelessWidget {
             return IconButton(
               onPressed: () {
                 Navigator.of(context).pushAndRemoveUntil(
-                    CupertinoPageRoute(
-                      builder: (context) => const BottomNav(),
-                    ),
-                    (route) => false);
-
+                  CupertinoPageRoute(
+                    builder: (context) => const BottomNav(),
+                  ),
+                  (route) => false,
+                );
                 value.currentIndex = 4;
               },
               icon: const Icon(
@@ -76,8 +76,8 @@ class OrderScreen extends StatelessWidget {
                       ),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: themeColor,
-                          foregroundColor: whiteColor,
+                          backgroundColor: AppColor().themeColor,
+                          foregroundColor: AppColor().whiteColor,
                           elevation: 0,
                         ),
                         onPressed: () {
@@ -131,7 +131,7 @@ class OrderScreen extends StatelessWidget {
                                     CSizedBox().width10,
                                     SizedBox(
                                       width: MediaQuery.of(context).size.width *
-                                          .7,
+                                          .6,
                                       child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,

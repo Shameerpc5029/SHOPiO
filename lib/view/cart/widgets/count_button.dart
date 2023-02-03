@@ -1,4 +1,3 @@
-
 import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/common/style/sized_box.dart';
 import 'package:flutter/material.dart';
@@ -25,12 +24,12 @@ class CountButton extends StatelessWidget {
             height: 20,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
-              color: themeColor,
+              color: AppColor().themeColor,
             ),
-            child: const Icon(
+            child: Icon(
               Icons.remove,
               size: 16,
-              color: whiteColor,
+              color: AppColor().whiteColor,
             ),
           ),
         ),
@@ -49,12 +48,12 @@ class CountButton extends StatelessWidget {
             height: 20,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
-              color: themeColor,
+              color: AppColor().themeColor,
             ),
-            child: const Icon(
+            child:  Icon(
               Icons.add,
               size: 16,
-              color: whiteColor,
+              color:AppColor(). whiteColor,
             ),
           ),
         ),

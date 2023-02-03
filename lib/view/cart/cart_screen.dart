@@ -22,7 +22,7 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      return Provider.of<CartProvider>(context, listen: false).getCart();
+      Provider.of<CartProvider>(context, listen: false).getCart();
     });
     return Consumer<CartProvider>(
       builder: (context, value, child) {
@@ -122,11 +122,11 @@ class CartScreen extends StatelessWidget {
                                               children: [
                                                 Text(
                                                   '₹${value.model!.products[index].price}',
-                                                  style: const TextStyle(
+                                                  style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     decoration: TextDecoration
                                                         .lineThrough,
-                                                    color: greyColor,
+                                                    color: AppColor().greyColor,
                                                   ),
                                                 ),
                                                 CSizedBox().width10,
@@ -141,9 +141,10 @@ class CartScreen extends StatelessWidget {
                                                 CSizedBox().width10,
                                                 Text(
                                                   "${value.model!.products[index].product.offer}% off",
-                                                  style: const TextStyle(
+                                                  style: TextStyle(
                                                     fontWeight: FontWeight.bold,
-                                                    color: offerColor,
+                                                    color:
+                                                        AppColor().offerColor,
                                                   ),
                                                 ),
                                               ],
@@ -192,7 +193,7 @@ class CartScreen extends StatelessWidget {
                                     CustomButton(
                                       text: "Remove",
                                       icon: Icons.delete_outlined,
-                                      buttonColor: alertColor,
+                                      buttonColor: AppColor().alertColor,
                                       onPressed: () {
                                         showCupertinoDialog(
                                           context: context,
@@ -212,7 +213,7 @@ class CartScreen extends StatelessWidget {
                                           },
                                         );
                                       },
-                                      backgroundColor: whiteColor,
+                                      backgroundColor: AppColor().whiteColor,
                                     ),
                                     CSizedBox().width10,
                                     Consumer2<OrderSummaryProvider,
@@ -222,7 +223,7 @@ class CartScreen extends StatelessWidget {
                                         return CustomButton(
                                           text: "BUY NOW",
                                           icon: Icons.currency_rupee_outlined,
-                                          buttonColor: whiteColor,
+                                          buttonColor: AppColor().whiteColor,
                                           onPressed: () {
                                             order.loading = true;
                                             address.addressList.isEmpty
@@ -238,7 +239,8 @@ class CartScreen extends StatelessWidget {
                                                     value.model!.id,
                                                   );
                                           },
-                                          backgroundColor: themeColor,
+                                          backgroundColor:
+                                              AppColor().themeColor,
                                         );
                                       },
                                     ),
@@ -257,9 +259,9 @@ class CartScreen extends StatelessWidget {
               : Container(
                   height: 70,
                   width: double.infinity,
-                  decoration: const BoxDecoration(
-                    color: whiteColor,
-                    boxShadow: [
+                  decoration: BoxDecoration(
+                    color: AppColor().whiteColor,
+                    boxShadow: const [
                       BoxShadow(
                         color: Colors.grey,
                         offset: Offset(0.0, 1.0),
@@ -270,10 +272,10 @@ class CartScreen extends StatelessWidget {
                   child: ListTile(
                     title: Text(
                       "₹${value.model?.totalPrice ?? 0}",
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
-                        color: greyColor,
+                        color: AppColor().greyColor,
                         decoration: TextDecoration.lineThrough,
                       ),
                     ),
@@ -282,7 +284,7 @@ class CartScreen extends StatelessWidget {
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
-                        color: priceColor,
+                        color: AppColor().priceColor,
                       ),
                     ),
                     trailing: SizedBox(
@@ -292,8 +294,8 @@ class CartScreen extends StatelessWidget {
                           return address.addressList.isEmpty
                               ? ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: whiteColor,
-                                    foregroundColor: themeColor,
+                                    backgroundColor: AppColor().whiteColor,
+                                    foregroundColor: AppColor().themeColor,
                                   ),
                                   onPressed: () {
                                     Navigator.of(context)
@@ -310,8 +312,8 @@ class CartScreen extends StatelessWidget {
                                 )
                               : ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: themeColor,
-                                    foregroundColor: whiteColor,
+                                    backgroundColor: AppColor().themeColor,
+                                    foregroundColor: AppColor().whiteColor,
                                   ),
                                   onPressed: () {
                                     Navigator.of(context)

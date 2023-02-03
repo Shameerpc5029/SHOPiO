@@ -19,7 +19,7 @@ class AddressWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: whiteColor,
+      color:AppColor(). whiteColor,
       padding: const EdgeInsets.all(
         10,
       ),
@@ -38,7 +38,7 @@ class AddressWidget extends StatelessWidget {
               ),
               OutlinedButton(
                 style: OutlinedButton.styleFrom(
-                  foregroundColor: themeColor,
+                  foregroundColor:AppColor(). themeColor,
                 ),
                 onPressed: onPreesed,
                 child: const Text(

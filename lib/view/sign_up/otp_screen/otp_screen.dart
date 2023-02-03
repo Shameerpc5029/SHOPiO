@@ -36,7 +36,7 @@ class _OtpScreenState extends State<OtpScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        foregroundColor: blacColor,
+        foregroundColor: AppColor().blackColor,
       ),
       body: SafeArea(
         child: Center(

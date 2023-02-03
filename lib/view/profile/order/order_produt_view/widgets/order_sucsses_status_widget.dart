@@ -30,13 +30,13 @@ class OrderSucssesStatusWidget extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  const CircleAvatar(
+                  CircleAvatar(
                     backgroundColor: Colors.green,
                     radius: 10,
                     child: Icon(
                       Icons.check,
                       size: 14,
-                      color: whiteColor,
+                      color: AppColor().whiteColor,
                     ),
                   ),
                   const SizedBox(
@@ -45,7 +45,7 @@ class OrderSucssesStatusWidget extends StatelessWidget {
                   Container(
                     height: 52,
                     width: 2,
-                    color: whiteColor,
+                    color: AppColor().whiteColor,
                   ),
                   const SizedBox(
                     height: 3,
@@ -55,12 +55,12 @@ class OrderSucssesStatusWidget extends StatelessWidget {
                         value.singleModel!.orderStatus == 'shipped' ||
                                 value.singleModel!.orderStatus == 'delivered'
                             ? Colors.green
-                            : whiteColor,
+                            : AppColor().whiteColor,
                     radius: 10,
-                    child: const Icon(
+                    child: Icon(
                       Icons.check,
                       size: 14,
-                      color: whiteColor,
+                      color: AppColor().whiteColor,
                     ),
                   ),
                   const SizedBox(
@@ -69,7 +69,7 @@ class OrderSucssesStatusWidget extends StatelessWidget {
                   Container(
                     height: 54,
                     width: 2,
-                    color: whiteColor,
+                    color: AppColor().whiteColor,
                   ),
                   const SizedBox(
                     height: 3,
@@ -78,12 +78,12 @@ class OrderSucssesStatusWidget extends StatelessWidget {
                     backgroundColor:
                         value.singleModel!.orderStatus == 'delivered'
                             ? Colors.green
-                            : whiteColor,
+                            : AppColor().whiteColor,
                     radius: 10,
-                    child: const Icon(
+                    child: Icon(
                       Icons.check,
                       size: 14,
-                      color: whiteColor,
+                      color: AppColor().whiteColor,
                     ),
                   ),
                 ],

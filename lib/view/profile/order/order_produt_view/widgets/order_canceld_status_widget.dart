@@ -30,27 +30,27 @@ class OrderCanceldStatusWidget extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  const CircleAvatar(
+                   CircleAvatar(
                     backgroundColor: Colors.green,
                     radius: 10,
                     child: Icon(
                       Icons.check,
                       size: 14,
-                      color: whiteColor,
+                      color:AppColor(). whiteColor,
                     ),
                   ),
                   Container(
                     height: 65,
                     width: 3,
-                    color: whiteColor,
+                    color:AppColor(). whiteColor,
                   ),
-                  const CircleAvatar(
-                    backgroundColor: redColor,
+                   CircleAvatar(
+                    backgroundColor: AppColor().redColor,
                     radius: 10,
                     child: Icon(
                       Icons.cancel,
                       size: 14,
-                      color: whiteColor,
+                      color:AppColor(). whiteColor,
                     ),
                   ),
                 ],

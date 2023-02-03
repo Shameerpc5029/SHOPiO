@@ -17,7 +17,6 @@ class ForgotPasswordProvider extends ChangeNotifier {
     ForgotPasswordService()
         .getUser(forgotPasswordEmailcontroller.text)
         .then((model) {
-      print(model.toString());
       if (model != null) {
         OtpService().sendOtp(model.email).then((value) {
           if (value != null) {
@@ -42,7 +41,7 @@ class ForgotPasswordProvider extends ChangeNotifier {
       } else {
         isLoading = false;
         notifyListeners();
-        AppToast.showToast('No user Found', redColor);
+        AppToast.showToast('No user Found', AppColor().redColor);
       }
     });
   }

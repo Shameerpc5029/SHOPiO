@@ -87,7 +87,7 @@ class HomeScreen extends StatelessWidget {
                                 child: AnimatedSmoothIndicator(
                                   effect: ExpandingDotsEffect(
                                     dotColor: Colors.grey.shade300,
-                                    activeDotColor: themeColor,
+                                    activeDotColor:AppColor(). themeColor,
                                     spacing: 10,
                                     dotHeight: 10,
                                     dotWidth: 10,

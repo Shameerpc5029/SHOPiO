@@ -68,7 +68,7 @@ class NewPasswordScreen extends StatelessWidget {
                   controller: newPasswordProvider.confirmPasswordController,
                   obscureText: provider.obscureText,
                   keyboardType: TextInputType.text,
-                  prefixIcon: FontAwesomeIcons.at,
+                  prefixIcon: FontAwesomeIcons.lock,
                 ),
                 CSizedBox().height20,
                 SizedBox(

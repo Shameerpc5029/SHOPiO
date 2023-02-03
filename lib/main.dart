@@ -51,7 +51,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => OrderProvider()),
         ChangeNotifierProvider(create: (context) => ForgotPasswordProvider()),
         ChangeNotifierProvider(create: (context) => NewPasswordProvider()),
-
       ],
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
@@ -60,12 +59,12 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           // primarySwatch: Colors.blueGrey,
           // primaryColor: themeColor,
-          colorSchemeSeed: themeColor,
-          appBarTheme: const AppBarTheme(
+          colorSchemeSeed: AppColor().themeColor,
+          appBarTheme: AppBarTheme(
             centerTitle: true,
             elevation: 0,
             foregroundColor: Colors.black,
-            color: whiteColor,
+            color: AppColor().whiteColor,
           ),
         ),
         routes: {

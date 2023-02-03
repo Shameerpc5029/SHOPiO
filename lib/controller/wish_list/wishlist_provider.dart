@@ -54,7 +54,7 @@ class WishListProvider extends ChangeNotifier {
           PopUpSnackBar.popUp(context, 'Item added to Wishlist', Colors.green);
         }
         if (value == 204) {
-          PopUpSnackBar.popUp(context, 'Item Remove from Wishlist', alertColor);
+          PopUpSnackBar.popUp(context, 'Item Remove from Wishlist',AppColor(). alertColor);
         }
       } else {
         isLoading = false;

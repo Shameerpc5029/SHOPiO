@@ -14,9 +14,9 @@ class UserDetialsText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       '$title : $result',
-      style: const TextStyle(
+      style:  TextStyle(
         fontWeight: FontWeight.w500,
-        color: themeColor,
+        color: AppColor().themeColor,
         fontSize: 16,
       ),
     );

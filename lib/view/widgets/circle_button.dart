@@ -17,7 +17,7 @@ class CircleButtonWidget extends StatelessWidget {
       shape: const CircleBorder(),
       elevation: 0,
       child: CircleAvatar(
-          backgroundColor: whiteColor,
+          backgroundColor:AppColor(). whiteColor,
           child:
               IconButton(splashRadius: 20, onPressed: onPressed, icon: icon)),
     );

@@ -135,10 +135,10 @@ Future<dynamic> addAndEditBottomSheet(
                               OutlinedButton.icon(
                                 style: OutlinedButton.styleFrom(
                                   backgroundColor: value.isSelected == true
-                                      ? themeColor
+                                      ? AppColor().themeColor
                                       : Colors.transparent,
                                   foregroundColor: value.isSelected == true
-                                      ? whiteColor
+                                      ? AppColor().whiteColor
                                       : Colors.grey,
                                 ),
                                 onPressed: () {
@@ -155,10 +155,10 @@ Future<dynamic> addAndEditBottomSheet(
                               OutlinedButton.icon(
                                 style: OutlinedButton.styleFrom(
                                   backgroundColor: value.isSelected == false
-                                      ? themeColor
+                                      ? AppColor().themeColor
                                       : Colors.transparent,
                                   foregroundColor: value.isSelected == false
-                                      ? whiteColor
+                                      ? AppColor().whiteColor
                                       : Colors.grey,
                                 ),
                                 onPressed: () {

@@ -22,6 +22,7 @@ class OrderDetialsView extends StatelessWidget {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Provider.of<OrderProvider>(context, listen: false)
           .getSingleOrder(orderId);
+      Provider.of<OrderProvider>(context, listen: false).getAllOrders();
     });
     return Scaffold(
       appBar: AppBar(
@@ -35,7 +36,7 @@ class OrderDetialsView extends StatelessWidget {
                 : Column(
                     children: [
                       Card(
-                        color: whiteColor,
+                        color: AppColor().whiteColor,
                         shape: const OutlineInputBorder(
                           borderRadius: BorderRadius.zero,
                           borderSide: BorderSide.none,
@@ -47,9 +48,9 @@ class OrderDetialsView extends StatelessWidget {
                             children: [
                               Text(
                                 "Order ID - ${value.singleModel!.id.toUpperCase()}",
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontWeight: FontWeight.w400,
-                                  color: greyColor,
+                                  color: AppColor().greyColor,
                                   fontSize: 12,
                                 ),
                               ),
@@ -73,9 +74,9 @@ class OrderDetialsView extends StatelessWidget {
                                       CSizedBox().height10,
                                       Text(
                                         "${value.singleModel!.products[index1].product.details.ram} GB RAM",
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontWeight: FontWeight.w500,
-                                          color: greyColor,
+                                          color: AppColor().greyColor,
                                         ),
                                       ),
                                       Text(
@@ -97,8 +98,8 @@ class OrderDetialsView extends StatelessWidget {
                               ),
                               const Divider(),
                               value.singleModel!.orderStatus == 'CANCELED'
-                                  ?  OrderCanceldStatusWidget(index: index1)
-                                  :  OrderSucssesStatusWidget(index: index1),
+                                  ? OrderCanceldStatusWidget(index: index1)
+                                  : OrderSucssesStatusWidget(index: index1),
                               const Divider(),
                               Consumer<OrderProvider>(
                                 builder: (context, value, child) {
@@ -166,7 +167,7 @@ class OrderDetialsView extends StatelessWidget {
                       Consumer<OrderProvider>(
                         builder: (context, value, child) {
                           return Card(
-                            color: whiteColor,
+                            color: AppColor().whiteColor,
                             shape: const OutlineInputBorder(
                               borderRadius: BorderRadius.zero,
                               borderSide: BorderSide.none,
@@ -176,11 +177,11 @@ class OrderDetialsView extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const Text(
+                                  Text(
                                     "Shopping Details",
                                     style: TextStyle(
                                       fontWeight: FontWeight.w500,
-                                      color: greyColor,
+                                      color: AppColor().greyColor,
                                       fontSize: 12,
                                     ),
                                   ),

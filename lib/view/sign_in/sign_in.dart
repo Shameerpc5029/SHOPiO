@@ -84,7 +84,7 @@ class SignInScreen extends StatelessWidget {
                       TextButton(
                         style: ButtonStyle(
                             foregroundColor: MaterialStateProperty.all(
-                          greyColor,
+                          AppColor().greyColor,
                         )),
                         onPressed: () {
                           forgotPassword(context, globalKey);
@@ -125,14 +125,14 @@ class SignInScreen extends StatelessWidget {
                   RichText(
                     text: TextSpan(
                       text: 'Don’t have an account?',
-                      style: const TextStyle(
-                        color: blacColor,
+                      style: TextStyle(
+                        color: AppColor().blackColor,
                       ),
                       children: [
                         TextSpan(
                           text: ' Sign Up',
-                          style: const TextStyle(
-                            color: blueColor,
+                          style: TextStyle(
+                            color: AppColor().blueColor,
                             fontWeight: FontWeight.bold,
                           ),
                           recognizer: TapGestureRecognizer()

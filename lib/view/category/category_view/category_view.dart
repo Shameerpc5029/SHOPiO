@@ -38,7 +38,7 @@ class CategoryView extends StatelessWidget {
               transitionOnUserGestures: true,
               tag: categoryName.id,
               child: CircleAvatar(
-                backgroundColor: whiteColor,
+                backgroundColor:AppColor(). whiteColor,
                 backgroundImage: NetworkImage(
                   '${ApiUrl.apiUrl}/category/${categoryName.image}',
                 ),

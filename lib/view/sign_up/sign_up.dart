@@ -130,14 +130,14 @@ class SignUpScreen extends StatelessWidget {
                   RichText(
                     text: TextSpan(
                       text: 'Don’t have an account?',
-                      style: const TextStyle(
-                        color: blacColor,
+                      style: TextStyle(
+                        color: AppColor().blackColor,
                       ),
                       children: [
                         TextSpan(
                           text: ' Sign In',
-                          style: const TextStyle(
-                            color: blueColor,
+                          style: TextStyle(
+                            color: AppColor().blueColor,
                             fontWeight: FontWeight.bold,
                           ),
                           recognizer: TapGestureRecognizer()
