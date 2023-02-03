@@ -17,9 +17,10 @@ class BottomNavButton extends StatelessWidget {
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.5,
       height: 50,
-      child: OutlinedButton(
+      child: ElevatedButton(
         style: OutlinedButton.styleFrom(
           shape: RoundedRectangleBorder(
+            side: BorderSide.none,
             borderRadius: BorderRadius.circular(0),
           ),
           backgroundColor: backgroundColor,

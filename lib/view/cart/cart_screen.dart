@@ -21,7 +21,6 @@ class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    // final provider = Provider.of<CartProvider>(context, listen: false);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       return Provider.of<CartProvider>(context, listen: false).getCart();
     });
@@ -34,19 +33,19 @@ class CartScreen extends StatelessWidget {
           body: Container(
             padding: const EdgeInsets.all(10),
             child: SingleChildScrollView(
-              child: value.isLoading == true
-                  ? const CartShimmer()
-                  : value.model == null || value.model!.products.isEmpty
-                      ? SizedBox(
-                          height: MediaQuery.of(context).size.height * .7,
-                          child: const Center(
-                            child: Image(
-                              image: AssetImage(
-                                'assets/images/empty-cart-1.png',
-                              ),
-                            ),
+              child: value.model == null || value.model!.products.isEmpty
+                  ? SizedBox(
+                      height: MediaQuery.of(context).size.height * .7,
+                      child: const Center(
+                        child: Image(
+                          image: AssetImage(
+                            'assets/images/empty-cart-1.png',
                           ),
-                        )
+                        ),
+                      ),
+                    )
+                  : value.isLoading == true
+                      ? const CartShimmer()
                       : ListView.separated(
                           physics: const ScrollPhysics(),
                           shrinkWrap: true,

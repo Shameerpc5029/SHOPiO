@@ -46,14 +46,17 @@ class BottomNav extends StatelessWidget {
                     return Badge(
                       isLabelVisible:
                           value.totalProductCount > 0 ? true : false,
-                      alignment: AlignmentDirectional.topStart,
-                      backgroundColor: themeColor,
+                      alignment: AlignmentDirectional.lerp(
+                        AlignmentDirectional.topCenter,
+                        AlignmentDirectional.topEnd,
+                        15,
+                      ),
                       textColor: whiteColor,
                       label: Text(
                         value.totalProductCount.toString(),
                         style: const TextStyle(
                           fontWeight: FontWeight.w500,
-                          fontSize: 8,
+                          fontSize: 12,
                         ),
                       ),
                       textStyle: const TextStyle(

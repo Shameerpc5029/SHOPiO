@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 
 class OrderProvider extends ChangeNotifier {
+  OrderProvider() {
+    getAllOrders();
+  }
   List<GetOrderModel>? ordersList = [];
   bool loading = false;
   GetOrderModel? singleModel;
@@ -23,7 +26,7 @@ class OrderProvider extends ChangeNotifier {
     });
   }
 
-    Future<void> cancelOrder(String orderId) async {
+  Future<void> cancelOrder(String orderId) async {
     loading = true;
     notifyListeners();
 
@@ -56,7 +59,7 @@ class OrderProvider extends ChangeNotifier {
 
   void sendOrderDetials(context) {
     Share.share(
-        "ShoeCart Order -Order Id:${singleModel!.id },Total Products:${singleModel!.products.length},Total Price:${singleModel!.totalPrice},Delivery Date:$deliveryDate");
+        "ShoeCart Order -Order Id:${singleModel!.id},Total Products:${singleModel!.products.length},Total Price:${singleModel!.totalPrice},Delivery Date:$deliveryDate");
   }
 
   String? formatDate(String date) {
