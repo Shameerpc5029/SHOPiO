@@ -7,12 +7,26 @@ import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
-class OtpScreen extends StatelessWidget {
+class OtpScreen extends StatefulWidget {
   const OtpScreen({
     super.key,
     required this.model,
   });
   final SignUpModel model;
+
+  @override
+  State<OtpScreen> createState() => _OtpScreenState();
+}
+
+class _OtpScreenState extends State<OtpScreen> {
+  late VerifyOtpProvider otpProvider;
+  @override
+  void initState() {
+    otpProvider = Provider.of<VerifyOtpProvider>(context, listen: false);
+    otpProvider.changeTimer();
+    otpProvider.timeRemaining = 30;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +45,7 @@ class OtpScreen extends StatelessWidget {
                   height: 200,
                   image: AssetImage('assets/images/otp.png'),
                 ),
-                CSizedBox().    height20,
+                CSizedBox().height20,
                 const Text(
                   'Verification Code',
                   style: TextStyle(
@@ -39,13 +53,13 @@ class OtpScreen extends StatelessWidget {
                     fontSize: 30,
                   ),
                 ),
-                 CSizedBox().   height10,
+                CSizedBox().height10,
                 const Text(
                   '''Please enter the verification code 
 we sent to your Email''',
                   textAlign: TextAlign.center,
                 ),
-                  CSizedBox().  height10,
+                CSizedBox().height10,
                 Consumer<VerifyOtpProvider>(
                   builder: (context, provider, child) {
                     return OtpTextField(
@@ -56,6 +70,27 @@ we sent to your Email''',
                         provider.onSubmitCode(code);
                       },
                     );
+                  },
+                ),
+                Consumer<VerifyOtpProvider>(
+                  builder: (context, value, child) {
+                    return value.timeRemaining == 0
+                        ? TextButton(
+                            onPressed: () {
+                              value.setResendVisibility(
+                                true,
+                                context,
+                                widget.model.email,
+                              );
+                            },
+                            child: const Text('Resent OTP'),
+                          )
+                        : Text(
+                            'Resend code in ${value.timeRemaining}s',
+                            style: const TextStyle(
+                              height: 2.5,
+                            ),
+                          );
                   },
                 ),
                 CSizedBox().height20,
@@ -69,7 +104,7 @@ we sent to your Email''',
                             )
                           : IconButton(
                               onPressed: () {
-                                value.sumbitOtp(context, model);
+                                value.sumbitOtp(context, widget.model);
                               },
                               icon: const Icon(
                                 FontAwesomeIcons.arrowRight,

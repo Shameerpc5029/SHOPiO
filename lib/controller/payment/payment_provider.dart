@@ -93,7 +93,9 @@ class PaymentProvider extends ChangeNotifier {
       if (value != null) {
         loading = false;
         notifyListeners();
-        Get.off(const OrderScreen());
+        Get.off(
+          const OrderScreen(),
+        );
       } else {
         loading = false;
         notifyListeners();

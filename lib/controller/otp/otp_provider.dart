@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:ecommerce/bottom_nav.dart';
 import 'package:ecommerce/model/sign_up_model/sign_up_model.dart';
@@ -14,6 +16,37 @@ class VerifyOtpProvider extends ChangeNotifier {
   Dio dio = Dio();
   bool isLoading = false;
   String code = '';
+  bool clear = false;
+  int timeRemaining = 30;
+  Timer? timer;
+  bool enableResend = false;
+
+  void setResendVisibility(bool newValue, context, String email) {
+    clear = true;
+    notifyListeners();
+    OtpService().sendOtp(email).then((value) {
+      if (value != null) {
+        clear = false;
+        notifyListeners();
+        enableResend = newValue;
+        timeRemaining = 30;
+      } else {
+        return null;
+      }
+    });
+  }
+
+  void changeTimer() {
+    timer = Timer.periodic(const Duration(seconds: 1), (_) {
+      if (timeRemaining != 0) {
+        timeRemaining--;
+        notifyListeners();
+      } else {
+        enableResend = true;
+        notifyListeners();
+      }
+    });
+  }
 
   void onSubmitCode(String submitCode) {
     code = submitCode;

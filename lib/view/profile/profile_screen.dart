@@ -42,7 +42,10 @@ class ProfileScreen extends StatelessWidget {
                       child: Column(
                         children: [
                           Card(
-                            margin: const EdgeInsets.symmetric(vertical: 10),
+                            shape: const OutlineInputBorder(
+                              borderRadius: BorderRadius.zero,
+                              borderSide: BorderSide.none,
+                            ),
                             child: Container(
                               padding: const EdgeInsets.all(10.0),
                               width: double.infinity,
@@ -74,6 +77,10 @@ class ProfileScreen extends StatelessWidget {
                             ),
                           ),
                           Card(
+                            shape: const OutlineInputBorder(
+                              borderRadius: BorderRadius.zero,
+                              borderSide: BorderSide.none,
+                            ),
                             margin: const EdgeInsets.symmetric(vertical: 10),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -113,6 +120,10 @@ class ProfileScreen extends StatelessWidget {
                             ),
                           ),
                           Card(
+                            shape: const OutlineInputBorder(
+                              borderRadius: BorderRadius.zero,
+                              borderSide: BorderSide.none,
+                            ),
                             margin: const EdgeInsets.symmetric(vertical: 5),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -145,6 +156,10 @@ class ProfileScreen extends StatelessWidget {
                             ),
                           ),
                           Card(
+                            shape: const OutlineInputBorder(
+                              borderRadius: BorderRadius.zero,
+                              borderSide: BorderSide.none,
+                            ),
                             margin: const EdgeInsets.symmetric(vertical: 5),
                             child: Consumer<ProfileProvider>(
                               builder: (context, value, child) {
