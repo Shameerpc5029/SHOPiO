@@ -16,8 +16,12 @@ class ForgotPasswordService {
         },
       );
       if (response.statusCode == 200) {
-        final SignUpModel model = SignUpModel.fromJson(response.data);
-        return model;
+        if (response.data == null) {
+          return null;
+        } else {
+          final SignUpModel model = SignUpModel.fromJson(response.data);
+          return model;
+        }
       } else if (response.statusCode == 201) {
         return null;
       }

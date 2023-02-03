@@ -17,7 +17,7 @@ class OtpService {
         return response.data['message'];
       }
     } catch (e) {
-      // log(e.message);
+      log(e.toString());
       DioException().dioError(
         e,
       );

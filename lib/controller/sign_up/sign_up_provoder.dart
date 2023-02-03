@@ -1,3 +1,4 @@
+import 'package:ecommerce/model/otp_model/otp_enum.dart';
 import 'package:ecommerce/model/sign_up_model/sign_up_model.dart';
 import 'package:ecommerce/services/otp_service/otp_service.dart';
 import 'package:ecommerce/services/sign_up_service/sign_up_service.dart';
@@ -103,13 +104,16 @@ class SignUpProvider extends ChangeNotifier {
     );
     await OtpService().sendOtp(model.email).then((value) async {
       if (value != null) {
-        Navigator.of(context).push(CupertinoPageRoute(
-          builder: (context) {
-            return OtpScreen(
-              model: model,
-            );
-          },
-        ));
+        Navigator.of(context).push(
+          CupertinoPageRoute(
+            builder: (context) {
+              return OtpScreen(
+                signUpModel: model,
+                screenCheck: OtpEnum.signOtpScreen,
+              );
+            },
+          ),
+        );
         await storage.write(key: 'email', value: email.text.toString());
 
         clearTextfield();

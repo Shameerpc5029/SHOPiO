@@ -11,6 +11,9 @@ class CSizedBox {
   SizedBox height5 = const SizedBox(
     height: 5,
   );
+  SizedBox height40 = const SizedBox(
+    height: 40,
+  );
 
   SizedBox width10 = const SizedBox(
     width: 10,

@@ -1,8 +1,8 @@
 class SignUpModel {
-  final String fullName;
-  final String email;
-  final String mobileNumber;
-  final String password;
+  final String? fullName;
+  final String? email;
+  final String? mobileNumber;
+  final String? password;
 
   SignUpModel({
     required this.fullName,
@@ -12,10 +12,10 @@ class SignUpModel {
   });
   factory SignUpModel.fromJson(Map<String, dynamic> json) {
     return SignUpModel(
-      fullName: json["fullname"] ?? '',
-      email: json["email"] ?? '',
-      mobileNumber: json["phone"] ?? '',
-      password: json["password"] ?? '',
+      fullName: json["fullname"],
+      email: json["email"],
+      mobileNumber: json["phone"],
+      password: json["password"],
     );
   }
   Map<String, dynamic> toJson() {

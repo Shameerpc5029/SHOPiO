@@ -1,4 +1,5 @@
 import 'package:ecommerce/controller/otp/otp_provider.dart';
+import 'package:ecommerce/model/otp_model/otp_enum.dart';
 import 'package:ecommerce/model/sign_up_model/sign_up_model.dart';
 import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/common/style/sized_box.dart';
@@ -10,9 +11,11 @@ import 'package:provider/provider.dart';
 class OtpScreen extends StatefulWidget {
   const OtpScreen({
     super.key,
-    required this.model,
+    required this.signUpModel,
+    required this.screenCheck,
   });
-  final SignUpModel model;
+  final SignUpModel signUpModel;
+  final OtpEnum screenCheck;
 
   @override
   State<OtpScreen> createState() => _OtpScreenState();
@@ -80,7 +83,7 @@ we sent to your Email''',
                               value.setResendVisibility(
                                 true,
                                 context,
-                                widget.model.email,
+                                widget.signUpModel.email!,
                               );
                             },
                             child: const Text('Resent OTP'),
@@ -104,7 +107,11 @@ we sent to your Email''',
                             )
                           : IconButton(
                               onPressed: () {
-                                value.sumbitOtp(context, widget.model);
+                                value.sumbitOtp(
+                                  context,
+                                  widget.signUpModel,
+                                  widget.screenCheck,
+                                );
                               },
                               icon: const Icon(
                                 FontAwesomeIcons.arrowRight,
@@ -119,5 +126,11 @@ we sent to your Email''',
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    otpProvider.timer!.cancel();
+    super.dispose();
   }
 }

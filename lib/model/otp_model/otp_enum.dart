@@ -1,3 +1,4 @@
-enum OtpEnum{
-  forgotOtpScreen,signOtpScreen
+enum OtpEnum {
+  forgotOtpScreen,
+  signOtpScreen,
 }

@@ -1,9 +1,8 @@
 import 'package:ecommerce/controller/sign_in/sign_in_provider.dart';
 import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/common/style/sized_box.dart';
-import 'package:ecommerce/view/sign_in/forgot_password/forgot_email_screen.dart';
+import 'package:ecommerce/view/sign_in/widgets/forgot_password_bottom_sheet.dart';
 import 'package:ecommerce/view/widgets/custom_textformfiled.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -15,6 +14,7 @@ class SignInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<FormState> formGlobalKey = GlobalKey<FormState>();
+    final GlobalKey<FormState> globalKey = GlobalKey<FormState>();
     final provider = Provider.of<SignInProvider>(context);
     return Scaffold(
       body: SafeArea(
@@ -28,8 +28,7 @@ class SignInScreen extends StatelessWidget {
               child: Column(
                 children: [
                   const Hero(
-                  transitionOnUserGestures: true,
-
+                    transitionOnUserGestures: true,
                     tag: 'assets/images/logo 3.png',
                     child: Image(
                       image: AssetImage(
@@ -51,7 +50,6 @@ class SignInScreen extends StatelessWidget {
                   TextFormFieldCustom(
                     validator: ((value) {
                       return provider.emailValidation(value);
-                      
                     }),
                     labelText: 'Email',
                     keyboardType: TextInputType.emailAddress,
@@ -89,11 +87,7 @@ class SignInScreen extends StatelessWidget {
                           greyColor,
                         )),
                         onPressed: () {
-                          Navigator.of(context).push(CupertinoPageRoute(
-                            builder: (context) {
-                              return ForgotEmailScreen();
-                            },
-                          ));
+                          forgotPassword(context, globalKey);
                         },
                         child: const Text(
                           'Forget Password?',
