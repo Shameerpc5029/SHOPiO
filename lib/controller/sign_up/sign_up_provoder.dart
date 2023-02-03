@@ -5,6 +5,7 @@ import 'package:ecommerce/view/sign_up/otp_screen/otp_screen.dart';
 import 'package:ecommerce/view/sign_in/sign_in.dart';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class SignUpProvider extends ChangeNotifier {
   final TextEditingController fullName = TextEditingController();
@@ -13,6 +14,7 @@ class SignUpProvider extends ChangeNotifier {
   final TextEditingController password = TextEditingController();
   final TextEditingController conformPassword = TextEditingController();
   bool isLoading = false;
+  FlutterSecureStorage storage = const FlutterSecureStorage();
 
   void goToSignIn(context) {
     Navigator.of(context).pushAndRemoveUntil(CupertinoPageRoute(
@@ -99,7 +101,7 @@ class SignUpProvider extends ChangeNotifier {
       mobileNumber: mobileNumber.text,
       password: password.text,
     );
-    await OtpService().sendOtp(model.email).then((value) {
+    await OtpService().sendOtp(model.email).then((value) async {
       if (value != null) {
         Navigator.of(context).push(CupertinoPageRoute(
           builder: (context) {
@@ -108,6 +110,8 @@ class SignUpProvider extends ChangeNotifier {
             );
           },
         ));
+        await storage.write(key: 'email', value: email.text.toString());
+
         clearTextfield();
       } else {
         return null;

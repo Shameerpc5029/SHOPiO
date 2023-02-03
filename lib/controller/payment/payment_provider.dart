@@ -2,8 +2,10 @@ import 'dart:developer';
 
 import 'package:ecommerce/model/order_model/order_model.dart';
 import 'package:ecommerce/services/order_service/order_service.dart';
+import 'package:ecommerce/view/profile/order/order_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/route_manager.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class PaymentProvider extends ChangeNotifier {
@@ -40,7 +42,6 @@ class PaymentProvider extends ChangeNotifier {
 
     try {
       razorpay.open(options);
-
       razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS,
           (PaymentSuccessResponse response) {
         handlePaymentSuccess(response);
@@ -92,21 +93,7 @@ class PaymentProvider extends ChangeNotifier {
       if (value != null) {
         loading = false;
         notifyListeners();
-
-        // Navigator.of(NavigationService.navigatorKey.currentContext!)
-        //     .pushReplacement(CupertinoPageRoute(
-        //   builder: (context) {
-        //     return OrderDetials(
-        //       orderId: value,
-        //     );
-        //   },
-        // )).then((value) =>
-        //         Navigator.of(NavigationService.navigatorKey.currentContext!)
-        //             .pushAndRemoveUntil(CupertinoPageRoute(
-        //           builder: (context) {
-        //             return const BottomNav();
-        //           },
-        //         ), (route) => false));
+        Get.off(const OrderScreen());
       } else {
         loading = false;
         notifyListeners();

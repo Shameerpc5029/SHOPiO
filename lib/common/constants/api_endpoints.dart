@@ -14,4 +14,5 @@ class ApiEndPoints {
   static const cart = '/api/v1/cart';
   static const address = '/api/v1/address';
   static const orders = '/api/v1/orders';
+  static const user = '/api/v1/users?email=';
 }

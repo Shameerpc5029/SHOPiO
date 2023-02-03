@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:ecommerce/bottom_nav.dart';
 import 'package:ecommerce/model/sign_in_model/sign_in_model.dart';
 import 'package:ecommerce/services/sign_in_service/sign_in_service.dart';
@@ -13,6 +11,7 @@ class SignInProvider extends ChangeNotifier {
   bool isLoading = false;
   FlutterSecureStorage storage = const FlutterSecureStorage();
   SignInService signInService = SignInService();
+
   void singIn(context) async {
     isLoading = true;
     notifyListeners();
@@ -25,11 +24,14 @@ class SignInProvider extends ChangeNotifier {
         if (value != null) {
           await storage.write(key: 'token', value: value.accessToken);
           await storage.write(key: 'refreshToken', value: value.refreshToken);
+          await storage.write(key: 'email', value: email.text.toString());
+
           Navigator.of(context).pushAndRemoveUntil(CupertinoPageRoute(
             builder: (context) {
               return const BottomNav();
             },
           ), (route) => false);
+
           clearTextfild();
           isLoading = false;
           notifyListeners();

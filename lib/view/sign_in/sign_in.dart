@@ -51,6 +51,7 @@ class SignInScreen extends StatelessWidget {
                   TextFormFieldCustom(
                     validator: ((value) {
                       return provider.emailValidation(value);
+                      
                     }),
                     labelText: 'Email',
                     keyboardType: TextInputType.emailAddress,

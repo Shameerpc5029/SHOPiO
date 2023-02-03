@@ -449,45 +449,6 @@ Land Mark - ${value.addressList[value.selectIndex].landMark}
                                       address
                                           .addressList[address.selectIndex].id,
                                     );
-
-                                    // paymentProvider.openCheckout(
-                                    //   widget.screenCheck ==
-                                    //           OrderSummaryScreenEnum
-                                    //               .normalOrderSummaryScreen
-                                    //       ? int.parse((cart.model!.totalPrice -
-                                    //               cart.model!.totalDiscount)
-                                    //           .round()
-                                    //           .toString())
-                                    //       : int.parse((value.product[0].price -
-                                    //               value
-                                    //                   .product[0].discountPrice)
-                                    //           .round()
-                                    //           .toString()),
-                                    // );
-                                    // paymentProvider.openCheckout(
-                                    // widget.screenCheck ==
-                                    //         OrderSummaryScreenEnum
-                                    //             .normalOrderSummaryScreen
-                                    //     ? int.parse((cart
-                                    //                 .model!.totalPrice -
-                                    //             cart.model!.totalDiscount)
-                                    //         .round()
-                                    //         .toString())
-                                    //     : int.parse(
-                                    //         (value.product[0].price -
-                                    //                 value.product[0]
-                                    //                     .discountPrice)
-                                    //             .round()
-                                    //             .toString()),
-                                    // address.addressList[address.selectIndex]
-                                    //     .id,
-                                    //     '',
-                                    // widget.screenCheck ==
-                                    //         OrderSummaryScreenEnum
-                                    //             .normalOrderSummaryScreen
-                                    //     ? cart.model!.products[0].id
-                                    //     : value.product[0].id,
-                                    //     context);
                                   },
                                   child: Text(
                                     widget.screenCheck ==

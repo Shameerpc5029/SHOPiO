@@ -17,6 +17,7 @@ import 'package:ecommerce/view/category/category_view/category_view.dart';
 import 'package:ecommerce/view/product_view/product_view.dart';
 import 'package:ecommerce/view/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 import 'package:provider/provider.dart';
 
 void main(List<String> args) {
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => InternetCheck()),
         ChangeNotifierProvider(create: (context) => OrderProvider())
       ],
-      child: MaterialApp(
+      child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           // fontFamily: 'Manrope',
