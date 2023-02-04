@@ -307,7 +307,7 @@ class CartScreen extends StatelessWidget {
                                     order.loading = false;
                                   },
                                   child: const Text(
-                                    'Go the address',
+                                    'Add address',
                                   ),
                                 )
                               : ElevatedButton(

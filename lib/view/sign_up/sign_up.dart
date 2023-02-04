@@ -62,7 +62,7 @@ class SignUpScreen extends StatelessWidget {
                       return provider.phoneNumberValidation(value);
                     }),
                     labelText: 'Phone Number',
-                    keyboardType: TextInputType.visiblePassword,
+                    keyboardType: TextInputType.number,
                     prefixIcon: FontAwesomeIcons.mobile,
                     controller: provider.mobileNumber,
                   ),

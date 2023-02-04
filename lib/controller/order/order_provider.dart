@@ -59,7 +59,8 @@ class OrderProvider extends ChangeNotifier {
 
   void sendOrderDetials(context) {
     Share.share(
-        "ShoeCart Order -Order Id:${singleModel!.id},Total Products:${singleModel!.products.length},Total Price:${singleModel!.totalPrice},Delivery Date:$deliveryDate");
+      'SHOPiO MOBILES\nOrder Id:${singleModel!.id}\nTotal Products:${singleModel!.products.length}\nTotal Price:${singleModel!.totalPrice}\nDelivery Date:$deliveryDate',
+    );
   }
 
   String? formatDate(String date) {

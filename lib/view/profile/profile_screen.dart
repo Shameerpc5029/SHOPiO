@@ -36,10 +36,11 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                body: Stack(
-                  children: [
-                    SingleChildScrollView(
-                      child: Column(
+                body: SingleChildScrollView(
+                  child: Stack(
+                    alignment: Alignment.bottomCenter,
+                    children: [
+                      Column(
                         children: [
                           Card(
                             shape: const OutlineInputBorder(
@@ -188,12 +189,12 @@ class ProfileScreen extends StatelessWidget {
                               },
                             ),
                           ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height / 7,
+                          )
                         ],
                       ),
-                    ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Padding(
+                      Padding(
                         padding: const EdgeInsets.all(5),
                         child: Text(
                           "Version 1.0.0",
@@ -203,8 +204,8 @@ class ProfileScreen extends StatelessWidget {
                           textAlign: TextAlign.center,
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               );
       },

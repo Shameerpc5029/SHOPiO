@@ -195,7 +195,7 @@ class OrderDetialsView extends StatelessWidget {
                                   ),
                                   CSizedBox().height5,
                                   Text(
-                                      '${value.singleModel!.address}\n${value.singleModel!.place}\n${value.singleModel!.state} - ${value.singleModel!.pin}\nPhone Number: ${value.singleModel!.phone}')
+                                      '${value.singleModel!.address}\n${value.singleModel!.place}\n${value.singleModel!.state} - ${value.singleModel!.pin}\nLandMark : ${value.singleModel!.landMark}\nPhone Number : ${value.singleModel!.phone}')
                                 ],
                               ),
                             ),

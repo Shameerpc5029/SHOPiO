@@ -168,11 +168,9 @@ class HomeProvider extends ChangeNotifier {
       results = productList;
     } else {
       results = productList
-          .where(
-            (element) => element.name.toLowerCase().contains(
-                  keyboard.toLowerCase(),
-                ),
-          )
+          .where((element) => element.name.toLowerCase().contains(
+                keyboard.toLowerCase(),
+              ))
           .toList();
     }
 
