@@ -204,6 +204,9 @@ class AddressProvider extends ChangeNotifier {
   String? nameValidation(String? value) {
     if (value!.isEmpty) {
       return "Please enter your full name";
+    }
+    if (RegExp(r"^[\p{L} ,.'-]*$").hasMatch(value)) {
+      return 'Enter Valid name';
     } else {
       return null;
     }
@@ -242,6 +245,9 @@ class AddressProvider extends ChangeNotifier {
   String? stateValidation(String? value) {
     if (value!.isEmpty) {
       return "Please enter your state";
+    }
+    if (RegExp(r"^[\p{L} ,.'-]*$").hasMatch(value)) {
+      return 'Enter Valid state name';
     } else {
       return null;
     }
@@ -250,6 +256,9 @@ class AddressProvider extends ChangeNotifier {
   String? placeValidation(String? value) {
     if (value!.isEmpty) {
       return "Please enter your place";
+    }
+    if (RegExp(r"^[\p{L} ,.'-]*$").hasMatch(value)) {
+      return 'Enter Valid place name';
     } else {
       return null;
     }
@@ -258,6 +267,9 @@ class AddressProvider extends ChangeNotifier {
   String? addressValidation(String? value) {
     if (value!.isEmpty) {
       return "Please enter your Address";
+    }
+    if (RegExp(r"^[\p{L} ,.'-]*$").hasMatch(value)) {
+      return 'Enter Valid Address';
     } else {
       return null;
     }
@@ -266,6 +278,9 @@ class AddressProvider extends ChangeNotifier {
   String? landMarkValidation(String? value) {
     if (value!.isEmpty) {
       return "Please enter your land mark";
+    }
+    if (RegExp(r"^[\p{L} ,.'-]*$").hasMatch(value)) {
+      return 'Enter Valid Landmark';
     } else {
       return null;
     }

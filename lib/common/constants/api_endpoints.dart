@@ -3,6 +3,7 @@ class ApiEndPoints {
   static const signIn = '/api/v1/auth/login';
   static const verifyOrSendOtp = '/api/v1/auth/otp';
   static const logOut = '/api/v1/auth/logout';
+  static const google = '/api/v1/auth/google';
 
   static const userCheck = '/api/v1/users/';
   static const forgotpassword = '/api/v1/auth/password';

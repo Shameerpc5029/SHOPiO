@@ -1,6 +1,7 @@
 import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/common/style/sized_box.dart';
 import 'package:ecommerce/controller/profile/profile_provider.dart';
+import 'package:ecommerce/view/profile/about/about_screen.dart';
 import 'package:ecommerce/view/profile/address/address_screen.dart';
 import 'package:ecommerce/view/profile/order/order_screen.dart';
 import 'package:ecommerce/view/profile/widgets/profile_tile_widget.dart';
@@ -151,7 +152,15 @@ class ProfileScreen extends StatelessWidget {
                                 ProfileTextWidget(
                                   title: 'About',
                                   iconData: FontAwesomeIcons.circleInfo,
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                      CupertinoPageRoute(
+                                        builder: (context) {
+                                          return const AboutScreen();
+                                        },
+                                      ),
+                                    );
+                                  },
                                 ),
                               ],
                             ),

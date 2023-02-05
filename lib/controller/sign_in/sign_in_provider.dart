@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:ecommerce/bottom_nav.dart';
 import 'package:ecommerce/model/sign_in_model/sign_in_model.dart';
 import 'package:ecommerce/services/sign_in_service/sign_in_service.dart';
 import 'package:ecommerce/view/sign_up/sign_up.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class SignInProvider extends ChangeNotifier {
   final TextEditingController email = TextEditingController();
@@ -11,6 +14,7 @@ class SignInProvider extends ChangeNotifier {
   bool isLoading = false;
   FlutterSecureStorage storage = const FlutterSecureStorage();
   SignInService signInService = SignInService();
+  final GoogleSignIn googleSignIn = GoogleSignIn();
 
   void singIn(context) async {
     isLoading = true;
@@ -41,6 +45,27 @@ class SignInProvider extends ChangeNotifier {
         }
       },
     );
+  }
+
+  void googleSignin() async {
+    isLoading = true;
+    notifyListeners();
+    await SignInService().googleSignIn(googleSignIn).then((value) {
+      if (value != null) {
+        // Navigator.of(context).pushAndRemoveUntil(CupertinoPageRoute(
+        //   builder: (context) {
+        //     return const BottomNav();
+        //   },
+        // ), (route) => false);
+        log("google logined");
+        clearTextfild();
+        isLoading = false;
+        notifyListeners();
+      } else {
+        isLoading = false;
+        notifyListeners();
+      }
+    });
   }
 
   void clearTextfild() {

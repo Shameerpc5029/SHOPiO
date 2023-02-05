@@ -119,6 +119,40 @@ class SignInScreen extends StatelessWidget {
                     ),
                   ),
                   CSizedBox().height10,
+                  const Text("Or"),
+                  CSizedBox().height10,
+                  InkWell(
+                    borderRadius: BorderRadius.circular(20),
+                    onTap: () {
+                      provider.googleSignin();
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * .6,
+                      padding: const EdgeInsets.all(
+                        5,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(color: AppColor().themeColor),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Image(
+                            height: 30,
+                            image: AssetImage('assets/images/google logo.png'),
+                          ),
+                          CSizedBox().width10,
+                          const Text(
+                            'Continue with Google',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                   const SizedBox(
                     height: 30,
                   ),
