@@ -114,7 +114,7 @@ class WishListScreen extends StatelessWidget {
                                   ),
                                   Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
+                                        MainAxisAlignment.spaceEvenly,
                                     children: [
                                       Text(
                                         "₹${value.model!.products[index].product.price}",

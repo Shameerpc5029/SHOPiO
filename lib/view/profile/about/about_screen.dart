@@ -23,12 +23,12 @@ class AboutScreen extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Image(
+                       const Image(
                         image: AssetImage(
                           'assets/images/logo 3.png',
                         ),
                       ),
-                      CSizedBox().height20,
+                      CSizedBox().height40,
                       const Text(
                         'Welcome to SHOPiO,',
                         style: TextStyle(

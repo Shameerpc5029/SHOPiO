@@ -4,6 +4,8 @@ import 'package:ecommerce/controller/profile/profile_provider.dart';
 import 'package:ecommerce/view/profile/about/about_screen.dart';
 import 'package:ecommerce/view/profile/address/address_screen.dart';
 import 'package:ecommerce/view/profile/order/order_screen.dart';
+import 'package:ecommerce/view/profile/privacy_policy/privacy_policy.dart';
+import 'package:ecommerce/view/profile/terms_and_condi/terms_and_condi_screen.dart';
 import 'package:ecommerce/view/profile/widgets/profile_tile_widget.dart';
 import 'package:ecommerce/view/profile/widgets/user_details_text.dart';
 import 'package:ecommerce/view/widgets/loading_widget.dart';
@@ -56,7 +58,7 @@ class ProfileScreen extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   const Text(
-                                    "User Detials",
+                                    "User Details",
                                     style: TextStyle(
                                       fontSize: 18,
                                     ),
@@ -140,14 +142,30 @@ class ProfileScreen extends StatelessWidget {
                                   ),
                                 ),
                                 ProfileTextWidget(
-                                  title: 'Teams and conditions',
+                                  title: 'Terms and conditions',
                                   iconData: FontAwesomeIcons.book,
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                      CupertinoPageRoute(
+                                        builder: (context) {
+                                          return const TermsAndCondition();
+                                        },
+                                      ),
+                                    );
+                                  },
                                 ),
                                 ProfileTextWidget(
                                   title: 'Privacy Policy',
                                   iconData: FontAwesomeIcons.shieldHalved,
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                      CupertinoPageRoute(
+                                        builder: (context) {
+                                          return const PrivacyPolicy();
+                                        },
+                                      ),
+                                    );
+                                  },
                                 ),
                                 ProfileTextWidget(
                                   title: 'About',
@@ -206,7 +224,7 @@ class ProfileScreen extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(5),
                         child: Text(
-                          "Version 1.0.0",
+                          "V 1.0.0",
                           style: TextStyle(
                             color: Colors.grey.shade400,
                           ),
