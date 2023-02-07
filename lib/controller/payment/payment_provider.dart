@@ -1,11 +1,13 @@
 import 'dart:developer';
 
+import 'package:ecommerce/bottom_nav.dart';
 import 'package:ecommerce/model/order_model/order_model.dart';
 import 'package:ecommerce/services/order_service/order_service.dart';
 import 'package:ecommerce/view/profile/order/order_screen.dart';
+import 'package:ecommerce/view/widgets/navigator_key.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/route_manager.dart';
+
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class PaymentProvider extends ChangeNotifier {
@@ -93,9 +95,24 @@ class PaymentProvider extends ChangeNotifier {
       if (value != null) {
         loading = false;
         notifyListeners();
-        Get.off(
-          const OrderScreen(),
+        NavigationService.navigatorKey.currentState?.push(
+          CupertinoPageRoute(
+            builder: (context) {
+              return const OrderScreen();
+            },
+          ),
+        ).then(
+          (value) =>
+              NavigationService.navigatorKey.currentState?.pushAndRemoveUntil(
+            CupertinoPageRoute(
+              builder: (context) {
+                return const BottomNav();
+              },
+            ),
+            (route) => false,
+          ),
         );
+        notifyListeners();
       } else {
         loading = false;
         notifyListeners();

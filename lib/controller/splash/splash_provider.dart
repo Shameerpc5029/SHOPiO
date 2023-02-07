@@ -8,8 +8,11 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 class SplashProvider extends ChangeNotifier {
   FlutterSecureStorage storage = const FlutterSecureStorage();
   String? signInstate;
+  String? onboardValue;
+
   void checkLogin(context) async {
     await Future.delayed(const Duration(seconds: 3));
+    onboardValue = await storage.read(key: 'onboard');
     signInstate = await storage.read(key: 'token');
     log(signInstate.toString());
     if (signInstate != null) {

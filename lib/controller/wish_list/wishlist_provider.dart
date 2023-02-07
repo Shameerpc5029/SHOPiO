@@ -27,7 +27,6 @@ class WishListProvider extends ChangeNotifier {
         } else {
           isLoading = false;
           notifyListeners();
-          return null;
         }
       },
     );

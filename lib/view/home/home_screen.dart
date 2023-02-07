@@ -1,8 +1,10 @@
 import 'package:ecommerce/common/constants/api_url.dart';
+import 'package:ecommerce/controller/cart/cart_provider.dart';
 import 'package:ecommerce/controller/connection/connecton_provider.dart';
 import 'package:ecommerce/controller/home/home_provider.dart';
 import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/common/style/sized_box.dart';
+import 'package:ecommerce/controller/wish_list/wishlist_provider.dart';
 import 'package:ecommerce/view/home/widgets/carosal_widget.dart';
 import 'package:ecommerce/view/home/widgets/category_widget.dart';
 import 'package:ecommerce/view/search/search_screen.dart';
@@ -22,6 +24,8 @@ class HomeScreen extends StatelessWidget {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Provider.of<InternetCheck>(context, listen: false)
           .getConnectivity(context);
+      Provider.of<CartProvider>(context, listen: false).getCart();
+      Provider.of<WishListProvider>(context, listen: false).getWishList();
     });
     return Consumer<HomeProvider>(
       builder: (context, value, child) {
@@ -87,7 +91,7 @@ class HomeScreen extends StatelessWidget {
                                 child: AnimatedSmoothIndicator(
                                   effect: ExpandingDotsEffect(
                                     dotColor: Colors.grey.shade300,
-                                    activeDotColor:AppColor(). themeColor,
+                                    activeDotColor: AppColor().themeColor,
                                     spacing: 10,
                                     dotHeight: 10,
                                     dotWidth: 10,

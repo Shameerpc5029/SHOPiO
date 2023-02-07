@@ -65,7 +65,6 @@ class AddressProvider extends ChangeNotifier {
     );
     await AddressService().addAddress(model).then((value) {
       if (value != null) {
-        log("helo");
         isLoding = true;
         notifyListeners();
         Navigator.of(context).pop();

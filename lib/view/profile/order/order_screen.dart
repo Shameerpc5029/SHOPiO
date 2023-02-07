@@ -20,24 +20,6 @@ class OrderScreen extends StatelessWidget {
     });
     return Scaffold(
       appBar: AppBar(
-        leading: Consumer<BottomNavProvider>(
-          builder: (context, value, child) {
-            return IconButton(
-              onPressed: () {
-                Navigator.of(context).pushAndRemoveUntil(
-                  CupertinoPageRoute(
-                    builder: (context) => const BottomNav(),
-                  ),
-                  (route) => false,
-                );
-                value.currentIndex = 4;
-              },
-              icon: const Icon(
-                Icons.arrow_back_ios_new,
-              ),
-            );
-          },
-        ),
         title: const Text('My Orders'),
         actions: [
           Consumer<BottomNavProvider>(

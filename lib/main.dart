@@ -18,8 +18,8 @@ import 'package:ecommerce/controller/wish_list/wishlist_provider.dart';
 import 'package:ecommerce/view/category/category_view/category_view.dart';
 import 'package:ecommerce/view/product_view/product_view.dart';
 import 'package:ecommerce/view/splash/splash_screen.dart';
+import 'package:ecommerce/view/widgets/navigator_key.dart';
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
 import 'package:provider/provider.dart';
 
 void main(List<String> args) {
@@ -52,7 +52,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => ForgotPasswordProvider()),
         ChangeNotifierProvider(create: (context) => NewPasswordProvider()),
       ],
-      child: GetMaterialApp(
+      child: MaterialApp(
+        navigatorKey: NavigationService.navigatorKey,
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           // fontFamily: 'Manrope',

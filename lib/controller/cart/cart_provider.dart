@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 class CartProvider extends ChangeNotifier {
   CartProvider() {
     getCart();
-    notifyListeners();
   }
 
   String size = "5 inch";
@@ -30,21 +29,25 @@ class CartProvider extends ChangeNotifier {
         if (value != null) {
           model = value;
           notifyListeners();
+          isLoading = false;
           cartItemsId = model!.products.map((e) => e.product.id).toList();
+          notifyListeners();
           cartitemsPayId = model!.products.map((e) => e.id).toList();
+          notifyListeners();
           cartList = model!.products.map((e) => e.product.id).toList();
+          notifyListeners();
           totalSave = (model!.totalPrice - model!.totalDiscount).toInt();
           totalProductsCount();
-          notifyListeners();
-          isLoading = false;
           notifyListeners();
         } else {
           isLoading = false;
           notifyListeners();
+          return null;
         }
-        return null;
       },
     );
+    notifyListeners();
+    return null;
   }
 
   void addToCart(String productId, context) async {

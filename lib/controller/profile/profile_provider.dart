@@ -48,10 +48,9 @@ class ProfileProvider extends ChangeNotifier {
           ),
           (route) => false,
         );
+        loading = false;
         notifyListeners();
         Provider.of<BottomNavProvider>(context, listen: false).currentIndex = 0;
-
-        loading = false;
         notifyListeners();
       } else {
         loading = false;

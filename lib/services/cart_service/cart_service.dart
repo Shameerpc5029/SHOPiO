@@ -57,12 +57,14 @@ class CartService {
     try {
       final Response response =
           await dio.get(ApiUrl.apiUrl + ApiEndPoints.cart);
-      if (response.data == null) {
-        return null;
-      } else if (response.statusCode == 200 || response.statusCode == 201) {
-        final CartModel model = CartModel.fromJson(response.data);
-        log(response.data.toString());
-        return model;
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        if (response.data == null) {
+          return null;
+        } else {
+          final CartModel model = CartModel.fromJson(response.data);
+          log(response.data.toString());
+          return model;
+        }
       }
     } catch (e) {
       // log(e.message);
