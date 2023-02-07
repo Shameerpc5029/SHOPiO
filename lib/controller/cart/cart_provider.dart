@@ -63,12 +63,8 @@ class CartProvider extends ChangeNotifier {
         getCart();
       }
       if (value == "product added to cart successfully") {
-        PopUpSnackBar.popUp(
-          context,
-          'product added to cart successfully',
-          Colors.green,
-        );
-
+    
+        AppToast.showToast('product added to cart successfully', Colors.green);
         notifyListeners();
       } else {
         null;
@@ -85,8 +81,10 @@ class CartProvider extends ChangeNotifier {
     CartService().removeFromCart(productId).then((value) {
       if (value != null) {
         getCart();
-        PopUpSnackBar.popUp(context, 'Product removed from cart Successfully',
-            AppColor().alertColor);
+       
+        AppToast.showToast(
+            'Product removed from cart Successfully', AppColor().alertColor);
+
         pop(context);
         notifyListeners();
       } else {

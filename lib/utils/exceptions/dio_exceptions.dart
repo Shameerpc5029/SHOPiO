@@ -4,7 +4,6 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:ecommerce/common/style/colors.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -36,26 +35,6 @@ class DioException implements Exception {
     if (e is PlatformException) {
       AppToast.showToast('Platform Error Occured', AppColor().redColor);
     }
-  }
-}
-
-class PopUpSnackBar {
-  static Future<void> popUp(
-      BuildContext context, String text, Color color) async {
-    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          text,
-          style: TextStyle(
-            fontWeight: FontWeight.w400,
-            color: AppColor().whiteColor,
-          ),
-        ),
-        backgroundColor: color,
-        duration: const Duration(seconds: 3),
-      ),
-    );
   }
 }
 

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:ecommerce/bottom_nav.dart';
+import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/model/otp_model/otp_enum.dart';
 import 'package:ecommerce/model/sign_up_model/sign_up_model.dart';
 import 'package:ecommerce/services/otp_service/otp_service.dart';
@@ -9,7 +10,6 @@ import 'package:ecommerce/services/sign_up_service/sign_up_service.dart';
 import 'package:ecommerce/utils/exceptions/dio_exceptions.dart';
 import 'package:ecommerce/view/sign_in/forgot_password/new_password_screen.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class VerifyOtpProvider extends ChangeNotifier {
@@ -57,11 +57,8 @@ class VerifyOtpProvider extends ChangeNotifier {
 
   void sumbitOtp(context, SignUpModel model, OtpEnum screenCheck) async {
     if (code.length != 4) {
-      PopUpSnackBar.popUp(
-        context,
-        'Please enter the OTP',
-        Colors.red,
-      );
+      AppToast.showToast('Please enter the OTP', AppColor().alertColor);
+  
     } else {
       isLoading = true;
       notifyListeners();

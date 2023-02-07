@@ -1,5 +1,6 @@
 import 'package:ecommerce/common/style/colors.dart';
 import 'package:ecommerce/model/wishlist_model/wishlist_model.dart';
+
 import 'package:ecommerce/services/wishlist_service/wishlist_service.dart';
 import 'package:ecommerce/utils/exceptions/dio_exceptions.dart';
 import 'package:ecommerce/view/product_view/product_view.dart';
@@ -11,7 +12,7 @@ class WishListProvider extends ChangeNotifier {
   }
 
   bool isLoading = false;
-  WishListModel? model;
+  WishlistModel? model;
   List<dynamic> wishlist = [];
   void getWishList() async {
     isLoading = true;
@@ -50,10 +51,11 @@ class WishListProvider extends ChangeNotifier {
           }
         });
         if (value == 201) {
-          PopUpSnackBar.popUp(context, 'Item added to Wishlist', Colors.green);
+          AppToast.showToast('Item added to Wishlist', Colors.green);
         }
         if (value == 204) {
-          PopUpSnackBar.popUp(context, 'Item Remove from Wishlist',AppColor(). alertColor);
+          AppToast.showToast(
+              'Item Remove from Wishlist', AppColor().alertColor);
         }
       } else {
         isLoading = false;

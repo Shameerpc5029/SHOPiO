@@ -1,12 +1,15 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:ecommerce/common/constants/api_endpoints.dart';
 import 'package:ecommerce/common/constants/api_url.dart';
 import 'package:ecommerce/model/wishlist_model/wishlist_model.dart';
+
 import 'package:ecommerce/utils/exceptions/dio_exceptions.dart';
 import 'package:ecommerce/utils/interceptor/interceptor.dart';
 
 class WishListService {
-  Future<WishListModel?> getWishList() async {
+  Future<WishlistModel?> getWishList() async {
     Dio dio = await IntercepterApi().getApiUser();
     try {
       final Response response =
@@ -16,7 +19,7 @@ class WishListService {
         if (response.data == null) {
           return null;
         } else {
-          final WishListModel wishlists = WishListModel.fromJson(response.data);
+          final WishlistModel wishlists = WishlistModel.fromJson(response.data);
           return wishlists;
         }
       }
@@ -31,17 +34,15 @@ class WishListService {
     try {
       final Response response = await dio.post(
         ApiUrl.apiUrl + ApiEndPoints.wishlist,
-        data: {
-          'product': productId,
-        },
+        data: {'product': productId},
       );
-      if (response.statusCode == 200 || response.statusCode == 201) {
+      if (response.statusCode == 201) {
         return response.statusCode;
       } else if (response.statusCode == 204) {
         return response.statusCode;
       }
     } catch (e) {
-      // log(e.message);
+      log(e.toString());
       DioException().dioError(e);
     }
     return null;

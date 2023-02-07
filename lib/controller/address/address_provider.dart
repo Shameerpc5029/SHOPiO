@@ -68,8 +68,9 @@ class AddressProvider extends ChangeNotifier {
         isLoding = true;
         notifyListeners();
         Navigator.of(context).pop();
-        PopUpSnackBar.popUp(
-            context, 'Address added successfully', Colors.green);
+        // PopUpSnackBar.popUp(
+        //     context, 'Address added successfully', Colors.green);
+        AppToast.showToast('Address added successfully', Colors.green);
         isLoding = false;
         getAllAddress();
         clearController();
@@ -137,8 +138,8 @@ class AddressProvider extends ChangeNotifier {
     await AddressService().delectAddress(context, addressId).then((value) {
       isLoding2 = false;
       Navigator.of(context).pop();
-      PopUpSnackBar.popUp(
-        context,
+
+      AppToast.showToast(
         'Address removed successfully',
         AppColor().alertColor,
       );
