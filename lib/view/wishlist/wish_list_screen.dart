@@ -70,11 +70,14 @@ class WishListScreen extends StatelessWidget {
               : value.isLoading == true
                   ? const LoadingWidget()
                   : SingleChildScrollView(
+                    padding: const EdgeInsets.all(10),
                       child: GridView.builder(
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           childAspectRatio: 3 / 4.5,
+                          mainAxisSpacing: 10,
+                          crossAxisSpacing: 10,
                         ),
                         physics: const ScrollPhysics(),
                         shrinkWrap: true,
@@ -89,6 +92,7 @@ class WishListScreen extends StatelessWidget {
                                 child: Container(
                                   // padding: const EdgeInsets.all(10),
                                   decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
                                     border: Border.all(
                                       color: Colors.black54,
                                       width: 0.3,

@@ -51,11 +51,11 @@ class WishListProvider extends ChangeNotifier {
           }
         });
         if (value == 201) {
-          AppToast.showToast('Item added to Wishlist', Colors.green);
+          AppToast.showToast('Item added to Wishlist', Colors.green,);
         }
         if (value == 204) {
           AppToast.showToast(
-              'Item Remove from Wishlist', AppColor().alertColor);
+              'Item Remove from Wishlist', AppColor().alertColor,);
         }
       } else {
         isLoading = false;

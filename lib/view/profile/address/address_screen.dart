@@ -148,10 +148,7 @@ Land Mark - ${value.addressList[index].landMark}
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
-                                              const Icon(
-                                                Icons.phone_android_outlined,
-                                                color: Colors.black54,
-                                              ),
+
                                               Text(
                                                 value.addressList[index].phone,
                                                 style: const TextStyle(
@@ -160,71 +157,74 @@ Land Mark - ${value.addressList[index].landMark}
                                                   color: Colors.black54,
                                                 ),
                                               ),
-                                              OutlinedButton.icon(
-                                                style: OutlinedButton.styleFrom(
-                                                  textStyle: const TextStyle(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w400,
-                                                  ),
-                                                  foregroundColor:
-                                                      AppColor().alertColor,
-                                                ),
-                                                onPressed: () {
-                                                  showCupertinoDialog(
-                                                    context: context,
-                                                    builder: (context) {
-                                                      return ShowAlertWidget(
-                                                        yesPress: () {
-                                                          value.deleteAdderess(
-                                                              context,
-                                                              value
-                                                                  .addressList[
-                                                                      index]
-                                                                  .id);
+                                              Row(
+
+
+                                                children: [
+                                                  OutlinedButton.icon(
+                                                    style: OutlinedButton.styleFrom(
+                                                      textStyle: const TextStyle(
+                                                        fontSize: 12,
+                                                        fontWeight: FontWeight.w400,
+                                                      ),
+                                                      foregroundColor:
+                                                          AppColor().alertColor,
+                                                    ),
+                                                    onPressed: () {
+                                                      showCupertinoDialog(
+                                                        context: context,
+                                                        builder: (context) {
+                                                          return ShowAlertWidget(
+                                                            yesPress: () {
+                                                              value.deleteAdderess(
+                                                                  context,
+                                                                  value
+                                                                      .addressList[
+                                                                          index]
+                                                                      .id);
+                                                            },
+                                                            title: 'Remove Address',
+                                                            contant:
+                                                                'Are you sure want to delete this address?',
+                                                          );
                                                         },
-                                                        title: 'Remove Address',
-                                                        contant:
-                                                            'Are you sure want to delete this address?',
                                                       );
                                                     },
-                                                  );
-                                                },
-                                                icon: const Icon(
-                                                  Icons.delete_outline_outlined,
-                                                  size: 18,
-                                                ),
-                                                label: const Text('Remove'),
+                                                    icon: const Icon(
+                                                      Icons.delete_outline_outlined,
+                                                      size: 18,
+                                                    ),
+                                                    label: const Text('Remove'),
+                                                  ),
+SizedBox(width: MediaQuery.of(context).size.width*.01,),
+                                                  OutlinedButton.icon(
+                                                    style: OutlinedButton.styleFrom(
+                                                      textStyle: const TextStyle(
+                                                        fontSize: 12,
+                                                        fontWeight: FontWeight.w400,
+                                                      ),
+                                                      foregroundColor: Colors.green,
+                                                    ),
+                                                    onPressed: () {
+                                                      addAndEditBottomSheet(
+                                                        context,
+                                                        formGlobalKey,
+                                                        AddressScreenEnum
+                                                            .editAddressScreen,
+                                                        value.addressList[index].id,
+                                                      );
+                                                    },
+                                                    icon: const Icon(
+                                                      Icons.edit,
+                                                      size: 18,
+                                                    ),
+                                                    label: const Text('Edit'),
+                                                  ),
+                                                ],
                                               ),
                                               // CSizedBox().width10,
-                                              OutlinedButton.icon(
-                                                style: OutlinedButton.styleFrom(
-                                                  textStyle: const TextStyle(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w400,
-                                                  ),
-                                                  foregroundColor: Colors.green,
-                                                ),
-                                                onPressed: () {
-                                                  addAndEditBottomSheet(
-                                                    context,
-                                                    formGlobalKey,
-                                                    AddressScreenEnum
-                                                        .editAddressScreen,
-                                                    value.addressList[index].id,
-                                                  );
-                                                },
-                                                icon: const Icon(
-                                                  Icons.edit,
-                                                  size: 18,
-                                                ),
-                                                label: const Text('Edit'),
-                                              ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: const [],
-                                              ),
+
+
                                             ],
                                           ),
                                         ],

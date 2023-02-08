@@ -153,7 +153,7 @@ class OrderScreen extends StatelessWidget {
                             },
                             separatorBuilder:
                                 (BuildContext context, int index) {
-                              return const Divider();
+                              return CSizedBox().height20;
                             },
                           );
                         },

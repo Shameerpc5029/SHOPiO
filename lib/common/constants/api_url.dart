@@ -1,3 +1,3 @@
 class ApiUrl {
-  static const apiUrl = 'http://192.168.1.8:5005';
+  static const apiUrl = 'http://10.0.19.106:5005';
 }
